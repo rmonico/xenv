@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+export XENV_ACTIVE_ENVIRONMENT="teste"
+
+source "$XENV_HOME/plugins/show_active_environment.zsh" load
+
+source "$XENV_HOME/plugins/python_command_handler.zsh" load
