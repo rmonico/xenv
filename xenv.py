@@ -5,6 +5,10 @@ import os
 import shutil
 
 
+XENV_HOME = os.environ['XENV_HOME']
+XENV_ENVIRONMENTS = f'{XENV_HOME}/environments'
+
+
 def shift(args, count=1):
     for i in range(count):
         args.pop(0)
@@ -19,15 +23,25 @@ def parse_args(args):
 
             shift(args, 2)
 
-        elif args[0] == 'activate':
-            parsed['command'] = 'activate'
+        elif args[0] == 'ls':
+            parsed['command'] = 'ls'
+
+            args = {}
+        elif args[0] == 'go':
+            parsed['command'] = 'go'
             parsed['environment'] = args[1]
 
             shift(args, 2)
-        elif args[0] == 'deactivate':
-            parsed['command'] = 'deactivate'
+        elif args[0] == 'off':
+            parsed['command'] = 'off'
 
             shift(args, 1)
+        elif args[0] == 'reload':
+            parsed['command'] = 'reload'
+
+            shift(args, 1)
+        else:
+            error('XENV: Command not found: "' + '" "'.join(args) + '"')
 
     return parsed
 
@@ -38,49 +52,93 @@ def error(message):
 
 
 def environmentdir(environment):
-    return os.path.join(os.environ['HOME'], '.config/xenv/', environment)
+    return os.path.join(XENV_ENVIRONMENTS, environment)
+
+
+def xenv_has_loaded_environment():
+    return 'XENV_ACTIVE_ENVIRONMENT' in os.environ
+
+
+def append_to_export_file(filename):
+    if not 'output_files_dir' in args:
+        error('--source-files-dir not informed')
+    else:
+        output_files_dir = args['output_files_dir']
+
+    dest = os.path.join(output_files_dir, 'xenv.environment')
+
+    with open(dest, 'a') as environmentfile:
+        with open(filename, 'r') as source:
+            while line := source.readline():
+                environmentfile.write(line)
+
+
+def unload(args):
+    if not xenv_has_loaded_environment():
+        error('No xenv environment loaded')
+
+    environment = os.environ['XENV_ACTIVE_ENVIRONMENT']
+
+    source = os.path.join(environmentdir(environment), 'unload')
+
+    if not os.path.exists(source):
+        error(f'Environment "{environment}" has no unload script, aborting')
+
+    append_to_export_file(source)
+
+    print(f'Environment "{environment}" unloaded')
+
+    return 0
+
+
+def load(environment, force, args):
+    if not force and xenv_has_loaded_environment():
+        error('Xenv environment already loaded')
+
+    if not os.path.isdir(environmentdir(environment)):
+        error(f'Environment "{environment}" not found')
+
+    source = os.path.join(environmentdir(environment), 'load')
+
+    if not os.path.exists(source):
+        error(f'Environment "{environment}" has no load script, aborting')
+
+    append_to_export_file(source)
+
+    print(f'Environment "{environment}" loaded')
+
+    return 0
 
 
 def main(**args):
-    if args['command'] == 'activate':
-        environment = args['environment']
-        source = os.path.join(environmentdir(environment), 'activate')
+    if args['command'] == 'ls':
+        trailing_chars = len(XENV_ENVIRONMENTS) + 1
 
-        if not os.path.exists(source):
-            print(f'Environment "{environment}" activated')
-            return 0
+        from glob import glob
 
-        if not 'output_files_dir' in args:
-            error('--source-files-dir not informed')
+        print('Available environments:')
+        print()
+        [ print(environment[trailing_chars:-1]) for environment in glob(f'{XENV_ENVIRONMENTS}/*/') ]
+
+
+    if args['command'] == 'go':
+        return load(args['environment'], force=False, args=args)
+
+
+    elif args['command'] == 'off':
+        return unload(args)
+
+
+    elif args['command'] == 'reload':
+        unload_status = unload(args)
+
+        if unload_status == 0:
+            return load(os.environ['XENV_ACTIVE_ENVIRONMENT'], force=True, args=args)
         else:
-            output_files_dir = args['output_files_dir']
+            return unload_status
 
-        dest = os.path.join(output_files_dir, 'activate')
-
-        shutil.copyfile(source, dest)
-
-        print(f'Environment "{environment}" activated')
-
-    elif args['command'] == 'deactivate':
-        environment = os.environ['XENV_ACTIVE_ENVIRONMENT']
-
-        source = os.path.join(environmentdir(environment), 'deactivate')
-
-        if not os.path.exists(source):
-            print(f'Environment "{environment}" deactivated')
-            return 0
-
-        if not 'output_files_dir' in args:
-            error('--source-files-dir not informed')
-        else:
-            output_files_dir = args['output_files_dir']
-
-        dest = os.path.join(output_files_dir, 'deactivate')
-
-        shutil.copyfile(source, dest)
-
-        print(f'Environment "{environment}" deactivated')
 
 args = parse_args(list(sys.argv[1:]))
 
 sys.exit(main(**args))
+
