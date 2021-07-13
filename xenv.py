@@ -27,8 +27,8 @@ def parse_args(args):
             parsed['command'] = 'ls'
 
             args = {}
-        elif args[0] == 'go':
-            parsed['command'] = 'go'
+        elif args[0] == 'load':
+            parsed['command'] = 'load'
             parsed['environment'] = args[1]
 
             shift(args, 2)
@@ -121,7 +121,7 @@ def main(**args):
         [ print(environment[trailing_chars:-1]) for environment in glob(f'{XENV_ENVIRONMENTS}/*/') ]
 
 
-    if args['command'] == 'go':
+    if args['command'] == 'load':
         return load(args['environment'], force=False, args=args)
 
 
