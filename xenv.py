@@ -7,10 +7,14 @@ import shutil
 
 XENV_HOME = os.environ['XENV_HOME']
 XENV_ENVIRONMENTS = f'{XENV_HOME}/environments'
+HERE_ENV = '__here_env__'
 
 
 def shift(args, count=1):
     for i in range(count):
+        if len(args) == 0:
+            return
+
         args.pop(0)
 
 
@@ -29,7 +33,7 @@ def parse_args(args):
             args = {}
         elif args[0] == 'load':
             parsed['command'] = 'load'
-            parsed['environment'] = args[1]
+            parsed['environment'] = args[1] if len(args) > 1 else HERE_ENV
 
             shift(args, 2)
         elif args[0] == 'off':
@@ -52,7 +56,10 @@ def error(message):
 
 
 def environmentdir(environment):
-    return os.path.join(XENV_ENVIRONMENTS, environment)
+    if environment == HERE_ENV:
+        return os.path.join(os.getcwd(), '.xenv')
+    else:
+        return os.path.join(XENV_ENVIRONMENTS, environment)
 
 
 def xenv_has_loaded_environment():
