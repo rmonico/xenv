@@ -73,24 +73,6 @@ def append_to_export_file(filename):
                 environmentfile.write(line)
 
 
-def unload(args):
-    if not xenv_has_loaded_environment():
-        error('No xenv environment loaded')
-
-    environment = os.environ['XENV_ACTIVE_ENVIRONMENT']
-
-    source = os.path.join(environmentdir(environment), 'unload')
-
-    if not os.path.exists(source):
-        error(f'Environment "{environment}" has no unload script, aborting')
-
-    append_to_export_file(source)
-
-    print(f'Environment "{environment}" unloaded')
-
-    return 0
-
-
 def load(environment, force, args):
     if not force and xenv_has_loaded_environment():
         error('Xenv environment already loaded')
@@ -106,6 +88,24 @@ def load(environment, force, args):
     append_to_export_file(source)
 
     print(f'Environment "{environment}" loaded')
+
+    return 0
+
+
+def unload(args):
+    if not xenv_has_loaded_environment():
+        error('No xenv environment loaded')
+
+    environment = os.environ['XENV_ACTIVE_ENVIRONMENT']
+
+    source = os.path.join(environmentdir(environment), 'unload')
+
+    if not os.path.exists(source):
+        error(f'Environment "{environment}" has no unload script, aborting')
+
+    append_to_export_file(source)
+
+    print(f'Environment "{environment}" unloaded')
 
     return 0
 
