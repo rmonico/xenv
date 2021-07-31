@@ -1,3 +1,4 @@
+# show_active_environment start
 # Requires: zsh, XENV_ACTIVE_ENVIRONMENT
 
 case "$1" in
@@ -14,3 +15,5 @@ case "$1" in
         unset -f precmd
     ;;
 esac
+# show_active_environment end
+

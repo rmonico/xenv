@@ -1,3 +1,4 @@
+# python_command_handler start
 # Requires: zsh, XENV_ACTIVE_ENVIRONMENT
 
 case "$1" in
@@ -22,3 +23,6 @@ case "$1" in
         unset -f command_not_found_handler &> /dev/null
     ;;
 esac
+# python_command_handler end
+
+
