@@ -66,6 +66,8 @@ class Main(object):
             b.add_command('unload')  # alias: off (TODO)
             b.add_command('reload')
 
+            # TODO
+            # b.add_command('info')
         logger_wrapper.make_verbosity_argument(parser)
 
         return parser.parse_args()
