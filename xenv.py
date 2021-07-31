@@ -77,7 +77,7 @@ class Main(object):
         print(message)
         sys.exit(1)
 
-    def _load(self, environment, source_files_dir, force):
+    def _load(self, environment, output_files_dir, force):
         if not force and self._xenv_has_loaded_environment():
             self._error(f'Xenv environment "{os.environ["XENV_ACTIVE_ENVIRONMENT"]}" is already loaded')
 
@@ -90,13 +90,13 @@ class Main(object):
             self._error(
                 f'Environment "{environment}" has no load script, aborting')
 
-        self._append_to_export_file(source_files_dir, source)
+        self._append_to_export_file(output_files_dir, source)
 
         print(f'Environment "{environment}" loaded')
 
         return 0
 
-    def _unload(self, source_files_dir):
+    def _unload(self, output_files_dir):
         if not self._xenv_has_loaded_environment():
             self._error('No xenv environment loaded')
 
@@ -108,7 +108,7 @@ class Main(object):
             self._error(
                 f'Environment "{environment}" has no unload script, aborting')
 
-        self._append_to_export_file(source_files_dir, source)
+        self._append_to_export_file(output_files_dir, source)
 
         print(f'Environment "{environment}" unloaded')
 
