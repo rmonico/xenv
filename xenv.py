@@ -9,10 +9,41 @@ import logger_wrapper
 
 XENV_HOME = os.environ['XENV_HOME']
 XENV_ENVIRONMENTS = f'{XENV_HOME}/environments'
+# If a folder has a .xenv subfolder its considered a xenv "HERE_ENV" environment
 HERE_ENV = '__here_env__'
+ARCHETYPE_MINIMAL = 'minimal'
+XENV_ARCHETYPES = f'{XENV_HOME}/archetypes'
 
 
 class Main(object):
+    def _parse_args(self):
+        '''
+        reference: https://docs.python.org/3/library/argparse.html
+        '''
+        parser = argparse.ArgumentParser()
+
+        parser.add_argument('--source-files-dir',
+                            help='Source files directory (internal use only)')
+
+        with ArgumentParserBuilder(parser) as b:
+            # TODO ls verbose, should show environments description
+            b.add_command('ls')
+            with b.add_command('load') as b:
+                b.add_argument('environment', default=HERE_ENV)
+            b.add_command('unload')  # alias: off (TODO)
+            b.add_command('reload')
+            with b.add_command('create') as b:
+                b.add_argument('--archetype', default=ARCHETYPE_MINIMAL)
+                b.add_argument('--description')
+                b.add_argument('--base_folder', default=os.getcwd())
+                b.add_argument('name')
+            with b.add_command('remove') as b:
+                b.add_argument('name')
+
+        logger_wrapper.make_verbosity_argument(parser)
+
+        return parser.parse_args()
+
     def run(self):
         args = self._parse_args()
 
@@ -26,13 +57,18 @@ class Main(object):
 
             from glob import glob
 
-            print('Available environments:')
-            print()
-            [
-                print(environment[trailing_chars:-1])
+            environments = [
+                environment[trailing_chars:-1]
                 for environment in glob(f'{XENV_ENVIRONMENTS}/*/')
             ]
-            # TODO Show a HERE_ENV if it exists in current directory
+
+            active_environment = os.environ.get('XENV_ACTIVE_ENVIRONMENT', '')
+
+            for environment in environments:
+                print(f'{"*" if environment == active_environment else " "} {environment}')
+
+            if active_environment != HERE_ENV and os.path.isdir('.xenv'):
+                print(f'  HERE ENV ({os.getcwd()})')
 
         elif args.command == 'load':
             return self._load(args.environment,
@@ -52,30 +88,51 @@ class Main(object):
             else:
                 return unload_status
 
+        elif args.command == 'create':
+            # TODO Check if environment is not __here_env__
+            logger.info(f'Creating environment "{args.name}"')
+            logger.info(f'With description "{args.description}"')
+            logger.info(f'With archetype "{args.archetype}"')
+
+            environment_folder = os.path.join(XENV_ENVIRONMENTS, args.name)
+            archetype_folder = os.path.join(XENV_ARCHETYPES, args.archetype)
+
+            # TODO Check if environment_folder already exists
+            os.mkdir(environment_folder)
+
+            # TODO Check if archetype exists
+
+            variables = {
+                'name': args.name,
+                'description': args.description or f'Description of {args.name} project',
+                'base_folder': args.base_folder,
+            }
+
+            from glob import glob
+
+            for archetype_file_name in glob(archetype_folder + '/*', recursive=True):
+                with open(archetype_file_name, 'r') as archetype_file:
+                    file_name = os.path.join(environment_folder, os.path.basename(archetype_file_name))
+                    # FIXME When archetype has some subfolder it will not create corresponding environment subfolder
+                    with open(file_name, 'w') as file:
+                        while archetype_line := archetype_file.readline():
+                            line = archetype_line.format(**variables)
+
+                            file.write(line)
+
+            print(f'Environment "{args.name}" created')
+
+        elif args.command == 'remove':
+            logger.info(f'Removing environment "{args.name}"')
+            environment_folder = os.path.join(XENV_ENVIRONMENTS, args.name)
+
+            import shutil
+            shutil.rmtree(environment_folder)
+
+            print(f'Environment "{args.name}" removed')
+
         else:
             self._error(f'Command not implemented yet: {args.command}')
-
-    def _parse_args(self):
-        '''
-        reference: https://docs.python.org/3/library/argparse.html
-        '''
-        parser = argparse.ArgumentParser()
-
-        parser.add_argument('--source-files-dir',
-                            help='Source files directory (internal use only)')
-
-        with ArgumentParserBuilder(parser) as b:
-            b.add_command('ls')
-            with b.add_command('load') as b:
-                b.add_argument('environment', default=HERE_ENV)
-            b.add_command('unload')  # alias: off (TODO)
-            b.add_command('reload')
-
-            # TODO
-            # b.add_command('info')
-        logger_wrapper.make_verbosity_argument(parser)
-
-        return parser.parse_args()
 
     @staticmethod
     def _error(message):
@@ -84,7 +141,9 @@ class Main(object):
 
     def _load(self, environment, output_files_dir, force):
         if not force and self._xenv_has_loaded_environment():
-            self._error(f'Xenv environment "{os.environ["XENV_ACTIVE_ENVIRONMENT"]}" is already loaded')
+            self._error(
+                f'Xenv environment "{os.environ["XENV_ACTIVE_ENVIRONMENT"]}" is already loaded'
+            )
 
         if not os.path.isdir(self._environmentdir(environment)):
             self._error(f'Environment "{environment}" not found')
