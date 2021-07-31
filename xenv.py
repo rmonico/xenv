@@ -79,7 +79,7 @@ class Main(object):
 
     def _load(self, environment, source_files_dir, force):
         if not force and self._xenv_has_loaded_environment():
-            self._error('Xenv environment already loaded')
+            self._error(f'Xenv environment "{os.environ["XENV_ACTIVE_ENVIRONMENT"]}" is already loaded')
 
         if not os.path.isdir(self._environmentdir(environment)):
             self._error(f'Environment "{environment}" not found')
