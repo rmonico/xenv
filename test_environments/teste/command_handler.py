@@ -2,4 +2,4 @@
 
 import sys
 
-print(f'TODO (args: {sys.argv[1:]}')
+print(f'TODO (args: {sys.argv[1:]})')

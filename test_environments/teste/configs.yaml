@@ -1,2 +1,6 @@
 project: Teste
 description: Projeto de Teste
+plugins:
+  - show_active_environment
+  - python_command_handler
+

@@ -2,6 +2,3 @@
 
 unset XENV_ACTIVE_ENVIRONMENT
 
-source "$XENV_HOME/plugins/show_active_environment.zsh" unload
-
-source "$XENV_HOME/plugins/python_command_handler.zsh" unload
