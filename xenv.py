@@ -29,7 +29,7 @@ class Main(object):
             ]
             # TODO Show a HERE_ENV if it exists in current directory
 
-        if args.command == 'load':
+        elif args.command == 'load':
             return self._load(args.environment,
                               args.source_files_dir,
                               force=False)
