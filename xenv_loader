@@ -7,8 +7,18 @@ xenv() {
 
     local retcode=$?
 
+    local _command=""
+
+    for param in "$@"; do
+        if [[ "$param[1]" != "-" ]]
+        then
+            _command="$param"
+            break
+        fi
+    done
+
     for file in $(find "$source_files_dir" -maxdepth 1 -type f); do
-       source "$file"
+       source "$file" "$_command"
     done
 
     rm -rf "$source_files_dir" 2> /dev/null
