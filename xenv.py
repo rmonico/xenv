@@ -16,6 +16,11 @@ class Main(object):
     def run(self):
         args = self._parse_args()
 
+        logger_wrapper.configure(args)
+
+        global logger
+        logger = logger_wrapper.get(__name__)
+
         if args.command == 'ls':
             trailing_chars = len(XENV_ENVIRONMENTS) + 1
 
@@ -92,6 +97,10 @@ class Main(object):
 
         self._append_to_export_file(output_files_dir, source)
 
+        configs = self._load_configs(environment)
+
+        self._append_plugins(output_files_dir, configs.get('plugins', []))
+
         print(f'Environment "{environment}" loaded')
 
         return 0
@@ -110,9 +119,47 @@ class Main(object):
 
         self._append_to_export_file(output_files_dir, source)
 
+        configs = self._load_configs(environment)
+
+        self._append_plugins(output_files_dir, configs.get('plugins', []))
+
         print(f'Environment "{environment}" unloaded')
 
         return 0
+
+    def _append_plugins(self, output_files_dir, plugins):
+        scripts_extension = os.path.basename(os.environ['SHELL'])
+
+        for plugin in plugins:
+            self._append_plugin(output_files_dir, plugin, scripts_extension)
+
+    def _append_plugin(self, output_files_dir, plugin_name, scripts_extension):
+        global logger
+
+        logger.info(f'Appending plugin {plugin_name}')
+
+        source = os.path.join(XENV_HOME, 'plugins',
+                              f'{plugin_name}.{scripts_extension}')
+
+        if not os.path.exists(source):
+            logger.warning(f'Plugin "{plugin_name}" not found')
+
+            return
+
+        logger.debug(f'Appending plugin on file: {source}')
+
+        self._append_to_export_file(output_files_dir, source)
+
+    def _load_configs(self, environment):
+        yaml_file_name = os.path.join(self._environmentdir(environment),
+                                      'configs.yaml')
+
+        if not os.path.exists(yaml_file_name):
+            return {}
+
+        with open(yaml_file_name, 'r') as yaml_file:
+            import yaml
+            return yaml.safe_load(yaml_file)
 
     def _xenv_has_loaded_environment(self):
         return 'XENV_ACTIVE_ENVIRONMENT' in os.environ
