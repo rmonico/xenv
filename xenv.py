@@ -34,7 +34,7 @@ class Main(object):
                               args.source_files_dir,
                               force=False)
 
-        elif args.command == 'off':
+        elif args.command == 'unload':
             return self._unload(args.source_files_dir)
 
         elif args.command == 'reload':
@@ -60,7 +60,7 @@ class Main(object):
             b.add_command('ls')
             with b.add_command('load') as b:
                 b.add_argument('environment', default=HERE_ENV)
-            b.add_command('off')  # alias: unload (TODO)
+            b.add_command('unload')  # alias: off (TODO)
             b.add_command('reload')
 
         logger_wrapper.make_verbosity_argument(parser)
