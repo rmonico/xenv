@@ -47,6 +47,9 @@ class Main(object):
             else:
                 return unload_status
 
+        else:
+            self._error(f'Command not implemented yet: {args.command}')
+
     def _parse_args(self):
         '''
         reference: https://docs.python.org/3/library/argparse.html
