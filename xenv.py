@@ -47,7 +47,7 @@ class Main(object):
     def run(self):
         args = self._parse_args()
 
-        logger_wrapper.configure(args)
+        logger_wrapper.configure(args.verbosity)
 
         global logger
         logger = logger_wrapper.get(__name__)
