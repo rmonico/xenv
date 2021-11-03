@@ -22,7 +22,7 @@ class Main(object):
 
         command_class = self.commands.get(args.command)
 
-        instance = command_class(Helper(args.source_files_dir))
+        instance = command_class(Helper(os.environ['XENV_EXPORT_SCRIPT']))
 
         if instance:
             status_code = instance.run(args)
@@ -58,9 +58,6 @@ class Main(object):
         reference: https://docs.python.org/3/library/argparse.html
         '''
         parser = argparse.ArgumentParser()
-
-        parser.add_argument('--source-files-dir',
-                            help='Source files directory (internal use only)')
 
         with ArgumentParserBuilder(parser) as b:
             for command in self.commands.values():
