@@ -15,5 +15,6 @@ case "$1" in
         unset -f precmd
     ;;
 esac
+#
 # show_active_environment end
 

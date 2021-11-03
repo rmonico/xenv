@@ -1,0 +1,58 @@
+# vim: set filetype=bash:
+
+export docker_imagename=vendedor-online-cb-local
+export docker_imagetag=latest
+export docker_image="${docker_imagename}:${docker_imagetag}"
+export docker_tmuxsession=dockerfront
+
+_variables+=(docker_imagename docker_imagetag docker_image docker_tmuxsession)
+
+_functions+=(docker.run)
+docker.run() {
+    docker.running && { echo "Docker already running"; return 1; }
+
+    tmux \
+        new-session\
+        -d \
+        -s "$docker_tmuxsession" \
+        \
+        docker \
+        run \
+        -p 8080:8080 \
+        --cpus ".1" \
+        --memory 100MB \
+        "$docker_image"
+
+    echo "Docker image '$docker_image' started on tmux session '$docker_tmuxsession'"
+}
+
+_functions+=(docker.containerid)
+docker.containerid() {
+    docker ps --filter ancestor="$docker_image" --format "{{.ID}}"
+}
+
+_functions+=(docker.stop)
+docker.stop() {
+    docker.running || { echo "Docker not running"; return 1; }
+
+    local dockercontainerid="$(docker.containerid)"
+    echo "Stopping '$docker_image' ($dockercontainerid)"
+
+    docker stop "$dockercontainerid"
+}
+
+_functions+=(docker.running)
+docker.running() {
+    [[ -n "$(docker.containerid)" ]] && return 0 || return 1
+}
+
+# TODO
+# docker.restart() {}
+
+_functions+=(docker.attach)
+docker.attach() {
+    docker.running || { echo "Docker not running"; return 1; }
+
+    tmux attach-session -t "$docker_tmuxsession"
+}
+

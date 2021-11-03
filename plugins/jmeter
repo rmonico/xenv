@@ -1,0 +1,104 @@
+# vim: set filetype=bash:
+
+export jmeter_file="$basepath/Tests.jmx"
+export jmeter_logfile="$basepath/jmeter.log"
+export jmeter_resultsfile="$basepath/results/results.logs"
+export jmeter_reportbasefolder="$basepath/report"
+export jmeter_tmuxsession=jmeter
+export jmeter_processfolder="$basepath/.jmeter"
+export jmeter_pidfile="$jmeter_processfolder/pid"
+export jmeter_stdout="$jmeter_processfolder/stdout"
+export jmeter_stderr="$jmeter_processfolder/stderr"
+
+_variables+=(jmeter_file jmeter_logfile jmeter_reportbasefolder jmeter_tmuxsession jmeter_processfolder jmeter_pidfile jmeter_stdout jmeter_stderr)
+
+_alias jm jmeter
+
+_functions+=(jm.run)
+jm.run() {
+    mkdir "$jmeter_processfolder" 2> /dev/null
+
+    inbackground "$basepath/jmeter_starter.sh" "$jmeter_file" "$jmeter_reportbasefolder" "$jmeter_logfile" "$jmeter_processfolder" "$jmeter_stderr" "$jmeter_stdout" "$jmeter_pidfile"
+}
+
+_functions+=(jm.pid)
+jm.pid() {
+    [ ! -f "$jmeter_pidfile" ] && {
+        unset jmeter_pid
+        return 1
+    }
+
+    [ -n "$jmeter_pid" -a kill -0 "$jmeter_pid" ] && {
+        echo "$jmeter_pid"
+        return 0
+    }
+
+    jmeter_pid="$(cat "$jmeter_pidfile")"
+
+    [ ! kill -0 "$jmeter_pid" ] && {
+        unset jmeter_pid
+        rm "$jmeter_pidfile"
+
+        return 1
+    }
+
+    export jmeter_pid="$jmeter_pid"
+}
+
+_functions+=(jm.abort)
+jm.abort() {
+    local jmeter_pid="$(jm.pid)"
+
+    kill "$jmeter_pid"
+}
+
+_functions+=(jm.attach)
+jm.attach() {
+    tmux attach-session -t "$jmeter_tmuxsession"
+}
+
+_functions+=(jm.cleansessions)
+jm.cleansessions() {
+    tmux kill-session -t "$jmeter_tmuxsession"
+}
+
+_functions+=(jm.help)
+jm.help() {
+    jmeter -\? | less
+}
+
+_functions+=(jm.log)
+jm.log() {
+    less "$jmeter_logfile"
+}
+
+_functions+=(jm.stdout)
+jm.stdout() {
+    less "$jmeter_stdout"
+}
+
+_functions+=(jm.stderr)
+jm.stderr() {
+    less "$jmeter_stderr"
+}
+
+_functions+=(jm.results)
+jm.results() {
+    eval "$(./parse_switchs --flag follow f --flag help h --params " $@")"
+
+    [[ "$help" == 'yes' ]] && { echo "Pass -f to follow results"; return; }
+    [[ "$follow" == 'yes' ]] && _cmd=(tail -f) || _cmd=less
+
+    $_cmd[@] "$jmeter_resultsfile"
+}
+
+_functions+=(jm.clean)
+jm.clean() {
+    rm -rfv "$jmeter_logfile" "$jmeter_processfolder" "$basepath/results" "$basepath/.jmeter"
+}
+
+_functions+=(jm.open)
+jm.open() {
+    nohup jmeter --testfile "$jmeter_file" &> /dev/null &
+}
+

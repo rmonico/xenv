@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+_binary_dependency() {
+    local binary="$1"
+
+    [ which "$binary" &> /dev/null ] || {
+        echo "Dependencies wasn't found in PATH: $binary"
+        return 1
+    }
+}
+
+background_hooks=()
+
+inbackground() {
+    for command in ${background_hooks[@]}; do
+        $command "$@"
+    done
+}
+
+

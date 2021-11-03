@@ -1,27 +1,39 @@
 #!/usr/bin/env zsh
 
-xenv() {
-    local source_files_dir="$(mktemp -d)"
+rename_function() {
+    local function_name="$1"
+    local new_function_name="$2"
 
-    python "$XENV_HOME/xenv.py" --source-files-dir "$source_files_dir" "$@"
+    # cmfh = command_not_found_handler
+    local initial_function="$(which "$function_name")"
+
+    if [[ $? -eq 0 ]]; then
+        local function_lines="$(echo "$initial_function" | wc -l)"
+
+        local new_function="$(echo -n "${new_function_name}() \{"; cat "$initial_function" | tail -n $((function_lines - 1)))"
+
+        eval "$new_function"
+    else
+        return 1
+    fi
+}
+
+xenv() {
+    # local source_files_dir="$(mktemp -d)"
+    export XENV_EXPORT_SCRIPT="$(mktemp)"
+
+    # python "$XENV_HOME/xenv.py" --source-files-dir "$source_files_dir" "$@"
+    python "$XENV_HOME/xenv.py" "$@"
 
     local retcode=$?
 
-    local _command=""
+    # for file in $(find "$source_files_dir" -maxdepth 1 -type f); do
+    #    source "$file" "$@"
+    # done
+    source "$XENV_EXPORT_SCRIPT"
 
-    for param in "$@"; do
-        if [[ "$param[1]" != "-" ]]
-        then
-            _command="$param"
-            break
-        fi
-    done
-
-    for file in $(find "$source_files_dir" -maxdepth 1 -type f); do
-       source "$file" "$_command"
-    done
-
-    rm -rf "$source_files_dir" 2> /dev/null
+    # rm -rf "$source_files_dir" 2> /dev/null
+    rm "$XENV_EXPORT_SCRIPT" 2> /dev/null
 
     return $retcode
 }

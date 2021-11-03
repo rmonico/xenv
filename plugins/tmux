@@ -1,0 +1,44 @@
+# tmux start
+# Requires: zsh
+# vim: filetype=bash
+
+source "plugins/xenv_default"
+
+_binary_dependency tmux && return 1
+
+case "$1" in
+    "load")
+        _tmux_background() {
+            local sessioncount=$(tmux list-sessions -F '#{session_name}' -f '#{==:#{session_name},'$jmeter_tmuxsession'}' | wc -l)
+
+            [[ $sessioncount -gt 0 ]] && {
+                echo "Existing session found, killing it"
+                tmux kill-session -t "$jmeter_tmuxsession"
+            }
+
+            tmux \
+                new-session \
+                -d \
+                -s "xenv tmux plugin"
+                -c "$basepath" \
+                $@
+
+            # keep jmeter output on window after it exit
+            tmux \
+                set-option \
+                -t "$jmeter_tmuxsession" \
+                remain-on-exit on
+
+            echo "tmux session started"
+        }
+
+        background+=(_tmux_background)
+    ;;
+
+    "unload")
+        unset -f _tmux_background
+    ;;
+esac
+
+# tmux end
+

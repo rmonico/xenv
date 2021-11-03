@@ -1,0 +1,19 @@
+:: Tipos de projetos
+
+- Java
+  - Spring Boot
+  - Tomcat
+
+- Python
+  - DBus
+
+- Angular
+
+xenv create java
+xenv create java spring_boot
+xenv create java tomcat
+
+xenv create python
+xenv create python dbus
+
+xenv create angular

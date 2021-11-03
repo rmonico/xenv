@@ -1,0 +1,63 @@
+:: xenv
+
+- Funcionalidades
+  - ls
+  - create
+  - remove
+  - modify
+
+- code_project
+  - patchs
+  - Aplicar mudanças antes de rodar
+  - run
+  - compile
+  - tests
+  - build
+  - editor
+  - clean
+  - clean_editor
+  - console
+  - Configurações
+    - Repositório
+
+- Python
+  - run client/server
+  - deploy to pip
+  - deploy to aur
+  - install (local)
+
+- Java
+  - gradle / maven
+  - Spring Boot / Tomcat
+    - stop
+    - restart
+    - isrunning
+    - log
+    - curl
+  - Tomcat
+    - follow log
+  - docker
+    - run
+    - build
+    - deploy
+
+- Angular
+
+- Fluxo
+  - Copiar para a pasta do ambiente
+    - Interpretador da linguagem
+    - Dependências
+    - Gerenciador de pacotes
+  - Inicializar repositório do git
+  - Criar .gitignore
+  - Copiar os fontes de um modelo
+
+- Virtualenv
+  - Seta as variáveis de ambiente
+  - Instala páginas de manual (?)
+  - Instala as dependências
+  - Instala o interpretador
+  - Instala o gestor de pacotes
+  - Instala o deployer
+  - Tem hooks para ativação do ambiente, desativação específicos por terminal
+  - iPython
