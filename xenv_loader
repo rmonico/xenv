@@ -19,20 +19,30 @@ rename_function() {
 }
 
 xenv() {
-    export XENV_EXPORT_SCRIPT="$(mktemp)"
+    export XENV_EXPORT_SCRIPT="$HOME/xenv_script"
+
+    local initial_pythonpath="$PYTHONPATH"
+    export PYTHONPATH="$PYTHONPATH:$XENV_HOME/python"
 
     python -m xenv "$@"
 
+    export PYTHONPATH="$initial_pythonpath"
+
     local retcode=$?
 
-    source "$XENV_EXPORT_SCRIPT"
+    if [[ -f "$XENV_EXPORT_SCRIPT" ]]
+    then
+        source "$XENV_EXPORT_SCRIPT"
+        rm "$XENV_EXPORT_SCRIPT"
+ 
+        # echo "$XENV_EXPORT_SCRIPT"
+        # cat "$XENV_EXPORT_SCRIPT"
+    fi
 
-    rm "$XENV_EXPORT_SCRIPT"
+    unset XENV_EXPORT_SCRIPT
 
     return $retcode
 }
 
 export XENV_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/xenv"
-
-export PYTHONPATH="$PYTHONPATH:$XENV_HOME/python"
 
