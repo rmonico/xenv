@@ -14,6 +14,12 @@ def initialize(configs):
         'project': configs.environment,
         'description': configs.description,
         'archetype': 'minimal',
+        'basepath': configs.basepath,
+        'variables': {
+            'project': configs.environment,
+            'description': configs.description,
+            'basepath': configs.basepath,
+            },
         'plugins': _plugins,
     }
 

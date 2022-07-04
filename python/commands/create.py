@@ -32,10 +32,10 @@ class Create():
                            action='append',
                            default=[])
             b.add_argument('--description')
-            b.add_argument('--base-folder')
+            b.add_argument('--basepath')
             b.add_argument('name')
 
-    def run(self, name, description, archetype, param, base_folder):
+    def run(self, name, description, basepath, archetype, param):
         if xenv.environmentExists(name):
             xenv.error(f'Environment already exists: {name}', 1)
 
@@ -54,7 +54,7 @@ class Create():
         configs = {
             'environment': name,
             'description': description or f'Description of {name} project',
-            'base_folder': base_folder or os.path.join(os.getcwd(), name),
+            'basepath': basepath or os.path.join(os.getcwd(), name),
             'archetype': archetype,
         }
 

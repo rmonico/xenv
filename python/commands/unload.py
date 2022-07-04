@@ -24,8 +24,8 @@ class Unload():
         xenv.variableUnset(constants.activeEnvironmentVariable)
 
         if verbose:
-            print()
             print(f'Environment "{env}" unloaded')
+            print()
 
     def _unload_environment(self):
         xenv.forEachPlugin(lambda p: safecall(p, 'unload'))
@@ -33,3 +33,17 @@ class Unload():
         module = xenv.environmentModule()
 
         safecall(module, 'unload')
+
+        configs = xenv.environmentConfigs()
+
+        if hasattr(configs, 'variables'):
+            for variable in configs.variables.keys():
+                xenv.variableUnset(variable)
+
+        if hasattr(configs, 'aliases'):
+            for name in configs.aliases.keys():
+                xenv.unalias(name)
+
+        if hasattr(configs, 'functions'):
+            for name in configs.functions.keys():
+                xenv.functionUnset(name)

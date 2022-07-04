@@ -9,6 +9,7 @@ from importlib import import_module
 import yaml
 import logger_wrapper
 import os
+import shutil
 import sys
 
 
@@ -48,12 +49,19 @@ class Main(object):
         if statusCode not in [0, None]:
             return statusCode
 
+        # FIXME Este arquivo deve ser gravado conforme as chamadas forem sendo feitas
         with open(exportScriptFileName(), 'w') as exportFile:
             self._exportVariables(exportFile)
             self._exportUnsetVariables(exportFile)
 
+            self._exportAliases(exportFile)
+            self._exportUnaliases(exportFile)
+
             self._exportFunctions(exportFile)
             self._exportUnsetFunctions(exportFile)
+
+            if newwd:
+                exportFile.write(f'cd "{newwd}"\n')
 
         return 0
 
@@ -98,6 +106,14 @@ class Main(object):
         for variable in _variables_unset:
             exportFile.write(f'unset {variable}\n')
 
+    def _exportAliases(self, exportFile):
+        for name, value in _aliases.items():
+            exportFile.write(f'alias {name}="{value}"\n')
+
+    def _exportUnaliases(self, exportFile):
+        for alias in _unaliases:
+            exportFile.write(f'unalias {alias}\n')
+
     def _exportFunctions(self, exportFile):
         for name, body in _functions.items():
             exportFile.write(self._format_function(name, body))
@@ -112,7 +128,7 @@ class Main(object):
 
     def _exportUnsetFunctions(self, exportFile):
         for function in _functions_unset:
-            exportFile.write(f'unset -f {function}')
+            exportFile.write(f'unset -f {function}\n')
 
 
 def exportScriptFileName():
@@ -198,11 +214,14 @@ def environmentExists(environment=None):
     return os.path.isdir(envFolder)
 
 
-def environmentConfigs(environment=None):
+def environmentConfigsFilename(environment=None):
     environment = environment or environmentActive()
 
-    configsFileName = os.path.join(environmentFolder(environment),
-                                   'configs.yaml')
+    return os.path.join(environmentFolder(environment), 'configs.yaml')
+
+
+def environmentConfigs(environment=None):
+    configsFileName = environmentConfigsFilename(environment)
 
     if os.path.isfile(configsFileName):
         with open(configsFileName) as f:
@@ -289,10 +308,48 @@ class XENVCommandException(Exception):
         return f'ERROR: {self.message}'
 
 
+class XENVDependencyNotFoundException(Exception):
+    def __init__(self, dependency):
+        super().__init__(f'Dependency "{dependency}" not found')
+
+
 def error(*args, **kwargs):
     raise XENVCommandException(*args, **kwargs)
 
 
-main = Main()
+newwd = None
 
-sys.exit(main.run())
+
+def setcwd(_newwd):
+    global newwd
+    newwd = _newwd
+
+
+_aliases = dict()
+_unaliases = list()
+
+
+def alias(name, value):
+    _aliases[name] = value
+
+
+def unalias(name):
+    _unaliases.append(name)
+
+
+def checkDependency(dependency):
+    if not shutil.which(dependency):
+        raise XENVDependencyNotFoundException(dependency)
+
+
+def registerHelp():
+    body = f'''
+        export initial_pythonpath="$PYTHONPATH"
+        export PYTHONPATH="$PYTHONPATH:{os.path.join(homeFolder(), 'python')}"
+        python -c "from commands.load import Load; Load().environment_help()"
+        export PYTHONPATH="$initial_pythonpath"'''
+
+    function('help', body)
+
+
+registerHelp()

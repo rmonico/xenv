@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+export XENV_DBG=1
+
 rename_function() {
     local function_name="$1"
     local new_function_name="$2"
@@ -19,7 +21,7 @@ rename_function() {
 }
 
 xenv() {
-    export XENV_EXPORT_SCRIPT="$HOME/xenv_script"
+    export XENV_EXPORT_SCRIPT=$("mktemp")
 
     local initial_pythonpath="$PYTHONPATH"
     export PYTHONPATH="$PYTHONPATH:$XENV_HOME/python"
@@ -33,10 +35,8 @@ xenv() {
     if [[ -f "$XENV_EXPORT_SCRIPT" ]]
     then
         source "$XENV_EXPORT_SCRIPT"
-        rm "$XENV_EXPORT_SCRIPT"
- 
-        # echo "$XENV_EXPORT_SCRIPT"
-        # cat "$XENV_EXPORT_SCRIPT"
+
+        [[ -z "$XENV_DBG" ]] && { rm "$XENV_EXPORT_SCRIPT"; echo "Arquivo removido"; }
     fi
 
     unset XENV_EXPORT_SCRIPT
@@ -44,5 +44,5 @@ xenv() {
     return $retcode
 }
 
-export XENV_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/xenv"
+[ -z "$XENV_HOME" ] && export XENV_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"/xenv
 

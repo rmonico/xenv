@@ -10,6 +10,8 @@ echo
 echo "XENV: {environment}"
         '''.format(environment=environment))
 
+    xenv.function('cdproject', 'cd "$basepath"')
+
 
 def unload():
     xenv.functionUnset('precmd')
