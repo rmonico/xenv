@@ -1,5 +1,14 @@
 :: xenv
 
+- TODO
+  - Fazer tudo como comando python
+  ; Devolver o conteúdo do xenv_load --loader-script no comando xenv
+  ; Estudar se isso é mesmo viável, talvez isso devesse ser em shell script (nem zsh)
+
+  - Fazer comandos usando argparse_decorations
+
+  - Estudar como fazer extensão/composição de ambientes, etc
+
 - Funcionalidades
   - ls
   - create
