@@ -1,0 +1,20 @@
+# vim: set filetype=bash:
+
+maven.run() {
+    mvn spring-boot:run
+}
+
+maven.clean() {
+    mvn clean
+}
+
+maven.sonar() {
+    SONAR_TOKEN="$(cat ~/.sonar_token)"
+
+    mvn sonar:sonar
+}
+
+maven.build() {
+    mvn package
+}
+
