@@ -4,6 +4,8 @@
   - Fazer tudo como comando python
   ; Devolver o conteúdo do xenv_load --loader-script no comando xenv
   ; Estudar se isso é mesmo viável, talvez isso devesse ser em shell script (nem zsh)
+  ; xenv load coloca no início do PATH uma pasta de binds com os comandos necessários, talvez só isso já resolvesse
+  ; Estudar os arquivos de função dos diversos projetos pra ver o que é necessário e organizar tudo junto
 
   - Fazer comandos usando argparse_decorations
 
