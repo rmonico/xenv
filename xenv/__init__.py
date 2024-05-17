@@ -71,12 +71,12 @@ class Main(object):
 
         self.commands = dict()
 
-        import commands
+        from . import commands
         commands_folder = os.path.dirname(commands.__file__)
 
         for node in os.scandir(commands_folder):
-            if re.match('^(?!:__).*\.py$', node.name):
-                module = import_module('commands.' + node.name[:-3])
+            if re.match(r'^(?!:__).*\.py$', node.name):
+                module = import_module('xenv.commands.' + node.name[:-3])
 
                 if hasattr(module, 'commands'):
                     commands = module.commands()
