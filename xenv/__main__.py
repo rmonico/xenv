@@ -2,8 +2,9 @@ import sys
 
 
 def main():
-    if sys.argv[1] == '--launch-script':
-        with open('scripts/launch.sh') as launch_file:
+    # TODO Autodetect shell
+    if sys.argv[1] == '--launch-zsh':
+        with open('scripts/launch.zsh') as launch_file:
             print(launch_file.read(), end='')
 
 
