@@ -1,0 +1,32 @@
+# vim: ft=taskrc
+
+search.case.sensitive=no
+
+verbose=blank,label,new-id,edit
+
+# Files
+# data.location=~/.task/data
+
+# Disable all confirmations
+confirmation=no
+
+# Enable date and time
+
+# Example: 2017-12-01T23:59   -> Month and day with 2 digits
+#dateformat=Y-M-DTH:N:S
+
+# Example: 01/jan/17T23:59
+#dateformat=D/b/yTH:N
+
+dateformat=d/b
+
+# dateformat.report=a D/b/y H:N
+dateformat.report=D/b
+
+detection=on
+_forcecolor=on
+
+# Disable regex on filter
+regex=0
+
+nag=Há tarefas mais importantes

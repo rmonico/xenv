@@ -1,0 +1,20 @@
+# vim: ft=taskrc
+
+# Color theme (uncomment one to use)
+
+# No Manjaro os temas estão em: /usr/share/doc/task/rc/
+
+#include /usr/share/doc/task/rc/light-16.theme
+#include /usr/share/doc/task/rc/light-256.theme 
+#include /usr/share/doc/task/rc/dark-16.theme #bom
+#include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/dark-red-256.theme # Bom
+#include /usr/share/doc/task/rc/dark-green-256.theme # Bom
+include /usr/share/doc/task/rc/dark-blue-256.theme # Bom
+#include /usr/share/doc/task/rc/dark-violets-256.theme # bom - Algumas linhas ficam muito escuras
+#include /usr/share/doc/task/rc/dark-yellow-green.theme # razoável, linha com dependência ficam escuras
+#include /usr/share/doc/task/rc/dark-gray-256.theme
+#include /usr/share/doc/task/rc/dark-gray-blue-256.theme
+#include /usr/share/doc/task/rc/solarized-dark-256.theme # razoável - Também tem o problema das linha escuras
+#include /usr/share/doc/task/rc/solarized-light-256.theme
+#include /usr/share/doc/task/rc/no-color.theme # Usar para os testes do task_wrapper

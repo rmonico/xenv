@@ -1,0 +1,39 @@
+# vim: ft=taskrc
+
+# Todos os atributos :: Label,
+# uuid.short, :: UUID,
+# depends.list, :: Dependências,
+# description.combined, :: Título,
+# due.remaining, :: Vencimento,
+# end.formatted, :: Final,
+# entry.formatted, :: Lançamento,
+# imask, :: imask?,
+# mask, :: mask?,
+# modified.formatted, :: Modificação,
+# parent.short, :: Pai,
+# priority, :: Prioridade,
+# project.indented, :: Projeto,
+# recur.duration, :: Recorrência,
+# scheduled.formatted, :: Data,
+# start.formatted, :: Início,
+# status.long, :: Status,
+# tags.list, :: Tags,
+# until.formatted, :: Duração,
+# urgency.real, :: Urgência,
+# wait.formatted, :: Espera,
+
+
+# Custom report
+#report.reportname.description=<Descrição que aparece no comando "task reports">
+#report.reportname.columns=<atributos separados por , : uuid.short,mask>
+#report.reportname.labels=<Títulos das colunas do relatório, deve ter a mesma quantidade de itens do columns, também separado por ,>
+#report.reportname.filter=maestroid.any: and status:pending and description.startswith:\+
+#report.reportname.sort=n+,project+/,priority-,due+,description+
+
+report.next.description=Contexto completo, sem outros filtros
+report.next.columns=id,depends,description.count,jira,priority,project,stats,due,scheduled,tags
+report.next.labels=ID,Deps,Descrição,Jira,P,Projeto,Status,Vencto,Data,Tags
+report.next.filter=status:pending
+report.next.sort=project+/,priority-,due+,description+
+
+

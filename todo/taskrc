@@ -1,0 +1,24 @@
+# [Created by task 2.5.1 4/13/2016 00:33:38]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+include includes/general.rc
+
+include includes/context.rc
+
+include includes/reports.rc
+
+include includes/uda.rc
+
+include includes/holidays.pt-BR.rc
+
+include includes/themes.rc
+context=default
