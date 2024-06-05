@@ -89,5 +89,8 @@ def list():
         print(environment)
 
 
-if __name__ == '__main__':
+def main():
     argparse_decorations.parse_and_run()
+
+if __name__ == '__main__':
+    main()
