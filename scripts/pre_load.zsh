@@ -1,4 +1,7 @@
 # ZSH only
+
+unset -f xenv
+
 # before command hook
 # TODO Save previous preexec function
 preexec() {
@@ -34,4 +37,3 @@ precmd() {
         unset XENV_UPDATE
     }
 }
-
