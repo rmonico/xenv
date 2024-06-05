@@ -40,7 +40,7 @@ def _environment_activate_script(environment):
 def load(environment):
     breakpoint()
     if 'XENV_UPDATE' not in os.environ:
-        _print_err('xenv not launched. Run "source `xenv launch-zsh`"')
+        _print_err('xenv not launched. Run \'eval "$(python -m xenv)"\'')
         sys.exit(1)
 
     xenv_update = os.environ['XENV_UPDATE']
