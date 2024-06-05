@@ -13,3 +13,4 @@
 [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" entry:"1643317713" modified:"1717425737" status:"pending" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
 [description:"Informar branch no comando load" entry:"1672426671" modified:"1717425737" status:"pending" uuid:"536449d9-e7c8-491c-a2b6-db225695ede8"]
 [annotation_1676308851:"Criar suporte para múltiplas worktrees do mesmo projeto sem necessidade de configuração adicional" description:"Suporte para worktrees" entry:"1676308814" modified:"1717425737" status:"pending" uuid:"1998e754-91e3-48d0-9565-95c8e6dc44f7"]
+[description:"load command: should not run update script when command return error" entry:"1717559623" modified:"1717559623" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"e4154804-f8b7-44a9-b370-66edd68974eb"]
