@@ -45,10 +45,19 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
-def _environment_activate_script(environment):
-    xenv_home = os.environ['XENV_HOME']
+def _xenv_environments_dir():
+    if 'XENV_ENVIRONMENTS' in os.environ:
+        return os.environ['XENV_ENVIRONMENTS']
 
-    return os.path.join(xenv_home, 'environments', environment, 'activate.zsh')
+    return os.path.join(_xenv_home(), 'environments')
+
+
+def _xenv_environment_dir(environment):
+    return os.path.join(_xenv_environments_dir(), environment)
+
+
+def _environment_activate_script(environment):
+    return os.path.join(_xenv_environment_dir(environment), 'activate.zsh')
 
 
 @Command('load', help='Load a environment')
@@ -68,13 +77,6 @@ def load(environment):
         with open(activate_script_name) as activate_script:
             update_file.write(activate_script.read())
         update_file.write('\n\n')
-
-
-def _xenv_environments_dir():
-    if 'XENV_ENVIRONMENTS' in os.environ:
-        return os.environ['XENV_ENVIRONMENTS']
-
-    return os.path.join(_xenv_home(), 'environments')
 
 
 def _xenv_environments():
