@@ -91,6 +91,36 @@ def list():
         print(environment)
 
 
+def _string_list(raw):
+    return raw.split(',')
+
+
+@Command('create', help='Create a environment')
+@Argument('name', help='Environment name')
+@Argument('path', help='Environment path')
+@Argument('--plugins', '-p', type=_string_list, default=[],
+          help='Plugin list to be installed')
+def create(name, path, plugins):
+    _check_xenv_launched()
+
+    import os
+
+    env_dir = _xenv_environment_dir(name)
+    env_bin = os.path.join(env_dir, 'bin')
+    os.makedirs(env_bin, exist_ok=True)
+
+    config = {
+            'project': {
+                'name': name,
+                'path': path,
+                }
+            }
+
+    with open(os.path.join(env_dir, 'config.yaml'), 'w') as config_file:
+        import yaml
+        yaml.dump(config, config_file)
+
+
 def main():
     argparse_decorations.parse_and_run()
 
