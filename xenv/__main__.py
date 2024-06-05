@@ -29,6 +29,16 @@ def _print_err(message):
     sys.stderr.write(message + '\n')
 
 
+def _check_xenv_launched():
+    if 'XENV_UPDATE' not in os.environ:
+        _print_err('xenv not launched. Run \'eval "$(python -m xenv)"\'')
+        sys.exit(1)
+
+    global xenv_update
+
+    xenv_update = os.environ['XENV_UPDATE']
+
+
 def _environment_activate_script(environment):
     xenv_home = os.environ['XENV_HOME']
 
@@ -38,11 +48,7 @@ def _environment_activate_script(environment):
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load(environment):
-    if 'XENV_UPDATE' not in os.environ:
-        _print_err('xenv not launched. Run \'eval "$(python -m xenv)"\'')
-        sys.exit(1)
-
-    xenv_update = os.environ['XENV_UPDATE']
+    _check_xenv_launched()
 
     with open(xenv_update, 'w') as update_file:
         update_file.write('# pre load script\n\n')
