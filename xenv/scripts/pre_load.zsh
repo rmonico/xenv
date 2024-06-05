@@ -27,12 +27,12 @@ preexec() {
 # after command hook
 # TODO Save previous precmd function
 precmd() {
-    [ -f "$XENV_UPDATE" ] && {
+    [ -f "$XENV_UPDATE" ] && [ "$?" -eq 0 ] && {
         # echo "Updating env with $XENV_UPDATE"
         source "$XENV_UPDATE"
 
         rm "$XENV_UPDATE"
-
-        unset XENV_UPDATE
     }
+
+    unset XENV_UPDATE
 }
