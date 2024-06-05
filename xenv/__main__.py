@@ -1,9 +1,11 @@
 import argparse_decorations
-from argparse_decorations import Command, Argument
+from argparse_decorations import Command, SubCommand, Argument
 from importlib import resources
+import logging
 import os
-import sys
 
+
+_logger = logging.getLogger(__name__)
 
 argparse_decorations.init()
 
@@ -31,14 +33,16 @@ def launch():
     print(f'[ -z "$XENV_HOME" ] && export XENV_HOME="{_xenv_home()}"')
 
 
-def _print_err(message):
-    sys.stderr.write(message + '\n')
+class XEnvException(Exception):
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
 def _check_xenv_launched():
     if 'XENV_UPDATE' not in os.environ:
-        _print_err('xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
-        sys.exit(1)
+        raise XEnvException(
+                'xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
 
     global xenv_update
 
@@ -95,6 +99,15 @@ def _string_list(raw):
     return raw.split(',')
 
 
+def _xenv_environment_config_file(environment, _global=False):
+    if _global:
+        config_dir = _xenv_home()
+    else:
+        config_dir = _xenv_environment_dir(environment)
+
+    return os.path.join(config_dir, 'config.yaml')
+
+
 @Command('create', help='Create a environment')
 @Argument('name', help='Environment name')
 @Argument('path', help='Environment path')
@@ -116,9 +129,70 @@ def create(name, path, plugins):
                 }
             }
 
-    with open(os.path.join(env_dir, 'config.yaml'), 'w') as config_file:
+    with open(_xenv_environment_config_file(name), 'w') as config_file:
         import yaml
         yaml.dump(config, config_file)
+
+    # TODO Linkar os binários dos plugins
+
+
+def _get_default_environment_or_active(default_environment):
+    if default_environment:
+        return default_environment
+
+    if 'XENV_ENVIRONMENT' not in os.environ:
+        raise XEnvException(
+                'Environment not loaded and --environment specified')
+
+    return os.environ['XENV_ENVIRONMENT']
+
+
+@Command('config', help='Configuration management')
+@Argument('--environment', help='Override active environment')
+@Argument('--global', '-g', dest='_global', action='store_true',
+          help='Global property')
+@SubCommand('path', help='Get configuration file path')
+def config_file_path(environment, _global=False):
+    _logger.info(f'Getting config file path for environment "{environment}" '
+                 f'({"" if _global else "non "}globally)')
+
+    environment = _get_default_environment_or_active(environment)
+
+    config_file_name = _xenv_environment_config_file(environment, _global)
+
+    print(config_file_name)
+
+
+@Command('config')
+@SubCommand('get', help='Get a configuration entry')
+@Argument('entry_path', help='Entry to get')
+def config(entry_path, environment, _global=False):
+    _logger.info(f'Getting {entry_path} ({"" if _global else "non "}globally) '
+                 f'for environment "{environment}"')
+
+    environment = _get_default_environment_or_active(environment)
+
+    config_file_name = _xenv_environment_config_file(environment, _global)
+
+    with open(config_file_name) as config_file:
+        import yaml
+        configs = yaml.safe_load(config_file)
+
+    session = configs
+
+    if entry_path != '.':
+        for token in entry_path.split('.'):
+            if token in session:
+                session = session[token]
+            else:
+                raise XEnvException(f'Entry "{entry_path}" not found '
+                                    f'(token "{token}" does not exist) '
+                                    f'on file "{config_file_name}"')
+
+    if isinstance(session, dict):
+        print(yaml.dump(session))
+    else:
+        print(str(session))
 
 
 def main():
