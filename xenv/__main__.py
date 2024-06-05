@@ -73,7 +73,9 @@ def load(environment):
         update_file.write('# pre load script\n\n')
         pre_load_script_name = _get_script('pre_load.zsh')
         with open(pre_load_script_name) as pre_load_script:
-            update_file.write(pre_load_script.read())
+            data = pre_load_script.read()
+            data = data.replace('--environment--', environment)
+            update_file.write(data)
         update_file.write('\n\n')
 
         update_file.write('# activation script\n\n')

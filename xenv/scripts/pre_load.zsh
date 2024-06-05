@@ -36,3 +36,5 @@ precmd() {
 
     unset XENV_UPDATE
 }
+
+export XENV_ENVIRONMENT="--environment--"
