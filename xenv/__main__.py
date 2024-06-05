@@ -22,7 +22,7 @@ def launch():
         print(launch_file.read(), end='')
 
     print()
-    print(f'export XENV_HOME="{_xenv_home()}"')
+    print(f'[ -z "$XENV_HOME" ] && export XENV_HOME="{_xenv_home()}"')
 
 
 if __name__ == '__main__':
