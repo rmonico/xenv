@@ -1,13 +1,13 @@
 import argparse_decorations
-from argparse_decorations import Command
+from argparse_decorations import Command, Argument
+import os
+import sys
 
 
 argparse_decorations.init()
 
 
 def _xenv_home():
-    import os
-
     config_home = os.environ.get(
             'XDG_CONFIG_HOME',
             os.path.join(os.environ['HOME'], '.config'))
@@ -23,6 +23,31 @@ def launch():
 
     print()
     print(f'[ -z "$XENV_HOME" ] && export XENV_HOME="{_xenv_home()}"')
+
+
+def _print_err(message):
+    sys.stderr.write(message + '\n')
+
+
+def _environment_activate_script(environment):
+    xenv_home = os.environ['XENV_HOME']
+
+    return os.path.join(xenv_home, 'environments', environment, 'activate.zsh')
+
+
+@Command('load', help='Load a environment')
+@Argument('environment', help='Environment name')
+def load(environment):
+    breakpoint()
+    if 'XENV_UPDATE' not in os.environ:
+        _print_err('xenv not launched. Run "source `xenv launch-zsh`"')
+        sys.exit(1)
+
+    xenv_update = os.environ['XENV_UPDATE']
+
+    import shutil
+    activate_script = _environment_activate_script(environment)
+    shutil.copy(activate_script, xenv_update)
 
 
 if __name__ == '__main__':
