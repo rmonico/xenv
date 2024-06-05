@@ -1,12 +1,16 @@
-import sys
+import argparse_decorations
+from argparse_decorations import Command
 
 
-def main():
+argparse_decorations.init()
+
+
+@Command('launch-zsh', help='Print the launch script for ZSH')
+def launch():
     # TODO Autodetect shell
-    if sys.argv[1] == '--launch-zsh':
-        with open('scripts/launch.zsh') as launch_file:
-            print(launch_file.read(), end='')
+    with open('scripts/launch.zsh') as launch_file:
+        print(launch_file.read(), end='')
 
 
 if __name__ == '__main__':
-    main()
+    argparse_decorations.parse_and_run()
