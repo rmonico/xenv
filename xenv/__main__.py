@@ -38,16 +38,23 @@ def _environment_activate_script(environment):
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load(environment):
-    breakpoint()
     if 'XENV_UPDATE' not in os.environ:
         _print_err('xenv not launched. Run \'eval "$(python -m xenv)"\'')
         sys.exit(1)
 
     xenv_update = os.environ['XENV_UPDATE']
 
-    import shutil
-    activate_script = _environment_activate_script(environment)
-    shutil.copy(activate_script, xenv_update)
+    with open(xenv_update, 'w') as update_file:
+        update_file.write('# pre load script\n\n')
+        with open(os.path.join('scripts', 'pre_load.zsh')) as pre_load_script:
+            update_file.write(pre_load_script.read())
+        update_file.write('\n\n')
+
+        update_file.write('# activation script\n\n')
+        activate_script_name = _environment_activate_script(environment)
+        with open(activate_script_name) as activate_script:
+            update_file.write(activate_script.read())
+        update_file.write('\n\n')
 
 
 if __name__ == '__main__':

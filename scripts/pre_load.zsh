@@ -1,7 +1,6 @@
-# ZSH only
-
 unset -f xenv
 
+# ZSH only
 # before command hook
 # TODO Save previous preexec function
 preexec() {
