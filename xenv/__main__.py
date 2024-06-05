@@ -37,7 +37,7 @@ def _print_err(message):
 
 def _check_xenv_launched():
     if 'XENV_UPDATE' not in os.environ:
-        _print_err('xenv not launched. Run \'eval "$(python -m xenv launch-zsh)"\'')
+        _print_err('xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
         sys.exit(1)
 
     global xenv_update
