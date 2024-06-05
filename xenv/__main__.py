@@ -63,5 +63,24 @@ def load(environment):
         update_file.write('\n\n')
 
 
+def _xenv_environments_dir():
+    if 'XENV_ENVIRONMENTS' in os.environ:
+        return os.environ['XENV_ENVIRONMENTS']
+
+    return os.path.join(_xenv_home(), 'environments')
+
+
+def _xenv_environments():
+    for entry in os.scandir(_xenv_environments_dir()):
+        if entry.is_dir():
+            yield entry.name
+
+
+@Command('list', aliases=['ls'], help='List environments')
+def list():
+    for environment in _xenv_environments():
+        print(environment)
+
+
 if __name__ == '__main__':
     argparse_decorations.parse_and_run()
