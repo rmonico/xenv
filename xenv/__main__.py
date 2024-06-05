@@ -1,5 +1,6 @@
 import argparse_decorations
 from argparse_decorations import Command, Argument
+from importlib import resources
 import os
 import sys
 
@@ -15,10 +16,15 @@ def _xenv_home():
     return os.path.join(config_home, 'xenv')
 
 
+def _get_script(script_name):
+    return resources.files('xenv').joinpath('scripts').joinpath(script_name)
+
+
 @Command('launch-zsh', help='Print the launch script for ZSH')
 def launch():
     # TODO Autodetect shell
-    with open('scripts/launch.zsh') as launch_file:
+    launch_script_name = _get_script('launch.zsh')
+    with open(launch_script_name) as launch_file:
         print(launch_file.read(), end='')
 
     print()
@@ -52,7 +58,8 @@ def load(environment):
 
     with open(xenv_update, 'w') as update_file:
         update_file.write('# pre load script\n\n')
-        with open(os.path.join('scripts', 'pre_load.zsh')) as pre_load_script:
+        pre_load_script_name = _get_script('pre_load.zsh')
+        with open(pre_load_script_name) as pre_load_script:
             update_file.write(pre_load_script.read())
         update_file.write('\n\n')
 

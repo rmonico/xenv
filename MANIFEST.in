@@ -1,1 +1,2 @@
 include xenv/__version__
+recursive-include xenv/scripts *
