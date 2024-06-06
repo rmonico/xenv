@@ -100,23 +100,12 @@ def create(name, path, plugins):
     # TODO Linkar os binários dos plugins
 
 
-def _get_default_environment_or_active(default_environment):
-    if default_environment:
-        return default_environment
-
-    if 'XENV_ENVIRONMENT' not in os.environ:
-        raise XEnvException(
-                'Environment not loaded and --environment specified')
-
-    return os.environ['XENV_ENVIRONMENT']
-
-
 @Command('config', help='Configuration management')
 @Argument('--environment', help='Override active environment')
 @Argument('--global', '-g', dest='_global', action='store_true',
           help='Global property')
 @SubCommand('path', help='Get configuration file path')
-def config_file_path(environment, _global=False):
+def config_file_path(environment=None, _global=False):
     _logger.info(f'Getting config file path for environment "{environment}" '
                  f'({"" if _global else "non "}globally)')
 
