@@ -56,6 +56,24 @@ def load(environment):
         update_file.write('\n\n')
 
 
+def _check_has_environment_loaded():
+    _check_xenv_launched()
+
+    if 'XENV_ENVIRONMENT' not in os.environ:
+        raise XEnvException('No environment loaded')
+
+
+@Command('unload', help='Unload the environment')
+def unload():
+    _check_has_environment_loaded()
+
+    with open(xenv_update, 'w') as update_file:
+        update_file.write('# unload script\n\n')
+        unload_script_name = _get_script('unload.zsh')
+        with open(unload_script_name) as unload_script:
+            update_file.write(unload_script.read())
+
+
 def _xenv_environments():
     for entry in os.scandir(_xenv_environments_dir()):
         if entry.is_dir():
