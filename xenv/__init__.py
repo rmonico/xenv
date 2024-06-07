@@ -68,9 +68,9 @@ def _config(*args, **kwargs):
     value = config(*args, **kwargs)
 
     if isinstance(value, dict):
-        print(yaml.dump(value))
+        print(yaml.dump(value), end='')
     else:
-        print(str(value))
+        print(str(value), end='')
 
 
 def config(entry_path, environment=None, _global=False):
@@ -81,18 +81,7 @@ def config(entry_path, environment=None, _global=False):
 
     config_file_name = _xenv_environment_config_file(environment, _global)
 
-    with open(config_file_name) as config_file:
-        configs = yaml.safe_load(config_file)
-
-    value = configs
-
-    if entry_path != '.':
-        for token in entry_path.split('.'):
-            if token in value:
-                value = value[token]
-            else:
-                raise XEnvException(f'Entry "{entry_path}" not found '
-                                    f'(token "{token}" does not exist) '
-                                    f'on file "{config_file_name}"')
+    from .yq import yq
+    value = yq(entry_path, config_file_name)
 
     return value
