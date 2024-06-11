@@ -117,3 +117,10 @@ time 1718131354
 old [description:"Fazer autocomplete" entry:"1641930576" modified:"1717425737" status:"pending" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
 new [description:"Fazer autocomplete" end:"1718131354" entry:"1641930576" modified:"1718131354" status:"completed" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
 ---
+time 1718132282
+new [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132282" project:"1-1" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+---
+time 1718132336
+old [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132282" project:"1-1" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+new [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132336" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+---
