@@ -61,18 +61,6 @@ def _xenv_environment_config_file(environment, _global=False):
     return os.path.join(config_dir, 'config.yaml')
 
 
-@Command('config')
-@SubCommand('get', help='Get a configuration entry')
-@Argument('entry_path', help='Entry to get')
-def _config(*args, **kwargs):
-    value = config(*args, **kwargs)
-
-    if isinstance(value, dict):
-        print(yaml.dump(value), end='')
-    else:
-        print(str(value), end='')
-
-
 def config(entry_path, environment=None, _global=False):
     _logger.info(f'Getting {entry_path} ({"" if _global else "non "}globally) '
                  f'for environment "{environment}"')

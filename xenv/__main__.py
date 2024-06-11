@@ -1,6 +1,7 @@
 from . import XEnvException, _xenv_home, _environment_activate_script, \
     _xenv_environments_dir, _xenv_environment_dir, \
-    _xenv_environment_config_file, _logger, _get_default_environment_or_active
+    _xenv_environment_config_file, _logger, _get_default_environment_or_active, \
+    config
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
 from importlib import resources
@@ -16,7 +17,7 @@ def _get_script(script_name):
 
 
 @Command('launch-zsh', help='Print the launch script for ZSH')
-def launch():
+def launch_handler_handler():
     # TODO Autodetect shell
     launch_script_name = _get_script('launch.zsh')
     with open(launch_script_name) as launch_file:
@@ -52,7 +53,7 @@ def _path_extensions(environment):
 
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
-def load(environment):
+def load_handler(environment):
     _check_xenv_launched()
 
     with open(xenv_update, 'w') as update_file:
@@ -83,7 +84,7 @@ def _check_has_environment_loaded():
 
 
 @Command('unload', help='Unload the environment')
-def unload():
+def unload_handler():
     _check_has_environment_loaded()
 
     with open(xenv_update, 'w') as update_file:
@@ -100,7 +101,7 @@ def _xenv_environments():
 
 
 @Command('list', aliases=['ls'], help='List environments')
-def list():
+def list_handler():
     for environment in _xenv_environments():
         print(environment)
 
@@ -114,7 +115,7 @@ def _string_list(raw):
 @Argument('path', help='Environment path')
 @Argument('--plugins', '-p', type=_string_list, default=[],
           help='Plugin list to be installed')
-def create(name, path, plugins):
+def create_handler(name, path, plugins):
     _check_xenv_launched()
 
     import os
@@ -140,8 +141,21 @@ def create(name, path, plugins):
 @Argument('--environment', help='Override active environment')
 @Argument('--global', '-g', dest='_global', action='store_true',
           help='Global property')
+@SubCommand('get', help='Get a configuration entry')
+@Argument('entry_path', help='Entry to get')
+def config_handler(*args, **kwargs):
+    value = config(*args, **kwargs)
+
+    if isinstance(value, dict):
+        print(yaml.dump(value), end='')
+    else:
+        if value:
+            print(str(value), end='')
+
+
+@Command('config')
 @SubCommand('path', help='Get configuration file path')
-def config_file_path(environment=None, _global=False):
+def config_file_path_handler(environment=None, _global=False):
     _logger.info(f'Getting config file path for environment "{environment}" '
                  f'({"" if _global else "non "}globally)')
 
