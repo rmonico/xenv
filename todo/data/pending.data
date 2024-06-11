@@ -8,7 +8,7 @@
 [annotation_1639055357:"Não pode rodar nada quando alguma coisa der erro, criar essa garantia pode ser bem problemático" description:"Passar set -e no script de alteração do ambiente" entry:"1639055333" modified:"1717425737" status:"pending" uuid:"0fbac9a6-a3a1-494f-9697-96be9ab231cc"]
 [description:"Procurar ações para serem rodadas antes da carga do projeto" entry:"1641333292" modified:"1717425737" status:"pending" uuid:"477b68d6-2111-4b58-b666-969436a69ef4"]
 [description:"Substituir $HOME em basepath" entry:"1641929153" modified:"1717425737" status:"pending" uuid:"6a2b4594-721f-441d-bc2c-be6d923350de"]
-[description:"Fazer autocomplete" entry:"1641930576" modified:"1717425737" status:"pending" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
+[description:"Fazer autocomplete" end:"1718131354" entry:"1641930576" modified:"1718131354" status:"completed" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
 [description:"Comando para visualizar as propriedades de um ambiente" entry:"1641950029" modified:"1717425737" status:"pending" uuid:"5414ba7a-2b60-426f-bfb7-a7030c860cb9"]
 [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" entry:"1643317713" modified:"1717425737" status:"pending" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
 [description:"Informar branch no comando load" entry:"1672426671" modified:"1717425737" status:"pending" uuid:"536449d9-e7c8-491c-a2b6-db225695ede8"]

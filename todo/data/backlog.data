@@ -31,3 +31,4 @@
 {"description":"load command: should not run update script when command return error","entry":"20240605T035343Z","modified":"20240605T035343Z","project":"1-1","status":"pending","uuid":"e4154804-f8b7-44a9-b370-66edd68974eb","tags":["bug"]}
 {"description":"Adicionar a pasta bin dos plugins ao PATH","entry":"20240607T142340Z","modified":"20240607T142340Z","project":"1-1","status":"pending","uuid":"3be97c43-47cf-45be-a7c2-05a1deafac26"}
 {"description":"Adicionar a pasta bin dos plugins ao PATH","entry":"20240607T142340Z","modified":"20240607T142359Z","project":"1-1","status":"pending","uuid":"3be97c43-47cf-45be-a7c2-05a1deafac26","annotations":[{"entry":"20240607T142359Z","description":"Ao invés de linkar os arquivos, estudar melhor as implicações"}]}
+{"description":"Fazer autocomplete","end":"20240611T184234Z","entry":"20220111T194936Z","modified":"20240611T184234Z","status":"completed","uuid":"f2b5c18b-ff8d-4da3-a105-d3225442b72e"}

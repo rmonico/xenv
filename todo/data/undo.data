@@ -113,3 +113,7 @@ time 1717770239
 old [description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1717770220" project:"1-1" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
 new [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1717770239" project:"1-1" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
 ---
+time 1718131354
+old [description:"Fazer autocomplete" entry:"1641930576" modified:"1717425737" status:"pending" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
+new [description:"Fazer autocomplete" end:"1718131354" entry:"1641930576" modified:"1718131354" status:"completed" uuid:"f2b5c18b-ff8d-4da3-a105-d3225442b72e"]
+---
