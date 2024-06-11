@@ -11,6 +11,8 @@ import yaml
 
 argparse_decorations.init()
 
+argparse_decorations.make_verbosity_argument()
+
 
 def _get_script(script_name):
     return resources.files('xenv').joinpath('scripts').joinpath(script_name)
