@@ -1,6 +1,6 @@
 from . import XEnvException, _xenv_home, _environment_activate_script, \
     _xenv_environments_dir, _xenv_environment_dir, \
-    _xenv_environment_config_file, _logger, _get_default_environment_or_active, \
+    _xenv_config_file, _logger, _get_default_environment_or_active, \
     config
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -133,16 +133,16 @@ def create_handler(name, path, plugins):
                 }
             }
 
-    with open(_xenv_environment_config_file(name), 'w') as config_file:
+    with open(_xenv_config_file(name), 'w') as config_file:
         yaml.dump(config, config_file)
-
-    # TODO Linkar os binários dos plugins
 
 
 @Command('config', help='Configuration management')
-@Argument('--environment', help='Override active environment')
-@Argument('--global', '-g', dest='_global', action='store_true',
-          help='Global property')
+@Argument('--source', help='Override active environment (if scope is '
+          'environment) or define a plugin name (if scope is defined as), '
+          'ignored for scope global')
+@Argument('--scope', '-s', choices=['environment', 'plugin', 'global'], default='environment', help='Define scope, one of "environment", "plugin" '
+          'or "global"')
 @SubCommand('get', help='Get a configuration entry')
 @Argument('entry_path', help='Entry to get')
 def config_handler(*args, **kwargs):
@@ -163,7 +163,7 @@ def config_file_path_handler(environment=None, _global=False):
 
     environment = _get_default_environment_or_active(environment)
 
-    config_file_name = _xenv_environment_config_file(environment, _global)
+    config_file_name = _xenv_config_file(environment, _global)
 
     print(config_file_name)
 
