@@ -84,4 +84,11 @@ def config(entry_path, environment=None, _global=False):
     from .yq import yq
     value = yq(entry_path, config_file_name)
 
+    if isinstance(value, str):
+        value = os.path.expanduser(value)
+        value = os.path.expandvars(value)
+
+        return value
+
+    # TODO Expand vars inside dictionaries, recursively
     return value
