@@ -36,6 +36,20 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
+def _path_extensions(environment):
+    paths = [os.path.join(_xenv_home())]
+
+    plugins = (config('.plugins', environment=environment) or {})
+    for plugin_name, configs in plugins.items():
+        bin_path = os.path.join(_xenv_home(), 'plugins', plugin_name, 'bin')
+
+        if os.path.exists(bin_path):
+            paths.append(bin_path)
+
+    if len(paths) > 0:
+        return ':'.join(paths)
+
+
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load(environment):
@@ -48,6 +62,9 @@ def load(environment):
             update_file.write(pre_load_script.read())
 
         update_file.write(f'export XENV_ENVIRONMENT="{environment}"\n')
+
+        if path_extensions := _path_extensions(environment):
+            update_file.write(f'export PATH="{path_extensions}:$PATH"\n')
 
         update_file.write('\n\n')
 
