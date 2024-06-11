@@ -5,6 +5,7 @@ import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
 from importlib import resources
 import os
+import yaml
 
 
 argparse_decorations.init()
@@ -113,7 +114,6 @@ def create(name, path, plugins):
             }
 
     with open(_xenv_environment_config_file(name), 'w') as config_file:
-        import yaml
         yaml.dump(config, config_file)
 
     # TODO Linkar os binários dos plugins
