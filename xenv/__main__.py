@@ -59,6 +59,8 @@ def load_handler(environment):
     _check_xenv_launched()
 
     with open(xenv_update, 'w') as update_file:
+        Updater.instance(Updater(update_file))
+
         os.environ['XENV_ENVIRONMENT'] = environment
 
         update_file.write('# pre load script\n\n')
@@ -73,11 +75,31 @@ def load_handler(environment):
 
         update_file.write('\n\n')
 
-        update_file.write('# activation script\n\n')
-        activate_script_name = _environment_activate_script(environment)
-        with open(activate_script_name) as activate_script:
-            update_file.write(activate_script.read())
-        update_file.write('\n\n')
+        import sys
+        sys.path.append(_xenv_plugins_dir())
+
+        raw_plugins = (config('.plugins') or {})
+        plugins = {'base': {}}
+        plugins.update(raw_plugins)
+        for plugin_name, configs in plugins.items():
+            from importlib import import_module
+            try:
+                plugin = import_module(f'xenv.plugin.{plugin_name}')
+            except ModuleNotFoundError:
+                try:
+                    plugin = import_module(plugin_name, 'xenv.plugin')
+                except ModuleNotFoundError:
+                    logging.error(f'Plugin not found: "{plugin_name}". '
+                                  'Environmen load aborted.')
+                    sys.exit(1)
+
+            if hasattr(plugin, 'Loader'):
+                loader = plugin.Loader()
+
+                loader.load()
+            else:
+                logging.warning(f'Plugin "{plugin_name}" has no "Loader" '
+                                'defined')
 
 
 def _check_has_environment_loaded():
