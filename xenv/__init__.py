@@ -108,8 +108,11 @@ class Updater:
             Updater._instance = instance
         return Updater._instance
 
+    def print(self, message=''):
+        self.file.write(f'echo "{message}"\n')
+
     def cd(self, folder):
         self.file.write(f'cd "{folder}"\n')
 
-    def print(self, message=''):
-        self.file.write(f'echo "{message}"\n')
+    def export(self, variable, value):
+        self.file.write(f'export {variable}="{value}"\n')
