@@ -124,3 +124,6 @@ time 1718132336
 old [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132282" project:"1-1" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
 new [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132336" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
 ---
+time 1718197570
+new [description:"List command: Sort alphabetically" entry:"1718197570" modified:"1718197570" project:"1-1" status:"pending" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
+---

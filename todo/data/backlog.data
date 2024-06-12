@@ -34,3 +34,4 @@
 {"description":"Fazer autocomplete","end":"20240611T184234Z","entry":"20220111T194936Z","modified":"20240611T184234Z","status":"completed","uuid":"f2b5c18b-ff8d-4da3-a105-d3225442b72e"}
 {"description":"Load command: treat environments as python packages","entry":"20240611T185802Z","modified":"20240611T185802Z","project":"1-1","status":"pending","uuid":"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"}
 {"description":"Load command: treat environments as python packages","entry":"20240611T185802Z","modified":"20240611T185856Z","status":"pending","uuid":"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"}
+{"description":"List command: Sort alphabetically","entry":"20240612T130610Z","modified":"20240612T130610Z","project":"1-1","status":"pending","uuid":"01e61651-adc9-4306-8c4b-04d05eefde2f"}

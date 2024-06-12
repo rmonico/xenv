@@ -15,3 +15,4 @@
 [description:"load command: should not run update script when command return error" entry:"1717559623" modified:"1717559623" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"e4154804-f8b7-44a9-b370-66edd68974eb"]
 [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1717770239" project:"1-1" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
 [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132336" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+[description:"List command: Sort alphabetically" entry:"1718197570" modified:"1718197570" project:"1-1" status:"pending" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
