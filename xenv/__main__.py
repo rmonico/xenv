@@ -1,10 +1,10 @@
-from . import XEnvException, _xenv_home, _environment_activate_script, \
-    _xenv_environments_dir, _xenv_environment_dir, \
-    _xenv_config_file, _logger, _get_default_environment_or_active, \
-    config
+from . import XEnvException, _xenv_home, _xenv_environments_dir, \
+    _xenv_environment_dir, _xenv_config_file, _logger, \
+    _get_default_environment_or_active, _xenv_plugins_dir, config, Updater
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
 from importlib import resources
+import logging
 import os
 import yaml
 
