@@ -96,3 +96,20 @@ def config(entry_path, source=None, scope='environment'):
 
     # TODO Expand vars inside dictionaries, recursively
     return value
+
+
+class Updater:
+
+    def __init__(self, update_file):
+        self.file = update_file
+
+    def instance(instance=None):
+        if instance:
+            Updater._instance = instance
+        return Updater._instance
+
+    def cd(self, folder):
+        self.file.write(f'cd "{folder}"\n')
+
+    def print(self, message=''):
+        self.file.write(f'echo "{message}"\n')
