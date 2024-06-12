@@ -98,6 +98,12 @@ def config(entry_path, source=None, scope='environment'):
     return value
 
 
+class EnvironmentLoadException(Exception):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class Updater:
 
     def __init__(self, update_file):
