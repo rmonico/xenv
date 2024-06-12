@@ -42,7 +42,7 @@ def _check_xenv_launched():
 def _path_extensions(environment):
     paths = [os.path.join(_xenv_home())]
 
-    plugins = (config('.plugins', environment=environment) or {})
+    plugins = (config('.plugins') or {})
     for plugin_name, configs in plugins.items():
         bin_path = os.path.join(_xenv_home(), 'plugins', plugin_name, 'bin')
 
@@ -59,6 +59,8 @@ def load_handler(environment):
     _check_xenv_launched()
 
     with open(xenv_update, 'w') as update_file:
+        os.environ['XENV_ENVIRONMENT'] = environment
+
         update_file.write('# pre load script\n\n')
         pre_load_script_name = _get_script('pre_load.zsh')
         with open(pre_load_script_name) as pre_load_script:
