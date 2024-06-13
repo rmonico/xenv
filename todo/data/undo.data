@@ -130,3 +130,10 @@ new [description:"List command: Sort alphabetically" entry:"1718197570" modified
 time 1718291004
 new [description:"Load command: is loading package from wrong folder" entry:"1718291004" modified:"1718291004" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"a7314937-26f7-4665-b01f-b8262622cc17"]
 ---
+time 1718291184
+new [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291184" project:"1-1" status:"pending" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
+---
+time 1718291188
+old [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291184" project:"1-1" status:"pending" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
+new [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291188" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
+---
