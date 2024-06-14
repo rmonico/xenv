@@ -22,8 +22,9 @@ def launch_handler_handler():
     with open(launch_script_name) as launch_file:
         print(launch_file.read(), end='')
 
-    print()
-    print(f'[ -z "$XENV_HOME" ] && export XENV_HOME="{_xenv_home()}"')
+    if 'XENV_HOME' not in os.environ:
+        print()
+        print(f'export XENV_HOME="{_xenv_home()}"')
 
 
 def _check_xenv_launched():
