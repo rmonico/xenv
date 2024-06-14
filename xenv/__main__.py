@@ -37,20 +37,6 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
-def _path_extensions(environment):
-    paths = [os.path.join(_xenv_home())]
-
-    plugins = (config('.plugins') or {})
-    for plugin_name, configs in plugins.items():
-        bin_path = os.path.join(_xenv_home(), 'plugins', plugin_name, 'bin')
-
-        if os.path.exists(bin_path):
-            paths.append(bin_path)
-
-    if len(paths) > 0:
-        return ':'.join(paths)
-
-
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load_handler(environment):
@@ -59,16 +45,7 @@ def load_handler(environment):
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
 
-        updater = xenv.updater
-
         os.environ['XENV_ENVIRONMENT'] = environment
-
-        updater._include('pre_load')
-
-        updater.export('XENV_ENVIRONMENT', environment)
-
-        if path_extensions := _path_extensions(environment):
-            updater.export('PATH', f'{path_extensions}:{os.environ["PATH"]}')
 
         import sys
         sys.path.insert(0, _xenv_plugins_dir())
