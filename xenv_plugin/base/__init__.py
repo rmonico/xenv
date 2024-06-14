@@ -7,7 +7,8 @@ def _path_extensions(environment):
 
     plugins = (config('.plugins') or {})
     for plugin_name, configs in plugins.items():
-        bin_path = os.path.join(xenv_home(), 'plugins', plugin_name, 'bin')
+        bin_path = os.path.join(xenv_home(), 'plugins', 'xenv_plugin',
+                                plugin_name, 'bin')
 
         if os.path.exists(bin_path):
             paths.append(bin_path)
