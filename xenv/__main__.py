@@ -1,4 +1,4 @@
-from . import XEnvException, _xenv_home, _xenv_environments_dir, \
+from . import XEnvException, xenv_home, _xenv_environments_dir, \
     _xenv_environment_dir, _xenv_config_file, _logger, \
     _get_default_environment_or_active, _xenv_plugins_dir, config, Updater, \
     Loader, Unloader, _get_script
@@ -24,7 +24,7 @@ def launch_handler_handler():
 
     if 'XENV_HOME' not in os.environ:
         print()
-        print(f'export XENV_HOME="{_xenv_home()}"')
+        print(f'export XENV_HOME="{xenv_home()}"')
 
 
 def _check_xenv_launched():

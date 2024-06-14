@@ -1,13 +1,13 @@
 import os
-from xenv import Loader, Unloader, config, updater, _xenv_home
+from xenv import Loader, Unloader, config, updater, xenv_home
 
 
 def _path_extensions(environment):
-    paths = [os.path.join(_xenv_home())]
+    paths = [os.path.join(xenv_home())]
 
     plugins = (config('.plugins') or {})
     for plugin_name, configs in plugins.items():
-        bin_path = os.path.join(_xenv_home(), 'plugins', plugin_name, 'bin')
+        bin_path = os.path.join(xenv_home(), 'plugins', plugin_name, 'bin')
 
         if os.path.exists(bin_path):
             paths.append(bin_path)

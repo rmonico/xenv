@@ -28,7 +28,7 @@ def _get_default_environment_or_active(default_environment):
     return os.environ['XENV_ENVIRONMENT']
 
 
-def _xenv_home():
+def xenv_home():
     if 'XENV_HOME' in os.environ:
         return os.environ['XENV_HOME']
 
@@ -43,7 +43,7 @@ def _xenv_environments_dir():
     if 'XENV_ENVIRONMENTS' in os.environ:
         return os.environ['XENV_ENVIRONMENTS']
 
-    return os.path.join(_xenv_home(), 'environments')
+    return os.path.join(xenv_home(), 'environments')
 
 
 def _xenv_environment_dir(environment):
@@ -55,7 +55,7 @@ def _environment_activate_script(environment):
 
 
 def _xenv_plugins_dir():
-    return os.path.join(_xenv_home(), 'plugins')
+    return os.path.join(xenv_home(), 'plugins')
 
 
 def _xenv_plugin_dir(plugin):
@@ -65,7 +65,7 @@ def _xenv_plugin_dir(plugin):
 def _xenv_config_file(environment, scope):
     match scope:
         case 'global':
-            config_dir = _xenv_home()
+            config_dir = xenv_home()
 
         case 'plugin':
             config_dir = _xenv_plugin_dir(environment)
