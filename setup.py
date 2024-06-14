@@ -15,7 +15,7 @@ setup(name='xenvironment',
       author_email='rmonico1@gmail.com',
       license='GPL3',
       include_package_data=True,
-      packages=['xenv', 'xenv.plugin.base'],
+      packages=['xenv', 'xenv_plugin.base'],
       entry_points={
           'console_scripts': ['xenv=xenv.__main__:main'],
       },

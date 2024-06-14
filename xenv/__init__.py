@@ -55,7 +55,7 @@ def _xenv_plugins_dir():
 
 
 def _xenv_plugin_dir(plugin):
-    return os.path.join(_xenv_plugins_dir(), plugin)
+    return os.path.join(_xenv_plugins_dir(), 'xenv_plugin', plugin)
 
 
 def _xenv_config_file(environment, scope):
