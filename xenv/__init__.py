@@ -29,6 +29,9 @@ def _get_default_environment_or_active(default_environment):
 
 
 def _xenv_home():
+    if 'XENV_HOME' in os.environ:
+        return os.environ['XENV_HOME']
+
     config_home = os.environ.get(
             'XDG_CONFIG_HOME',
             os.path.join(os.environ['HOME'], '.config'))
