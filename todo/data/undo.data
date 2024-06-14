@@ -137,3 +137,6 @@ time 1718291188
 old [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291184" project:"1-1" status:"pending" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
 new [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291188" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
 ---
+time 1718331338
+new [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1718331338" project:"1-1" status:"pending" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
+---
