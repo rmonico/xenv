@@ -33,6 +33,7 @@ def load():
 
     if path_extensions := _path_extensions(environment):
         updater.export('PATH', f'{path_extensions}:{os.environ["PATH"]}')
+        updater.export('PATH_EXTENSION_LENGTH', len(path_extensions))
 
     project_name = config('.project.name')
     project_path = config('.project.path')
@@ -45,7 +46,10 @@ def load():
 def unloader():
     updater.unset_function('preexec', 'precmd')
 
-    updater.unset('XENV_ENVIRONMENT')
+    path_extension_length = int(os.environ['PATH_EXTENSION_LENGTH'])
+
+    updater.export('PATH', os.environ['PATH'][path_extension_length+1:])
+    updater.unset('XENV_ENVIRONMENT', 'PATH_EXTENSION_LENGTH')
 
     project_name = config('.project.name')
     updater.print(f'\"{project_name}\" unloaded')
