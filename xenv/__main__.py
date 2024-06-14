@@ -1,6 +1,8 @@
 from . import XEnvException, _xenv_home, _xenv_environments_dir, \
     _xenv_environment_dir, _xenv_config_file, _logger, \
-    _get_default_environment_or_active, _xenv_plugins_dir, config, Updater
+    _get_default_environment_or_active, _xenv_plugins_dir, config, Updater, \
+    Loader, Unloader
+import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
 from importlib import resources
@@ -59,7 +61,7 @@ def load_handler(environment):
     _check_xenv_launched()
 
     with open(xenv_update, 'w') as update_file:
-        Updater.instance(Updater(update_file))
+        xenv.updater = Updater(update_file)
 
         os.environ['XENV_ENVIRONMENT'] = environment
 
@@ -82,24 +84,27 @@ def load_handler(environment):
         plugins = {'base': {}}
         plugins.update(raw_plugins)
         for plugin_name, configs in plugins.items():
+            Loader._reset()
+
             from importlib import import_module
             try:
-                plugin = import_module(f'xenv.plugin.{plugin_name}')
+                import_module(f'xenv_plugin.{plugin_name}')
             except ModuleNotFoundError:
                 try:
-                    plugin = import_module(plugin_name, 'xenv.plugin')
+                    import_module(plugin_name, 'xenv.plugin')
                 except ModuleNotFoundError:
+                    # FIXME Should check every plugin before start load to
+                    # avoid exit with inconsistent environment
                     logging.error(f'Plugin not found: "{plugin_name}". '
                                   'Environmen load aborted.')
                     sys.exit(1)
 
-            if hasattr(plugin, 'Loader'):
-                loader = plugin.Loader()
-
-                loader.load()
-            else:
-                logging.warning(f'Plugin "{plugin_name}" has no "Loader" '
+            if len(Loader._handlers) == 0:
+                logging.warning(f'Plugin "{plugin_name}" has no "loader" '
                                 'defined')
+
+            for loader in Loader._handlers:
+                loader()
 
 
 def _check_has_environment_loaded():
@@ -118,6 +123,36 @@ def unload_handler():
         unload_script_name = _get_script('unload.zsh')
         with open(unload_script_name) as unload_script:
             update_file.write(unload_script.read())
+
+        xenv.updater = Updater(update_file)
+
+        import sys
+        sys.path.append(_xenv_plugins_dir())
+
+        plugins = (config('.plugins') or {})
+        plugins['base'] = {}
+        for plugin_name, configs in plugins.items():
+            Unloader._reset()
+
+            from importlib import import_module
+            try:
+                import_module(f'xenv_plugin.{plugin_name}')
+            except ModuleNotFoundError:
+                try:
+                    import_module(plugin_name, 'xenv.plugin')
+                except ModuleNotFoundError:
+                    # FIXME Should check every plugin before start load to
+                    # avoid exit with inconsistent environment
+                    logging.error(f'Plugin not found: "{plugin_name}". '
+                                  'Environmen load aborted.')
+                    sys.exit(1)
+
+            if len(Unloader._handlers) == 0:
+                logging.warning(f'Plugin "{plugin_name}" has no "unloader" '
+                                'defined')
+
+            for unloader in Unloader._handlers:
+                unloader()
 
 
 def _xenv_environments():
