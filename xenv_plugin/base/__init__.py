@@ -3,7 +3,7 @@ from xenv import Loader, Unloader, config, updater, xenv_home
 
 
 def _path_extensions(environment):
-    paths = [os.path.join(xenv_home())]
+    paths = list()
 
     plugins = (config('.plugins') or {})
     for plugin_name, configs in plugins.items():
