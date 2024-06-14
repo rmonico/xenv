@@ -98,6 +98,33 @@ def config(entry_path, source=None, scope='environment'):
     return value
 
 
+class AbstractMetadataDecoration(object):
+
+    _handlers = list()
+
+    def __init__(self, obj):
+        self._register(obj)
+
+    def __call__(self, obj):
+        self._register(obj)
+
+    @classmethod
+    def _register(clss, obj):
+        clss._handlers.append(obj)
+
+    @classmethod
+    def _reset(clss):
+        clss._handlers = list()
+
+
+class Loader(AbstractMetadataDecoration):
+    pass
+
+
+class Unloader(AbstractMetadataDecoration):
+    pass
+
+
 class EnvironmentLoadException(Exception):
 
     def __init__(self, *args, **kwargs):
