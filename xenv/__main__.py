@@ -27,6 +27,7 @@ def launch_handler_handler():
         print(f'export XENV_HOME="{xenv_home()}"')
 
 
+# TODO Move to init
 def _check_xenv_launched():
     if 'XENV_UPDATE' not in os.environ:
         raise XEnvException(
@@ -37,6 +38,7 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
+# TODO Move this method and next one to init
 def _load_plugin(plugin_name, configs):
     if len(Loader._handlers) == 0:
         logging.warning(f'Plugin "{plugin_name}" has no "loader" '
@@ -62,6 +64,7 @@ def load_handler(environment):
             no_plugin_visitor=_no_plugin_visitor)
 
 
+# TODO Move to init
 def _check_has_environment_loaded():
     _check_xenv_launched()
 
@@ -69,6 +72,7 @@ def _check_has_environment_loaded():
         raise XEnvException('No environment loaded')
 
 
+# TODO Move this method and next one to init
 def _unload_plugin(plugin_name, configs):
     if len(Unloader._handlers) == 0:
         logging.warning(f'Plugin "{plugin_name}" has no "unloader" '
@@ -91,6 +95,7 @@ def unload_handler():
             no_plugin_visitor=_no_plugin_visitor)
 
 
+# TODO Move to init
 def _xenv_environments():
     for entry in os.scandir(_xenv_environments_dir()):
         if entry.is_dir():
@@ -111,6 +116,7 @@ def list_handler():
 def create_handler(name, path, plugins):
     _check_xenv_launched()
 
+    # TODO Move this logic to init
     import os
 
     env_dir = _xenv_environment_dir(name)
@@ -155,6 +161,7 @@ def config_file_path_handler(environment=None, _global=False):
 
     environment = _get_default_environment_or_active(environment)
 
+    # FIXME Probably not working any more
     config_file_name = _xenv_config_file(environment, _global)
 
     print(config_file_name)
