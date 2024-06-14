@@ -1,4 +1,5 @@
 import logging
+from importlib import resources
 import os
 
 
@@ -131,6 +132,10 @@ class EnvironmentLoadException(Exception):
         super().__init__(*args, **kwargs)
 
 
+def _get_script(script_name):
+    return resources.files('xenv').joinpath('scripts').joinpath(script_name)
+
+
 class Updater:
 
     def __init__(self, update_file):
@@ -157,7 +162,9 @@ class Updater:
             self._out(f'unset -f {function}')
 
     def _include(self, script_name):
-        pass
+        pre_load_script_name = _get_script(script_name + '.zsh')
+        with open(pre_load_script_name) as pre_load_script:
+            self._out(pre_load_script.read())
 
 
 updater = None

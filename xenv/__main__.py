@@ -1,11 +1,10 @@
 from . import XEnvException, _xenv_home, _xenv_environments_dir, \
     _xenv_environment_dir, _xenv_config_file, _logger, \
     _get_default_environment_or_active, _xenv_plugins_dir, config, Updater, \
-    Loader, Unloader
+    Loader, Unloader, _get_script
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
-from importlib import resources
 import logging
 import os
 import yaml
@@ -14,10 +13,6 @@ import yaml
 argparse_decorations.init()
 
 argparse_decorations.make_verbosity_argument()
-
-
-def _get_script(script_name):
-    return resources.files('xenv').joinpath('scripts').joinpath(script_name)
 
 
 @Command('launch-zsh', help='Print the launch script for ZSH')
@@ -63,12 +58,11 @@ def load_handler(environment):
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
 
+        updater = xenv.updater
+
         os.environ['XENV_ENVIRONMENT'] = environment
 
-        update_file.write('# pre load script\n\n')
-        pre_load_script_name = _get_script('pre_load.zsh')
-        with open(pre_load_script_name) as pre_load_script:
-            update_file.write(pre_load_script.read())
+        updater._include('pre_load')
 
         update_file.write(f'export XENV_ENVIRONMENT="{environment}"\n')
 
