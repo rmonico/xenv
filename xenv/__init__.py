@@ -109,16 +109,20 @@ class Updater:
     def __init__(self, update_file):
         self.file = update_file
 
-    def instance(instance=None):
-        if instance:
-            Updater._instance = instance
-        return Updater._instance
+    def _out(self, message=''):
+        self.file.write(message + '\n')
 
     def print(self, message=''):
-        self.file.write(f'echo "{message}"\n')
+        self._out(f'echo "{message}"')
 
     def cd(self, folder):
-        self.file.write(f'cd "{folder}"\n')
+        self._out(f'cd "{folder}"')
 
     def export(self, variable, value):
-        self.file.write(f'export {variable}="{value}"\n')
+        self._out(f'export {variable}="{value}"')
+
+    def unset(self, variable):
+        self._out(f'unset {variable}')
+
+
+updater = None
