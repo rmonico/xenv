@@ -1,9 +1,16 @@
 import os
-from xenv import Loader, Unloader, config, updater, xenv_home
+from xenv import Loader, Unloader, config, updater, xenv_home, \
+        _xenv_environments_dir
 
 
 def _path_extensions(environment):
     paths = list()
+
+    environment_bin = os.path.join(_xenv_environments_dir(), environment,
+                                   'bin')
+
+    if os.path.exists(environment_bin):
+        paths.append(environment_bin)
 
     plugins = (config('.plugins') or {})
     for plugin_name, configs in plugins.items():
