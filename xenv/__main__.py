@@ -103,14 +103,10 @@ def list_handler():
         print(environment)
 
 
-def _string_list(raw):
-    return raw.split(',')
-
-
 @Command('create', help='Create a environment')
 @Argument('name', help='Environment name')
 @Argument('path', help='Environment path')
-@Argument('--plugins', '-p', type=_string_list, default=[],
+@Argument('--plugins', '-p', type=lambda raw: raw.split(','), default=[],
           help='Plugin list to be installed')
 def create_handler(name, path, plugins):
     _check_xenv_launched()
