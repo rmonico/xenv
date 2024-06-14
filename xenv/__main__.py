@@ -1,7 +1,7 @@
 from . import XEnvException, xenv_home, _xenv_environments_dir, \
-    _xenv_environment_dir, _xenv_config_file, _logger, \
-    _get_default_environment_or_active, _xenv_plugins_dir, config, Updater, \
-    Loader, Unloader, _get_script
+        _xenv_environment_dir, _xenv_config_file, _logger, \
+        _get_default_environment_or_active, config, Updater, Loader, \
+        Unloader, _get_script, _visit_plugins, _no_plugin_visitor
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -37,6 +37,15 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
+def _load_plugin(plugin_name, configs):
+    if len(Loader._handlers) == 0:
+        logging.warning(f'Plugin "{plugin_name}" has no "loader" '
+                        'defined')
+
+    for loader in Loader._handlers:
+        loader()
+
+
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load_handler(environment):
@@ -47,36 +56,10 @@ def load_handler(environment):
 
         os.environ['XENV_ENVIRONMENT'] = environment
 
-        import sys
-        sys.path.insert(0, _xenv_plugins_dir())
-
-        raw_plugins = (config('.plugins') or {})
-        plugins = {'base': {}}
-        plugins.update(raw_plugins)
-        for plugin_name, configs in plugins.items():
-            Loader._reset()
-
-            from importlib import import_module
-            try:
-                import_module(f'xenv_plugin.{plugin_name}')
-            except ModuleNotFoundError:
-                try:
-                    import_module(plugin_name, 'xenv.plugin')
-                except ModuleNotFoundError:
-                    # FIXME Should check every plugin before start load to
-                    # avoid exit with inconsistent environment
-                    logging.error(f'Plugin not found: "{plugin_name}". '
-                                  'Environmen load aborted.')
-                    sys.exit(1)
-
-            if len(Loader._handlers) == 0:
-                logging.warning(f'Plugin "{plugin_name}" has no "loader" '
-                                'defined')
-
-            for loader in Loader._handlers:
-                loader()
-
-        sys.path.pop()
+        _visit_plugins(
+            pre_visitor=lambda *args: Loader._reset(),
+            visitor=_load_plugin,
+            no_plugin_visitor=_no_plugin_visitor)
 
 
 def _check_has_environment_loaded():
@@ -86,6 +69,15 @@ def _check_has_environment_loaded():
         raise XEnvException('No environment loaded')
 
 
+def _unload_plugin(plugin_name, configs):
+    if len(Unloader._handlers) == 0:
+        logging.warning(f'Plugin "{plugin_name}" has no "unloader" '
+                        'defined')
+
+    for unloader in Unloader._handlers:
+        unloader()
+
+
 @Command('unload', help='Unload the environment')
 def unload_handler():
     _check_has_environment_loaded()
@@ -93,33 +85,10 @@ def unload_handler():
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
 
-        import sys
-        sys.path.append(_xenv_plugins_dir())
-
-        plugins = (config('.plugins') or {})
-        plugins['base'] = {}
-        for plugin_name, configs in plugins.items():
-            Unloader._reset()
-
-            from importlib import import_module
-            try:
-                import_module(f'xenv_plugin.{plugin_name}')
-            except ModuleNotFoundError:
-                try:
-                    import_module(plugin_name, 'xenv.plugin')
-                except ModuleNotFoundError:
-                    # FIXME Should check every plugin before start load to
-                    # avoid exit with inconsistent environment
-                    logging.error(f'Plugin not found: "{plugin_name}". '
-                                  'Environmen load aborted.')
-                    sys.exit(1)
-
-            if len(Unloader._handlers) == 0:
-                logging.warning(f'Plugin "{plugin_name}" has no "unloader" '
-                                'defined')
-
-            for unloader in Unloader._handlers:
-                unloader()
+        _visit_plugins(
+            pre_visitor=lambda *args: Unloader._reset(),
+            visitor=_unload_plugin,
+            no_plugin_visitor=_no_plugin_visitor)
 
 
 def _xenv_environments():

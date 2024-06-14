@@ -1,6 +1,7 @@
 import logging
 from importlib import resources
 import os
+import sys
 
 
 _logger = logging.getLogger(__name__)
@@ -100,6 +101,40 @@ def config(entry_path, source=None, scope='environment'):
 
     # TODO Expand vars inside dictionaries, recursively
     return value
+
+
+def _visit_plugins(visitor, pre_visitor, no_plugin_visitor):
+    import sys
+    sys.path.insert(0, _xenv_plugins_dir())
+
+    raw_plugins = (config('.plugins') or {})
+    plugins = {'base': {}}
+    plugins.update(raw_plugins)
+    for plugin_name, configs in plugins.items():
+        if pre_visitor:
+            pre_visitor(plugin_name, configs)
+
+        from importlib import import_module
+        try:
+            import_module(f'xenv_plugin.{plugin_name}')
+        except ModuleNotFoundError:
+            try:
+                import_module(plugin_name, 'xenv.plugin')
+            except ModuleNotFoundError:
+                if no_plugin_visitor:
+                    no_plugin_visitor(plugin_name, configs)
+
+        visitor(plugin_name, configs)
+
+        sys.path.pop()
+
+
+def _no_plugin_visitor(plugin_name, configs):
+    # FIXME Should check every plugin before start load to
+    # avoid exit with inconsistent environment
+    _logger.error(f'Plugin not found: "{plugin_name}". '
+                  'Environment load aborted.')
+    sys.exit(1)
 
 
 class AbstractMetadataDecoration(object):
