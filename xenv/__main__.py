@@ -132,8 +132,9 @@ def create_handler(name, path, plugins):
 @Argument('--source', help='Override active environment (if scope is '
           'environment) or define a plugin name (if scope is defined as), '
           'ignored for scope global')
-@Argument('--scope', '-s', choices=['environment', 'plugin', 'global'], default='environment', help='Define scope, one of "environment", "plugin" '
-          'or "global"')
+@Argument('--scope', '-s', choices=['environment', 'plugin', 'global'],
+          default='environment', help='Define scope, one of "environment", '
+          '"plugin" or "global"')
 @SubCommand('get', help='Get a configuration entry')
 @Argument('entry_path', help='Entry to get')
 def config_handler(*args, **kwargs):
