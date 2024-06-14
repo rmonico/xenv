@@ -17,7 +17,7 @@ preexec() {
     local cmd="$(realpath "$(which "$cmd")" 2> /dev/null)"
 
     if [ -n "$cmd" ]; then
-        [ "$(dirname "$cmd")" = "$XENV_ENVIRONMENT_PATH/bin" ] && export XENV_UPDATE="$(mktemp --dry-run --suffix XENV_UPDATE)"
+        [[ "$(dirname "$cmd")" =~ "^$XENV_HOME/.*" ]] && export XENV_UPDATE="$(mktemp --dry-run --suffix XENV_UPDATE)"
     fi
 }
 
