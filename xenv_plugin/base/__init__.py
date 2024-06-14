@@ -12,5 +12,9 @@ def load():
 
 @Unloader
 def unloader():
+    updater.unset_function('preexec', 'precmd')
+
+    updater.unset('XENV_ENVIRONMENT')
+
     project_name = config('.project.name')
     updater.print(f'\"{project_name}\" unloaded')

@@ -148,8 +148,16 @@ class Updater:
     def export(self, variable, value):
         self._out(f'export {variable}="{value}"')
 
-    def unset(self, variable):
-        self._out(f'unset {variable}')
+    def unset(self, *variables):
+        for variable in variables:
+            self._out(f'unset {variable}')
+
+    def unset_function(self, *functions):
+        for function in functions:
+            self._out(f'unset -f {function}')
+
+    def _include(self, script_name):
+        pass
 
 
 updater = None

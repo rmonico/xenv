@@ -119,11 +119,6 @@ def unload_handler():
     _check_has_environment_loaded()
 
     with open(xenv_update, 'w') as update_file:
-        update_file.write('# unload script\n\n')
-        unload_script_name = _get_script('unload.zsh')
-        with open(unload_script_name) as unload_script:
-            update_file.write(unload_script.read())
-
         xenv.updater = Updater(update_file)
 
         import sys
