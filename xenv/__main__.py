@@ -65,15 +65,13 @@ def load_handler(environment):
 
         updater._include('pre_load')
 
-        update_file.write(f'export XENV_ENVIRONMENT="{environment}"\n')
+        updater.export('XENV_ENVIRONMENT', environment)
 
         if path_extensions := _path_extensions(environment):
-            update_file.write(f'export PATH="{path_extensions}:$PATH"\n')
-
-        update_file.write('\n\n')
+            updater.export('PATH', f'{path_extensions}:{os.environ["PATH"]}')
 
         import sys
-        sys.path.append(_xenv_plugins_dir())
+        sys.path.insert(0, _xenv_plugins_dir())
 
         raw_plugins = (config('.plugins') or {})
         plugins = {'base': {}}
@@ -100,6 +98,8 @@ def load_handler(environment):
 
             for loader in Loader._handlers:
                 loader()
+
+        sys.path.pop()
 
 
 def _check_has_environment_loaded():
