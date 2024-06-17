@@ -140,3 +140,6 @@ new [description:"Base plugin: load message order is wrong" entry:"1718291184" m
 time 1718331338
 new [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1718331338" project:"1-1" status:"pending" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
 ---
+time 1718640833
+new [description:"Load command: Is loading unexisting environments" entry:"1718640833" modified:"1718640833" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"9b02ccf9-d559-484d-90ad-67ee1668faed"]
+---

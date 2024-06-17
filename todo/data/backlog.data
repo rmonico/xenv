@@ -39,3 +39,4 @@
 {"description":"Base plugin: load message order is wrong","entry":"20240613T150624Z","modified":"20240613T150624Z","project":"1-1","status":"pending","uuid":"37edef22-738e-4f69-8149-0d67c66e5f44"}
 {"description":"Base plugin: load message order is wrong","entry":"20240613T150624Z","modified":"20240613T150628Z","project":"1-1","status":"pending","uuid":"37edef22-738e-4f69-8149-0d67c66e5f44","tags":["bug"]}
 {"description":"Command to setup XENV_HOME","entry":"20240614T021538Z","modified":"20240614T021538Z","project":"1-1","status":"pending","uuid":"6b108f72-240d-4c3c-a76c-0086fac9448d"}
+{"description":"Load command: Is loading unexisting environments","entry":"20240617T161353Z","modified":"20240617T161353Z","project":"1-1","status":"pending","uuid":"9b02ccf9-d559-484d-90ad-67ee1668faed","tags":["bug"]}
