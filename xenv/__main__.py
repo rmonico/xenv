@@ -143,6 +143,10 @@ def _list_complete(selected_columns):
         stdout = process.stdout.decode()
         import re
         match = re.search(r'[a-z]+\t(.*) \(fetch\)', stdout)
+
+        if not match:
+            return ''
+
         remote = match.groups()[0]
 
         return remote
