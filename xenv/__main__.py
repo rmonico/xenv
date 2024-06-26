@@ -1,5 +1,5 @@
 from . import XEnvException, xenv_home, _xenv_environments_dir, \
-        _xenv_environment_dir, _xenv_config_file, _logger, \
+        _xenv_environment_dir, _xenv_config_file, \
         _get_default_environment_or_active, config, Updater, Loader, \
         Unloader, _get_script, _visit_plugins, _no_plugin_visitor
 import xenv
@@ -13,6 +13,10 @@ import yaml
 argparse_decorations.init()
 
 argparse_decorations.make_verbosity_argument()
+
+
+_logger = logging.getLogger(__name__)
+# _logger.setLevel(logging.DEBUG)
 
 
 @Command('launch-zsh', help='Print the launch script for ZSH')
@@ -41,8 +45,8 @@ def _check_xenv_launched():
 # TODO Move this method and next one to init
 def _load_plugin(plugin_name, configs):
     if len(Loader._handlers) == 0:
-        logging.warning(f'Plugin "{plugin_name}" has no "loader" '
-                        'defined')
+        _logger.debug(f'Plugin "{plugin_name}" has no "loader" '
+                      'defined')
 
     for loader in Loader._handlers:
         loader()
@@ -75,8 +79,8 @@ def _check_has_environment_loaded():
 # TODO Move this method and next one to init
 def _unload_plugin(plugin_name, configs):
     if len(Unloader._handlers) == 0:
-        logging.warning(f'Plugin "{plugin_name}" has no "unloader" '
-                        'defined')
+        _logger.debug(f'Plugin "{plugin_name}" has no "unloader" '
+                      'defined')
 
     for unloader in Unloader._handlers:
         unloader()
