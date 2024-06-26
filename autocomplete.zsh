@@ -4,7 +4,7 @@ _xenv() {
 
     case "$words[2]" in
         load)
-            _arguments "2: :($(xenv list))"
+            _arguments "2: :($(xenv list --raw))"
             ;;
     esac
 }

@@ -1,4 +1,4 @@
-from . import XEnvException, xenv_home, _xenv_environments_dir, \
+from . import XEnvException, xenv_home, _xenv_environments, \
         _xenv_environment_dir, _xenv_config_file, \
         _get_default_environment_or_active, config, Updater, Loader, \
         Unloader, _get_script, _visit_plugins, _no_plugin_visitor
@@ -99,17 +99,121 @@ def unload_handler():
             no_plugin_visitor=_no_plugin_visitor)
 
 
-# TODO Move to init
-def _xenv_environments():
-    for entry in os.scandir(_xenv_environments_dir()):
-        if entry.is_dir():
-            yield entry.name
+def _columns(raw):
+    choices = ['name', 'description', 'path', 'tags', 'plugins', 'remote']
+
+    parsed = raw.split(',')
+
+    for col in parsed:
+        if col not in choices:
+            from argparse import ArgumentTypeError
+            raise ArgumentTypeError(f'"{col}" must be in: {", ".join(choices)}')
+
+    return parsed
 
 
 @Command('list', aliases=['ls'], help='List environments')
-def list_handler():
+@Argument('--raw', '-r', action='store_true', help='Print just the environment'
+          ' names')
+@Argument('--columns', type=_columns, default=['name', 'description', 'path'],
+          # choices=['name', 'description', 'path', 'tags', 'plugins', 'remote'],
+          help='Select columns to print (default: name,description,path other '
+          'possible columns: tags,plugins,remote)')
+def list_handler(raw, columns):
+    if raw:
+        _list_raw()
+    else:
+        _list_complete(columns)
+
+
+def _list_raw():
     for environment in _xenv_environments():
-        print(environment)
+        print(environment['project']['name'])
+
+
+def _list_complete(selected_columns):
+    def _remote_getter(data):
+        path = os.path.expanduser(data['project']['path'])
+
+        import subprocess
+        process = subprocess.run('git remote -v'.split(' '), cwd=path,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+
+        stdout = process.stdout.decode()
+        import re
+        match = re.search(r'[a-z]+\t(.*) \(fetch\)', stdout)
+        remote = match.groups()[0]
+
+        return remote
+
+    available_columns = [
+            {
+                'title': 'Name',
+                'name': 'name',
+                'getter': lambda data: data['project']['name'],
+                'max_length': 4
+            },
+            {
+                'title': 'Description',
+                'name': 'description',
+                'getter': lambda data: data['project'].get('description', ''),
+                'max_length': 11
+            },
+            {
+                'title': 'Path',
+                'name': 'path',
+                'getter': lambda data: data['project']['path'],
+                'max_length': 4
+            },
+            {
+                'title': 'Tags',
+                'name': 'tags',
+                'getter': lambda data: ', '.join(data['project'].get('tags', [])),
+                'max_length': 4
+            },
+            {
+                'title': 'Plugins',
+                'name': 'plugins',
+                'getter': lambda data: ', '.join(data.get('plugins', {}).keys()),
+                'max_length': 7
+            },
+            {
+                'title': 'Remote',
+                'name': 'remote',
+                'getter': _remote_getter,
+                'max_length': 6
+            },
+        ]
+
+    columns = list()
+
+    for sel_column in selected_columns:
+        for avail_column in available_columns:
+            if sel_column == avail_column['name']:
+                columns.append(avail_column)
+
+    data = list()
+    data.append([column['title'] for column in columns])
+
+    for env_data in _xenv_environments():
+        line = list()
+        for column in columns:
+            cell = column['getter'](env_data)
+            line.append(cell)
+            if (cell_len := len(cell)) > column['max_length']:
+                column['max_length'] = cell_len
+
+        data.append(line)
+
+    for data_line in data:
+        line = ''
+        for i, column in enumerate(columns):
+            line += data_line[i]
+            line += ' ' * (column['max_length'] - len(data_line[i]))
+            line += '    '
+
+        print(line)
 
 
 @Command('create', help='Create a environment')

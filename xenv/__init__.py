@@ -2,6 +2,7 @@ import logging
 from importlib import resources
 import os
 import sys
+import yaml
 
 
 _logger = logging.getLogger(__name__)
@@ -45,6 +46,17 @@ def _xenv_environments_dir():
         return os.environ['XENV_ENVIRONMENTS']
 
     return os.path.join(xenv_home(), 'environments')
+
+
+def _xenv_environments():
+    environments = list()
+    for entry in os.scandir(_xenv_environments_dir()):
+        if entry.is_dir():
+            with open(os.path.join(entry.path, 'config.yaml')) as config_file:
+                config = yaml.safe_load(config_file)
+                environments.append(config)
+
+    return sorted(environments, key=lambda e: e['project']['name'])
 
 
 def _xenv_environment_dir(environment):
