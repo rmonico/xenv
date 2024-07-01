@@ -31,9 +31,7 @@
 #report.reportname.sort=n+,project+/,priority-,due+,description+
 
 report.next.description=Contexto completo, sem outros filtros
-report.next.columns=id,depends,description.count,jira,priority,project,stats,due,scheduled,tags
-report.next.labels=ID,Deps,Descrição,Jira,P,Projeto,Status,Vencto,Data,Tags
+report.next.columns=id,depends,description.count,priority,project,due,scheduled,tags
+report.next.labels=ID,Deps,Descrição,P,Projeto,Vencto,Data,Tags
 report.next.filter=status:pending
 report.next.sort=project+/,priority-,due+,description+
-
-

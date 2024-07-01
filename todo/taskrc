@@ -12,13 +12,8 @@
 
 include includes/general.rc
 
-include includes/context.rc
-
 include includes/reports.rc
-
-include includes/uda.rc
 
 include includes/holidays.pt-BR.rc
 
 include includes/themes.rc
-context=default

@@ -1,7 +1,0 @@
-# vim: ft=taskrc
-
-context.1-1.read=project:1-1
-context.1-1.write=project:1-1
-
-context.default.read=project.not:1-1
-context.default.write=project.not:1-1

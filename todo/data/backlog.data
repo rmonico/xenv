@@ -41,3 +41,11 @@
 {"description":"Command to setup XENV_HOME","entry":"20240614T021538Z","modified":"20240614T021538Z","project":"1-1","status":"pending","uuid":"6b108f72-240d-4c3c-a76c-0086fac9448d"}
 {"description":"Load command: Is loading unexisting environments","entry":"20240617T161353Z","modified":"20240617T161353Z","project":"1-1","status":"pending","uuid":"9b02ccf9-d559-484d-90ad-67ee1668faed","tags":["bug"]}
 {"description":"List command: column to check if environment exists on disk","entry":"20240701T144239Z","modified":"20240701T144239Z","project":"1-1","status":"pending","uuid":"9a842c41-252f-465b-a11e-187874c66ee6","tags":["feature"]}
+{"description":"Adicionar a pasta bin dos plugins ao PATH","entry":"20240607T142340Z","modified":"20240701T145340Z","status":"pending","uuid":"3be97c43-47cf-45be-a7c2-05a1deafac26","annotations":[{"entry":"20240607T142359Z","description":"Ao invés de linkar os arquivos, estudar melhor as implicações"}]}
+{"description":"load command: should not run update script when command return error","entry":"20240605T035343Z","modified":"20240701T145405Z","status":"pending","uuid":"e4154804-f8b7-44a9-b370-66edd68974eb","tags":["bug"]}
+{"description":"List command: Sort alphabetically","entry":"20240612T130610Z","modified":"20240701T145405Z","status":"pending","uuid":"01e61651-adc9-4306-8c4b-04d05eefde2f"}
+{"description":"Load command: is loading package from wrong folder","entry":"20240613T150324Z","modified":"20240701T145405Z","status":"pending","uuid":"a7314937-26f7-4665-b01f-b8262622cc17","tags":["bug"]}
+{"description":"Base plugin: load message order is wrong","entry":"20240613T150624Z","modified":"20240701T145405Z","status":"pending","uuid":"37edef22-738e-4f69-8149-0d67c66e5f44","tags":["bug"]}
+{"description":"Command to setup XENV_HOME","entry":"20240614T021538Z","modified":"20240701T145405Z","status":"pending","uuid":"6b108f72-240d-4c3c-a76c-0086fac9448d"}
+{"description":"Load command: Is loading unexisting environments","entry":"20240617T161353Z","modified":"20240701T145405Z","status":"pending","uuid":"9b02ccf9-d559-484d-90ad-67ee1668faed","tags":["bug"]}
+{"description":"List command: column to check if environment exists on disk","entry":"20240701T144239Z","modified":"20240701T145405Z","status":"pending","uuid":"9a842c41-252f-465b-a11e-187874c66ee6","tags":["feature"]}

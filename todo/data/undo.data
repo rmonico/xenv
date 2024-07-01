@@ -146,3 +146,35 @@ new [description:"Load command: Is loading unexisting environments" entry:"17186
 time 1719844959
 new [description:"List command: column to check if environment exists on disk" entry:"1719844959" modified:"1719844959" project:"1-1" status:"pending" tags:"feature" tags_feature:"x" uuid:"9a842c41-252f-465b-a11e-187874c66ee6"]
 ---
+time 1719845620
+old [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1717770239" project:"1-1" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
+new [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1719845620" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
+---
+time 1719845645
+old [description:"load command: should not run update script when command return error" entry:"1717559623" modified:"1717559623" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"e4154804-f8b7-44a9-b370-66edd68974eb"]
+new [description:"load command: should not run update script when command return error" entry:"1717559623" modified:"1719845645" status:"pending" tags:"bug" tags_bug:"x" uuid:"e4154804-f8b7-44a9-b370-66edd68974eb"]
+---
+time 1719845645
+old [description:"List command: Sort alphabetically" entry:"1718197570" modified:"1718197570" project:"1-1" status:"pending" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
+new [description:"List command: Sort alphabetically" entry:"1718197570" modified:"1719845645" status:"pending" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
+---
+time 1719845645
+old [description:"Load command: is loading package from wrong folder" entry:"1718291004" modified:"1718291004" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"a7314937-26f7-4665-b01f-b8262622cc17"]
+new [description:"Load command: is loading package from wrong folder" entry:"1718291004" modified:"1719845645" status:"pending" tags:"bug" tags_bug:"x" uuid:"a7314937-26f7-4665-b01f-b8262622cc17"]
+---
+time 1719845645
+old [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1718291188" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
+new [description:"Base plugin: load message order is wrong" entry:"1718291184" modified:"1719845645" status:"pending" tags:"bug" tags_bug:"x" uuid:"37edef22-738e-4f69-8149-0d67c66e5f44"]
+---
+time 1719845645
+old [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1718331338" project:"1-1" status:"pending" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
+new [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1719845645" status:"pending" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
+---
+time 1719845645
+old [description:"Load command: Is loading unexisting environments" entry:"1718640833" modified:"1718640833" project:"1-1" status:"pending" tags:"bug" tags_bug:"x" uuid:"9b02ccf9-d559-484d-90ad-67ee1668faed"]
+new [description:"Load command: Is loading unexisting environments" entry:"1718640833" modified:"1719845645" status:"pending" tags:"bug" tags_bug:"x" uuid:"9b02ccf9-d559-484d-90ad-67ee1668faed"]
+---
+time 1719845645
+old [description:"List command: column to check if environment exists on disk" entry:"1719844959" modified:"1719844959" project:"1-1" status:"pending" tags:"feature" tags_feature:"x" uuid:"9a842c41-252f-465b-a11e-187874c66ee6"]
+new [description:"List command: column to check if environment exists on disk" entry:"1719844959" modified:"1719845645" status:"pending" tags:"feature" tags_feature:"x" uuid:"9a842c41-252f-465b-a11e-187874c66ee6"]
+---
