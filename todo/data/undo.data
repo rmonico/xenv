@@ -178,3 +178,13 @@ time 1719845645
 old [description:"List command: column to check if environment exists on disk" entry:"1719844959" modified:"1719844959" project:"1-1" status:"pending" tags:"feature" tags_feature:"x" uuid:"9a842c41-252f-465b-a11e-187874c66ee6"]
 new [description:"List command: column to check if environment exists on disk" entry:"1719844959" modified:"1719845645" status:"pending" tags:"feature" tags_feature:"x" uuid:"9a842c41-252f-465b-a11e-187874c66ee6"]
 ---
+time 1719845888
+new [description:"taskwarrior plugin: create configs from a clean source" entry:"1719845888" modified:"1719845888" status:"pending" tags:"feature" tags_feature:"x" uuid:"7f3b0cc7-6139-4c1c-abc3-272b0df13406"]
+---
+time 1719845922
+old [description:"taskwarrior plugin: create configs from a clean source" entry:"1719845888" modified:"1719845888" status:"pending" tags:"feature" tags_feature:"x" uuid:"7f3b0cc7-6139-4c1c-abc3-272b0df13406"]
+new [annotation_1719845922:"May be problematic to copy from default configs, it contains a lot of customizations not applicable" description:"taskwarrior plugin: create configs from a clean source" entry:"1719845888" modified:"1719845922" status:"pending" tags:"feature" tags_feature:"x" uuid:"7f3b0cc7-6139-4c1c-abc3-272b0df13406"]
+---
+time 1719845999
+new [description:"New command: switch to quickly switch environments" entry:"1719845999" modified:"1719845999" status:"pending" tags:"feature" tags_feature:"x" uuid:"5be9bfd1-fefd-49d4-aba3-69f13282cebf"]
+---
