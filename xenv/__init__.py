@@ -88,7 +88,7 @@ def _xenv_config_file(environment, scope):
 
     config_file = os.path.join(config_dir, 'config.yaml')
 
-    return config_file if os.path.exists(config_file) else None
+    return config_file
 
 
 def config(entry_path, source=None, scope='environment'):
@@ -99,7 +99,7 @@ def config(entry_path, source=None, scope='environment'):
 
     config_file_name = _xenv_config_file(source, scope)
 
-    if not config_file_name:
+    if not os.path.exists(config_file_name):
         return None
 
     from .yq import yq
