@@ -232,8 +232,8 @@ def create_handler(name, path, plugins):
     import os
 
     env_dir = _xenv_environment_dir(name)
-    env_bin = os.path.join(env_dir, 'bin')
-    os.makedirs(env_bin, exist_ok=True)
+    _logger.debug('Creating environment dir at "%s"', env_dir)
+    os.makedirs(env_dir, exist_ok=True)
 
     config = {
             'project': {
@@ -242,8 +242,17 @@ def create_handler(name, path, plugins):
                 }
             }
 
-    with open(_xenv_config_file(name), 'w') as config_file:
+    config_file_name = _xenv_config_file(name, 'environment')
+    _logger.debug('Creating config file at "%s"', config_file_name)
+
+    with open(config_file_name, 'w') as config_file:
         yaml.dump(config, config_file)
+
+    _logger.debug('Creating project dir at "%s"', path)
+
+    os.makedirs(path, exist_ok=True)
+
+    print(f'Environment "{name}" created successfully!')
 
 
 @Command('config', help='Configuration management')
