@@ -24,3 +24,4 @@
 [annotation_1719845922:"May be problematic to copy from default configs, it contains a lot of customizations not applicable" description:"taskwarrior plugin: create configs from a clean source" entry:"1719845888" modified:"1719845922" status:"pending" tags:"feature" tags_feature:"x" uuid:"7f3b0cc7-6139-4c1c-abc3-272b0df13406"]
 [description:"New command: switch to quickly switch environments" entry:"1719845999" modified:"1719845999" status:"pending" tags:"feature" tags_feature:"x" uuid:"5be9bfd1-fefd-49d4-aba3-69f13282cebf"]
 [description:"Create command: must save full paths in config file" entry:"1720017943" modified:"1720017943" status:"pending" tags:"bug" tags_bug:"x" uuid:"62369260-2424-4464-849f-27a65fe063c6"]
+[annotation_1720018111:"Happens on xenv environment" description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018111" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]

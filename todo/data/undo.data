@@ -191,3 +191,10 @@ new [description:"New command: switch to quickly switch environments" entry:"171
 time 1720017943
 new [description:"Create command: must save full paths in config file" entry:"1720017943" modified:"1720017943" status:"pending" tags:"bug" tags_bug:"x" uuid:"62369260-2424-4464-849f-27a65fe063c6"]
 ---
+time 1720018091
+new [description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018091" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
+---
+time 1720018111
+old [description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018091" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
+new [annotation_1720018111:"Happens on xenv environment" description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018111" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
+---
