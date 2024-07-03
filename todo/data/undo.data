@@ -188,3 +188,6 @@ new [annotation_1719845922:"May be problematic to copy from default configs, it 
 time 1719845999
 new [description:"New command: switch to quickly switch environments" entry:"1719845999" modified:"1719845999" status:"pending" tags:"feature" tags_feature:"x" uuid:"5be9bfd1-fefd-49d4-aba3-69f13282cebf"]
 ---
+time 1720017943
+new [description:"Create command: must save full paths in config file" entry:"1720017943" modified:"1720017943" status:"pending" tags:"bug" tags_bug:"x" uuid:"62369260-2424-4464-849f-27a65fe063c6"]
+---
