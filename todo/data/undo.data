@@ -204,3 +204,85 @@ new [description:"List command: show project count on footer" entry:"1720018327"
 time 1720018344
 new [description:"List command: save columns in config file" entry:"1720018344" modified:"1720018344" status:"pending" tags:"feature" tags_feature:"x" uuid:"84fbb8f3-08b0-4df6-ad06-0e77c824c56e"]
 ---
+time 1720018455
+new [description:"Create command: support description on parameters" entry:"1720018455" modified:"1720018455" status:"pending" tags:"feature" tags_feature:"x" uuid:"3a4501db-2b26-45d2-a085-94996417cb3c"]
+---
+time 1720018486
+new [description:"Config command: support \"edit\" subcommand" entry:"1720018486" modified:"1720018486" status:"pending" tags:"feature" tags_feature:"x" uuid:"c7e41d86-8a68-4a13-bcc2-a5791c19ae6d"]
+---
+time 1720018509
+old [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" entry:"1717770220" modified:"1719845620" status:"pending" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
+new [annotation_1717770239:"Ao invés de linkar os arquivos, estudar melhor as implicações" description:"Adicionar a pasta bin dos plugins ao PATH" end:"1720018509" entry:"1717770220" modified:"1720018509" status:"completed" uuid:"3be97c43-47cf-45be-a7c2-05a1deafac26"]
+---
+time 1720018525
+old [description:"Colocar descrição nas funções" entry:"1638195733" modified:"1717425737" status:"pending" uuid:"56dfc8f3-5d47-474e-b7c4-b230773c865b"]
+new [description:"Colocar descrição nas funções" entry:"1638195733" modified:"1720018525" status:"pending" tags:"feature" tags_feature:"x" uuid:"56dfc8f3-5d47-474e-b7c4-b230773c865b"]
+---
+time 1720018551
+old [description:"Comando de edit" entry:"1624028745" modified:"1717425737" status:"pending" uuid:"72985def-8417-4e24-8bfa-b5724a3952e4"]
+new [description:"Comando de edit" entry:"1624028745" modified:"1720018551" status:"pending" tags:"feature" tags_feature:"x" uuid:"72985def-8417-4e24-8bfa-b5724a3952e4"]
+---
+time 1720018559
+old [description:"Comando para visualizar as propriedades de um ambiente" entry:"1641950029" modified:"1717425737" status:"pending" uuid:"5414ba7a-2b60-426f-bfb7-a7030c860cb9"]
+new [description:"Comando para visualizar as propriedades de um ambiente" entry:"1641950029" modified:"1720018559" status:"pending" tags:"feature" tags_feature:"x" uuid:"5414ba7a-2b60-426f-bfb7-a7030c860cb9"]
+---
+time 1720018571
+old [description:"Command archetype ls" entry:"1630336392" modified:"1717425737" status:"pending" uuid:"02fc2a6f-e64a-48c5-bed1-6b60052fcf0d"]
+new [description:"Command archetype ls" entry:"1630336392" modified:"1720018571" status:"pending" tags:"deprecated,feature" tags_deprecated:"x" tags_feature:"x" uuid:"02fc2a6f-e64a-48c5-bed1-6b60052fcf0d"]
+---
+time 1720018582
+old [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1719845645" status:"pending" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
+new [description:"Command to setup XENV_HOME" entry:"1718331338" modified:"1720018582" status:"pending" tags:"feature" tags_feature:"x" uuid:"6b108f72-240d-4c3c-a76c-0086fac9448d"]
+---
+time 1720018592
+old [description:"Fazer comando de rename" entry:"1637489633" modified:"1717425737" status:"pending" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+new [description:"Fazer comando de rename" entry:"1637489633" modified:"1720018592" status:"pending" tags:"feature" tags_feature:"x" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+---
+time 1720018635
+old [description:"Fazer um comando archive" entry:"1637551205" modified:"1717425737" status:"pending" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
+new [description:"Fazer um comando archive" entry:"1637551205" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
+---
+time 1720018635
+old [description:"Fazer o reload e o unload como função do ambiente, não mais como comandos do Xenv" entry:"1637591411" modified:"1717425737" status:"pending" uuid:"576af2b2-30ae-4837-961f-7811401b0cce"]
+new [description:"Fazer o reload e o unload como função do ambiente, não mais como comandos do Xenv" entry:"1637591411" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"576af2b2-30ae-4837-961f-7811401b0cce"]
+---
+time 1720018635
+old [annotation_1637593140:"Preciso de um método para carregar o valor inicial das variáveis ou atualizá-las" annotation_1637593156:"O id do container precisa ser uma dessas variáveis" description:"Function global" entry:"1637593079" modified:"1717425737" status:"pending" uuid:"4d831290-7caa-44cf-bf8f-387cc223b558"]
+new [annotation_1637593140:"Preciso de um método para carregar o valor inicial das variáveis ou atualizá-las" annotation_1637593156:"O id do container precisa ser uma dessas variáveis" description:"Function global" entry:"1637593079" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"4d831290-7caa-44cf-bf8f-387cc223b558"]
+---
+time 1720018635
+old [description:"Informar branch no comando load" entry:"1672426671" modified:"1717425737" status:"pending" uuid:"536449d9-e7c8-491c-a2b6-db225695ede8"]
+new [description:"Informar branch no comando load" entry:"1672426671" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"536449d9-e7c8-491c-a2b6-db225695ede8"]
+---
+time 1720018639
+old [description:"List command: Sort alphabetically" entry:"1718197570" modified:"1719845645" status:"pending" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
+new [description:"List command: Sort alphabetically" end:"1720018639" entry:"1718197570" modified:"1720018639" status:"completed" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]
+---
+time 1720018643
+old [description:"Load command: treat environments as python packages" entry:"1718132282" modified:"1718132336" status:"pending" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+new [description:"Load command: treat environments as python packages" end:"1720018643" entry:"1718132282" modified:"1720018643" status:"completed" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
+---
+time 1720018649
+old [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" entry:"1643317713" modified:"1717425737" status:"pending" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
+new [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" entry:"1643317713" modified:"1720018649" status:"pending" tags:"bug" tags_bug:"x" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
+---
+time 1720018662
+old [annotation_1639055357:"Não pode rodar nada quando alguma coisa der erro, criar essa garantia pode ser bem problemático" description:"Passar set -e no script de alteração do ambiente" entry:"1639055333" modified:"1717425737" status:"pending" uuid:"0fbac9a6-a3a1-494f-9697-96be9ab231cc"]
+new [annotation_1639055357:"Não pode rodar nada quando alguma coisa der erro, criar essa garantia pode ser bem problemático" description:"Passar set -e no script de alteração do ambiente" entry:"1639055333" modified:"1720018662" status:"pending" tags:"bug" tags_bug:"x" uuid:"0fbac9a6-a3a1-494f-9697-96be9ab231cc"]
+---
+time 1720018678
+old [description:"Substituir $HOME em basepath" entry:"1641929153" modified:"1717425737" status:"pending" uuid:"6a2b4594-721f-441d-bc2c-be6d923350de"]
+new [description:"Substituir $HOME em basepath" entry:"1641929153" modified:"1720018678" status:"pending" tags:"feature" tags_feature:"x" uuid:"6a2b4594-721f-441d-bc2c-be6d923350de"]
+---
+time 1720018683
+old [annotation_1676308851:"Criar suporte para múltiplas worktrees do mesmo projeto sem necessidade de configuração adicional" description:"Suporte para worktrees" entry:"1676308814" modified:"1717425737" status:"pending" uuid:"1998e754-91e3-48d0-9565-95c8e6dc44f7"]
+new [annotation_1676308851:"Criar suporte para múltiplas worktrees do mesmo projeto sem necessidade de configuração adicional" description:"Suporte para worktrees" entry:"1676308814" modified:"1720018683" status:"pending" tags:"feature" tags_feature:"x" uuid:"1998e754-91e3-48d0-9565-95c8e6dc44f7"]
+---
+time 1720018696
+old [description:"Procurar ações para serem rodadas antes da carga do projeto" entry:"1641333292" modified:"1717425737" status:"pending" uuid:"477b68d6-2111-4b58-b666-969436a69ef4"]
+new [description:"Procurar ações para serem rodadas antes da carga do projeto" entry:"1641333292" modified:"1720018696" status:"pending" tags:"feature" tags_feature:"x" uuid:"477b68d6-2111-4b58-b666-969436a69ef4"]
+---
+time 1720018717
+old [description:"Command archetype ls" entry:"1630336392" modified:"1720018571" status:"pending" tags:"deprecated,feature" tags_deprecated:"x" tags_feature:"x" uuid:"02fc2a6f-e64a-48c5-bed1-6b60052fcf0d"]
+new [annotation_1720018717:"Deprecated, will not use archetype concept anymore" description:"Command archetype ls" end:"1720018717" entry:"1630336392" modified:"1720018717" status:"deleted" tags:"deprecated,feature" tags_deprecated:"x" tags_feature:"x" uuid:"02fc2a6f-e64a-48c5-bed1-6b60052fcf0d"]
+---
