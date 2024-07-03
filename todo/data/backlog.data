@@ -55,3 +55,5 @@
 {"description":"Create command: must save full paths in config file","entry":"20240703T144543Z","modified":"20240703T144543Z","status":"pending","uuid":"62369260-2424-4464-849f-27a65fe063c6","tags":["bug"]}
 {"description":"Unload command: has some problem on PATH_EXTENSION_LENGTH","entry":"20240703T144811Z","modified":"20240703T144811Z","status":"pending","uuid":"22ee3878-980e-44c7-add8-d8dfdf5f3483","tags":["bug"]}
 {"description":"Unload command: has some problem on PATH_EXTENSION_LENGTH","entry":"20240703T144811Z","modified":"20240703T144831Z","status":"pending","uuid":"22ee3878-980e-44c7-add8-d8dfdf5f3483","annotations":[{"entry":"20240703T144831Z","description":"Happens on xenv environment"}],"tags":["bug"]}
+{"description":"List command: show project count on footer","entry":"20240703T145207Z","modified":"20240703T145207Z","status":"pending","uuid":"f7d2f54a-05af-4e80-89a1-4604586338ce","tags":["feature"]}
+{"description":"List command: save columns in config file","entry":"20240703T145224Z","modified":"20240703T145224Z","status":"pending","uuid":"84fbb8f3-08b0-4df6-ad06-0e77c824c56e","tags":["feature"]}

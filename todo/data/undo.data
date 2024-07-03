@@ -198,3 +198,9 @@ time 1720018111
 old [description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018091" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
 new [annotation_1720018111:"Happens on xenv environment" description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018111" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
 ---
+time 1720018327
+new [description:"List command: show project count on footer" entry:"1720018327" modified:"1720018327" status:"pending" tags:"feature" tags_feature:"x" uuid:"f7d2f54a-05af-4e80-89a1-4604586338ce"]
+---
+time 1720018344
+new [description:"List command: save columns in config file" entry:"1720018344" modified:"1720018344" status:"pending" tags:"feature" tags_feature:"x" uuid:"84fbb8f3-08b0-4df6-ad06-0e77c824c56e"]
+---
