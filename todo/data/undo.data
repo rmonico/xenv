@@ -289,3 +289,6 @@ new [annotation_1720018717:"Deprecated, will not use archetype concept anymore" 
 time 1720625104
 new [description:"List command: when running with all columns and a environment dont exist raises exception" entry:"1720625104" modified:"1720625104" status:"pending" tags:"bug" tags_bug:"x" uuid:"ef7e450e-eae3-4d58-b150-d34b622a6a0b"]
 ---
+time 1720625142
+new [description:"Delete environment command" entry:"1720625142" modified:"1720625142" status:"pending" tags:"feature" tags_feature:"x" uuid:"04766220-9409-489f-9f99-2ef2da3db514"]
+---
