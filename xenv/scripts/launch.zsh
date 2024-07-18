@@ -12,3 +12,9 @@ function xenv() {
 
     unset XENV_UPDATE
 }
+
+export PS1
+
+if [ -n "$XENV_ENVIRONMENT" ]; then
+    xenv load "$XENV_ENVIRONMENT"
+fi
