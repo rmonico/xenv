@@ -1,3 +1,5 @@
+[description:"Autoload feature" end:"1721334250" entry:"1721321832" modified:"1721334250" priority:"H" status:"completed" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
+[annotation_1721321663:"Is affecting shell_prompt plugin" description:"Load command: export PS1" end:"1721334242" entry:"1721321644" modified:"1721334242" status:"completed" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
 [annotation_1720018717:"Deprecated, will not use archetype concept anymore" description:"Command archetype ls" end:"1720018717" entry:"1630336392" modified:"1720018717" status:"deleted" tags:"deprecated,feature" tags_deprecated:"x" tags_feature:"x" uuid:"02fc2a6f-e64a-48c5-bed1-6b60052fcf0d"]
 [description:"Load command: treat environments as python packages" end:"1720018643" entry:"1718132282" modified:"1720018643" status:"completed" uuid:"c4bf8dcb-f20d-4e3c-a298-5d4a1a115097"]
 [description:"List command: Sort alphabetically" end:"1720018639" entry:"1718197570" modified:"1720018639" status:"completed" uuid:"01e61651-adc9-4306-8c4b-04d05eefde2f"]

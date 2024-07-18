@@ -83,3 +83,5 @@
 {"description":"Load command: export PS1","entry":"20240718T165404Z","modified":"20240718T165404Z","status":"pending","uuid":"203e81de-0ee7-4517-bd82-16031aa9fad9","tags":["bug"]}
 {"description":"Load command: export PS1","entry":"20240718T165404Z","modified":"20240718T165423Z","status":"pending","uuid":"203e81de-0ee7-4517-bd82-16031aa9fad9","annotations":[{"entry":"20240718T165423Z","description":"Is affecting shell_prompt plugin"}],"tags":["bug"]}
 {"description":"Autoload feature","entry":"20240718T165712Z","modified":"20240718T165712Z","priority":"H","status":"pending","uuid":"ce9e6e62-0ff9-4975-b8ae-924353679ad1","tags":["feature"]}
+{"description":"Load command: export PS1","end":"20240718T202402Z","entry":"20240718T165404Z","modified":"20240718T202402Z","status":"completed","uuid":"203e81de-0ee7-4517-bd82-16031aa9fad9","annotations":[{"entry":"20240718T165423Z","description":"Is affecting shell_prompt plugin"}],"tags":["bug"]}
+{"description":"Autoload feature","end":"20240718T202410Z","entry":"20240718T165712Z","modified":"20240718T202410Z","priority":"H","status":"completed","uuid":"ce9e6e62-0ff9-4975-b8ae-924353679ad1","tags":["feature"]}

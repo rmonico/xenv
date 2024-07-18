@@ -27,5 +27,3 @@
 [description:"Config command: support \"edit\" subcommand" entry:"1720018486" modified:"1720018486" status:"pending" tags:"feature" tags_feature:"x" uuid:"c7e41d86-8a68-4a13-bcc2-a5791c19ae6d"]
 [description:"List command: when running with all columns and a environment dont exist raises exception" entry:"1720625104" modified:"1720625104" status:"pending" tags:"bug" tags_bug:"x" uuid:"ef7e450e-eae3-4d58-b150-d34b622a6a0b"]
 [description:"Delete environment command" entry:"1720625142" modified:"1720625142" status:"pending" tags:"feature" tags_feature:"x" uuid:"04766220-9409-489f-9f99-2ef2da3db514"]
-[annotation_1721321663:"Is affecting shell_prompt plugin" description:"Load command: export PS1" entry:"1721321644" modified:"1721321663" status:"pending" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
-[description:"Autoload feature" entry:"1721321832" modified:"1721321832" priority:"H" status:"pending" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
