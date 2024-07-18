@@ -1,6 +1,7 @@
 import logging
 from importlib import resources
 import os
+import shlex
 import sys
 import yaml
 
@@ -201,7 +202,8 @@ class Updater:
         self._out(f'cd "{folder}"')
 
     def export(self, variable, value):
-        self._out(f'export {variable}="{value}"')
+        value = shlex.quote(str(value))
+        self._out(f'export {variable}={value}')
 
     def unset(self, *variables):
         for variable in variables:
