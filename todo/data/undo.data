@@ -292,3 +292,13 @@ new [description:"List command: when running with all columns and a environment 
 time 1720625142
 new [description:"Delete environment command" entry:"1720625142" modified:"1720625142" status:"pending" tags:"feature" tags_feature:"x" uuid:"04766220-9409-489f-9f99-2ef2da3db514"]
 ---
+time 1721321644
+new [description:"Load command: export PS1" entry:"1721321644" modified:"1721321644" status:"pending" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
+---
+time 1721321663
+old [description:"Load command: export PS1" entry:"1721321644" modified:"1721321644" status:"pending" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
+new [annotation_1721321663:"Is affecting shell_prompt plugin" description:"Load command: export PS1" entry:"1721321644" modified:"1721321663" status:"pending" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
+---
+time 1721321832
+new [description:"Autoload feature" entry:"1721321832" modified:"1721321832" priority:"H" status:"pending" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
+---
