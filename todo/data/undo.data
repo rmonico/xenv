@@ -310,3 +310,19 @@ time 1721334250
 old [description:"Autoload feature" entry:"1721321832" modified:"1721321832" priority:"H" status:"pending" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
 new [description:"Autoload feature" end:"1721334250" entry:"1721321832" modified:"1721334250" priority:"H" status:"completed" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
 ---
+time 1721752830
+old [description:"Comando de edit" entry:"1624028745" modified:"1720018551" status:"pending" tags:"feature" tags_feature:"x" uuid:"72985def-8417-4e24-8bfa-b5724a3952e4"]
+new [annotation_1721752830:"Duplicated" description:"Comando de edit" end:"1721752830" entry:"1624028745" modified:"1721752830" status:"deleted" tags:"feature" tags_feature:"x" uuid:"72985def-8417-4e24-8bfa-b5724a3952e4"]
+---
+time 1721752864
+old [description:"Comando para visualizar as propriedades de um ambiente" entry:"1641950029" modified:"1720018559" status:"pending" tags:"feature" tags_feature:"x" uuid:"5414ba7a-2b60-426f-bfb7-a7030c860cb9"]
+new [description:"Config command: \"view\" subcommand" entry:"1641950029" modified:"1721752864" status:"pending" tags:"feature" tags_feature:"x" uuid:"5414ba7a-2b60-426f-bfb7-a7030c860cb9"]
+---
+time 1721752893
+old [description:"Fazer comando de rename" entry:"1637489633" modified:"1720018592" status:"pending" tags:"feature" tags_feature:"x" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+new [description:"Rename command" entry:"1637489633" modified:"1721752893" status:"pending" tags:"feature" tags_feature:"x" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+---
+time 1721752905
+old [description:"Fazer um comando archive" entry:"1637551205" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
+new [description:"Archive command" entry:"1637551205" modified:"1721752905" status:"pending" tags:"feature" tags_feature:"x" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
+---

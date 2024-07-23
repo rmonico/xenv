@@ -85,3 +85,7 @@
 {"description":"Autoload feature","entry":"20240718T165712Z","modified":"20240718T165712Z","priority":"H","status":"pending","uuid":"ce9e6e62-0ff9-4975-b8ae-924353679ad1","tags":["feature"]}
 {"description":"Load command: export PS1","end":"20240718T202402Z","entry":"20240718T165404Z","modified":"20240718T202402Z","status":"completed","uuid":"203e81de-0ee7-4517-bd82-16031aa9fad9","annotations":[{"entry":"20240718T165423Z","description":"Is affecting shell_prompt plugin"}],"tags":["bug"]}
 {"description":"Autoload feature","end":"20240718T202410Z","entry":"20240718T165712Z","modified":"20240718T202410Z","priority":"H","status":"completed","uuid":"ce9e6e62-0ff9-4975-b8ae-924353679ad1","tags":["feature"]}
+{"description":"Comando de edit","end":"20240723T164030Z","entry":"20210618T150545Z","modified":"20240723T164030Z","status":"deleted","uuid":"72985def-8417-4e24-8bfa-b5724a3952e4","annotations":[{"entry":"20240723T164030Z","description":"Duplicated"}],"tags":["feature"]}
+{"description":"Config command: \"view\" subcommand","entry":"20220112T011349Z","modified":"20240723T164104Z","status":"pending","uuid":"5414ba7a-2b60-426f-bfb7-a7030c860cb9","tags":["feature"]}
+{"description":"Rename command","entry":"20211121T101353Z","modified":"20240723T164133Z","status":"pending","uuid":"6dc96ec1-9efe-4901-be64-c287b277d70c","tags":["feature"]}
+{"description":"Archive command","entry":"20211122T032005Z","modified":"20240723T164145Z","status":"pending","uuid":"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc","tags":["feature"]}
