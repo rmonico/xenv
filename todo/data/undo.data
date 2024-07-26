@@ -329,3 +329,7 @@ new [description:"Archive command" entry:"1637551205" modified:"1721752905" stat
 time 1722002287
 new [description:"Create a global configuration to load plugins on every environment" entry:"1722002287" modified:"1722002287" status:"pending" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
 ---
+time 1722003032
+old [description:"Create a global configuration to load plugins on every environment" entry:"1722002287" modified:"1722002287" status:"pending" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
+new [description:"Create a global configuration to load plugins on every environment" end:"1722003032" entry:"1722002287" modified:"1722003032" status:"completed" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
+---

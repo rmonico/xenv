@@ -90,3 +90,4 @@
 {"description":"Rename command","entry":"20211121T101353Z","modified":"20240723T164133Z","status":"pending","uuid":"6dc96ec1-9efe-4901-be64-c287b277d70c","tags":["feature"]}
 {"description":"Archive command","entry":"20211122T032005Z","modified":"20240723T164145Z","status":"pending","uuid":"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc","tags":["feature"]}
 {"description":"Create a global configuration to load plugins on every environment","entry":"20240726T135807Z","modified":"20240726T135807Z","status":"pending","uuid":"514b696c-dac7-4413-9175-136feee9a675","tags":["feature"]}
+{"description":"Create a global configuration to load plugins on every environment","end":"20240726T141032Z","entry":"20240726T135807Z","modified":"20240726T141032Z","status":"completed","uuid":"514b696c-dac7-4413-9175-136feee9a675","tags":["feature"]}

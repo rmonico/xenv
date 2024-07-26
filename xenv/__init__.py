@@ -121,6 +121,9 @@ def _visit_plugins(visitor, pre_visitor, no_plugin_visitor):
     sys.path.insert(0, _xenv_plugins_dir())
 
     raw_plugins = (config('.plugins') or {})
+    default_plugins = config('.default_plugins', scope='global') or {}
+    raw_plugins.update(default_plugins)
+
     plugins = {'base': {}}
     plugins.update(raw_plugins)
     for plugin_name, configs in plugins.items():
