@@ -326,3 +326,6 @@ time 1721752905
 old [description:"Fazer um comando archive" entry:"1637551205" modified:"1720018635" status:"pending" tags:"feature" tags_feature:"x" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
 new [description:"Archive command" entry:"1637551205" modified:"1721752905" status:"pending" tags:"feature" tags_feature:"x" uuid:"ee3d02c7-fd46-4f79-af40-7a3560ab0ddc"]
 ---
+time 1722002287
+new [description:"Create a global configuration to load plugins on every environment" entry:"1722002287" modified:"1722002287" status:"pending" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
+---

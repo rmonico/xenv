@@ -26,3 +26,4 @@
 [description:"Config command: support \"edit\" subcommand" entry:"1720018486" modified:"1720018486" status:"pending" tags:"feature" tags_feature:"x" uuid:"c7e41d86-8a68-4a13-bcc2-a5791c19ae6d"]
 [description:"List command: when running with all columns and a environment dont exist raises exception" entry:"1720625104" modified:"1720625104" status:"pending" tags:"bug" tags_bug:"x" uuid:"ef7e450e-eae3-4d58-b150-d34b622a6a0b"]
 [description:"Delete environment command" entry:"1720625142" modified:"1720625142" status:"pending" tags:"feature" tags_feature:"x" uuid:"04766220-9409-489f-9f99-2ef2da3db514"]
+[description:"Create a global configuration to load plugins on every environment" entry:"1722002287" modified:"1722002287" status:"pending" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
