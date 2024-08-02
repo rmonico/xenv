@@ -1,3 +1,4 @@
+[description:"Create a global configuration to load plugins on every environment" end:"1722003032" entry:"1722002287" modified:"1722003032" status:"completed" tags:"feature" tags_feature:"x" uuid:"514b696c-dac7-4413-9175-136feee9a675"]
 [annotation_1721752830:"Duplicated" description:"Comando de edit" end:"1721752830" entry:"1624028745" modified:"1721752830" status:"deleted" tags:"feature" tags_feature:"x" uuid:"72985def-8417-4e24-8bfa-b5724a3952e4"]
 [description:"Autoload feature" end:"1721334250" entry:"1721321832" modified:"1721334250" priority:"H" status:"completed" tags:"feature" tags_feature:"x" uuid:"ce9e6e62-0ff9-4975-b8ae-924353679ad1"]
 [annotation_1721321663:"Is affecting shell_prompt plugin" description:"Load command: export PS1" end:"1721334242" entry:"1721321644" modified:"1721334242" status:"completed" tags:"bug" tags_bug:"x" uuid:"203e81de-0ee7-4517-bd82-16031aa9fad9"]
