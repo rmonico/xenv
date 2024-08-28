@@ -336,3 +336,6 @@ new [description:"Create a global configuration to load plugins on every environ
 time 1722876005
 new [description:"Autodetect when config command is being ran from a plugin" entry:"1722876005" modified:"1722876005" status:"pending" tags:"feature" tags_feature:"x" uuid:"771338b6-f68c-475d-8040-6012d5fbfd08"]
 ---
+time 1724855403
+new [description:"New command: rename environment" entry:"1724855403" modified:"1724855403" status:"pending" tags:"feature" tags_feature:"x" uuid:"b07333f6-b1a5-4159-ba30-fc8ba392843f"]
+---
