@@ -12,8 +12,6 @@ import yaml
 
 argparse_decorations.init()
 
-argparse_decorations.make_verbosity_argument()
-
 
 _logger = logging.getLogger(__name__)
 # _logger.setLevel(logging.DEBUG)
@@ -302,6 +300,17 @@ def config_file_path_handler(environment=None, _global=False):
     config_file_name = _xenv_config_file(environment, _global)
 
     print(config_file_name)
+
+
+argparse_decorations.make_verbosity_argument()
+
+
+def _get_version():
+    from importlib import resources
+    return resources.files('xenv').joinpath('__version__').read_text()
+
+
+argparse_decorations.make_version_command(_get_version())
 
 
 def main():
