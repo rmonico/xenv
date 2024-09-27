@@ -223,10 +223,12 @@ def _list_complete(selected_columns):
 @Command('create', help='Create a environment')
 @Argument('name', help='Environment name')
 @Argument('path', help='Environment path')
-@Argument('--description', help='Environment description')
+@Argument('--description', '-d', help='Environment description')
+@Argument('--tags', '-t', type=lambda raw: raw.split(','), default=[],
+          help='Tag list (comma separated)')
 @Argument('--plugins', '-p', type=lambda raw: raw.split(','), default=[],
           help='Plugin list to be installed')
-def create_handler(name, path, description, plugins):
+def create_handler(name, path, description, tags, plugins):
     _check_xenv_launched()
 
     # TODO Move this logic to init
@@ -241,8 +243,16 @@ def create_handler(name, path, description, plugins):
                 'name': name,
                 'description': description,
                 'path': path,
-                }
+                'tags': tags,
+                },
             }
+
+    if len(plugins) > 0:
+        _plugins = dict()
+        for plugin in plugins:
+            _plugins[plugin] = True
+
+        config['plugins'] = _plugins
 
     config_file_name = _xenv_config_file(name, 'environment')
     _logger.debug('Creating config file at "%s"', config_file_name)
