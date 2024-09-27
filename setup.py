@@ -1,12 +1,19 @@
 from pathlib import Path
 from setuptools import setup
-from xenv import _get_version
 
 
-_version = _get_version()
+def _get_version():
+    with open('xenv/__version__') as file:
+        return file.readlines()[0].strip()
+
+
+def _get_requirements():
+    with open('requirements') as file:
+        return [line for line in file.readlines() if line != '']
+
 
 setup(name='xenvironment',
-      version=_version,
+      version=_get_version(),
       description='Environments for any project',
       long_description_content_type="text/markdown",
       long_description=(Path(__file__).parent / 'README.md').read_text(),
@@ -20,4 +27,4 @@ setup(name='xenvironment',
           'console_scripts': ['xenv=xenv.__main__:main'],
       },
       zip_safe=False,
-      install_requires=[''])
+      install_requires=_get_requirements())

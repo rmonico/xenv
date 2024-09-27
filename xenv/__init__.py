@@ -9,11 +9,6 @@ import yaml
 _logger = logging.getLogger(__name__)
 
 
-def _get_version():
-    from importlib import resources
-    return resources.files('xenv').joinpath('__version__').read_text()
-
-
 class XEnvException(Exception):
 
     def __init__(self, message):
