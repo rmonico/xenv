@@ -224,9 +224,9 @@ def _list_complete(selected_columns):
 @Argument('name', help='Environment name')
 @Argument('path', help='Environment path')
 @Argument('--description', '-d', help='Environment description')
-@Argument('--tags', '-t', type=lambda raw: raw.split(','), default=[],
+@Argument('--tags', '-t', type=lambda raw: raw.split(','),
           help='Tag list (comma separated)')
-@Argument('--plugins', '-p', type=lambda raw: raw.split(','), default=[],
+@Argument('--plugins', '-p', type=lambda raw: raw.split(','),
           help='Plugin list to be installed')
 def create_handler(name, path, description, tags, plugins):
     _check_xenv_launched()
@@ -241,13 +241,17 @@ def create_handler(name, path, description, tags, plugins):
     config = {
             'project': {
                 'name': name,
-                'description': description,
                 'path': path,
-                'tags': tags,
                 },
             }
 
-    if len(plugins) > 0:
+    if description:
+        config['project']['description'] = description
+
+    if tags:
+        config['project']['tags'] = tags
+
+    if plugins:
         _plugins = dict()
         for plugin in plugins:
             _plugins[plugin] = True
