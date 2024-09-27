@@ -223,9 +223,10 @@ def _list_complete(selected_columns):
 @Command('create', help='Create a environment')
 @Argument('name', help='Environment name')
 @Argument('path', help='Environment path')
+@Argument('--description', help='Environment description')
 @Argument('--plugins', '-p', type=lambda raw: raw.split(','), default=[],
           help='Plugin list to be installed')
-def create_handler(name, path, plugins):
+def create_handler(name, path, description, plugins):
     _check_xenv_launched()
 
     # TODO Move this logic to init
@@ -238,6 +239,7 @@ def create_handler(name, path, plugins):
     config = {
             'project': {
                 'name': name,
+                'description': description,
                 'path': path,
                 }
             }
