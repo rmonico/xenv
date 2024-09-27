@@ -339,3 +339,6 @@ new [description:"Autodetect when config command is being ran from a plugin" ent
 time 1724855403
 new [description:"New command: rename environment" entry:"1724855403" modified:"1724855403" status:"pending" tags:"feature" tags_feature:"x" uuid:"b07333f6-b1a5-4159-ba30-fc8ba392843f"]
 ---
+time 1727467661
+new [description:"List command: when a environment has null description command crashs" entry:"1727467661" modified:"1727467661" status:"pending" tags:"bug" tags_bug:"x" uuid:"a6660853-6263-469c-9dd5-b331d81d776a"]
+---

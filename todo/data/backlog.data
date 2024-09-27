@@ -93,3 +93,4 @@
 {"description":"Create a global configuration to load plugins on every environment","end":"20240726T141032Z","entry":"20240726T135807Z","modified":"20240726T141032Z","status":"completed","uuid":"514b696c-dac7-4413-9175-136feee9a675","tags":["feature"]}
 {"description":"Autodetect when config command is being ran from a plugin","entry":"20240805T164005Z","modified":"20240805T164005Z","status":"pending","uuid":"771338b6-f68c-475d-8040-6012d5fbfd08","tags":["feature"]}
 {"description":"New command: rename environment","entry":"20240828T143003Z","modified":"20240828T143003Z","status":"pending","uuid":"b07333f6-b1a5-4159-ba30-fc8ba392843f","tags":["feature"]}
+{"description":"List command: when a environment has null description command crashs","entry":"20240927T200741Z","modified":"20240927T200741Z","status":"pending","uuid":"a6660853-6263-469c-9dd5-b331d81d776a","tags":["bug"]}
