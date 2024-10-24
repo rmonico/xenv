@@ -117,19 +117,22 @@ def _columns(raw):
           # choices=['name', 'description', 'path', 'tags', 'plugins', 'remote'],
           help='Select columns to print (default: name,description,path other '
           'possible columns: tags,plugins,remote)')
-def list_handler(raw, columns):
+@Argument('filter', default='', nargs='?', help='Filter projects by name')
+def list_handler(raw, columns, filter):
     if raw:
-        _list_raw()
+        _list_raw(filter)
     else:
-        _list_complete(columns)
+        _list_complete(columns, filter)
 
 
-def _list_raw():
+def _list_raw(filter):
     for environment in _xenv_environments():
-        print(environment['project']['name'])
+        project_name = environment['project']['name']
+        if filter in project_name:
+            print(project_name)
 
 
-def _list_complete(selected_columns):
+def _list_complete(selected_columns, filter):
     def _remote_getter(data):
         path = os.path.expanduser(data['project']['path'])
 
@@ -199,6 +202,9 @@ def _list_complete(selected_columns):
     data.append([column['title'] for column in columns])
 
     for env_data in _xenv_environments():
+        project_name = env_data['project']['name']
+        if filter not in project_name:
+            continue
         line = list()
         for column in columns:
             cell = column['getter'](env_data)
