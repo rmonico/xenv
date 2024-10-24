@@ -94,3 +94,6 @@
 {"description":"Autodetect when config command is being ran from a plugin","entry":"20240805T164005Z","modified":"20240805T164005Z","status":"pending","uuid":"771338b6-f68c-475d-8040-6012d5fbfd08","tags":["feature"]}
 {"description":"New command: rename environment","entry":"20240828T143003Z","modified":"20240828T143003Z","status":"pending","uuid":"b07333f6-b1a5-4159-ba30-fc8ba392843f","tags":["feature"]}
 {"description":"List command: when a environment has null description command crashs","entry":"20240927T200741Z","modified":"20240927T200741Z","status":"pending","uuid":"a6660853-6263-469c-9dd5-b331d81d776a","tags":["bug"]}
+{"description":"Github plugin: command to notify when PR is approved\/rejected","entry":"20241023T143740Z","modified":"20241023T143740Z","status":"pending","uuid":"2a1fee3f-a9bc-40ce-8c4e-c09fa922dc3c","tags":["feature"]}
+{"description":"List command: filter projects by description","entry":"20241024T142023Z","modified":"20241024T142023Z","status":"pending","uuid":"1ed0c186-82e4-436c-8606-8ff7d96d1cbe","tags":["feature"]}
+{"description":"New command: move environment to another folder","entry":"20241024T143038Z","modified":"20241024T143038Z","status":"pending","uuid":"41f7421c-d152-4ebf-8912-ef104b90d79b","tags":["feature"]}

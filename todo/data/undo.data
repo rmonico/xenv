@@ -342,3 +342,12 @@ new [description:"New command: rename environment" entry:"1724855403" modified:"
 time 1727467661
 new [description:"List command: when a environment has null description command crashs" entry:"1727467661" modified:"1727467661" status:"pending" tags:"bug" tags_bug:"x" uuid:"a6660853-6263-469c-9dd5-b331d81d776a"]
 ---
+time 1729694260
+new [description:"Github plugin: command to notify when PR is approved\/rejected" entry:"1729694260" modified:"1729694260" status:"pending" tags:"feature" tags_feature:"x" uuid:"2a1fee3f-a9bc-40ce-8c4e-c09fa922dc3c"]
+---
+time 1729779623
+new [description:"List command: filter projects by description" entry:"1729779623" modified:"1729779623" status:"pending" tags:"feature" tags_feature:"x" uuid:"1ed0c186-82e4-436c-8606-8ff7d96d1cbe"]
+---
+time 1729780238
+new [description:"New command: move environment to another folder" entry:"1729780238" modified:"1729780238" status:"pending" tags:"feature" tags_feature:"x" uuid:"41f7421c-d152-4ebf-8912-ef104b90d79b"]
+---
