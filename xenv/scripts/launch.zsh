@@ -15,6 +15,8 @@ function xenv() {
 
 export PS1
 
-if [ -n "$XENV_ENVIRONMENT" ]; then
-    xenv load "$XENV_ENVIRONMENT"
+if [ -n "$XENV_AUTOLOAD" ]; then
+    xenv load "$XENV_AUTOLOAD"
+
+    unset XENV_AUTOLOAD
 fi
