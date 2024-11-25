@@ -351,3 +351,6 @@ new [description:"List command: filter projects by description" entry:"172977962
 time 1729780238
 new [description:"New command: move environment to another folder" entry:"1729780238" modified:"1729780238" status:"pending" tags:"feature" tags_feature:"x" uuid:"41f7421c-d152-4ebf-8912-ef104b90d79b"]
 ---
+time 1732542732
+new [description:"Is not creating \"xenv\" command when installed from pip" entry:"1732542732" modified:"1732542732" status:"pending" tags:"bug" tags_bug:"x" uuid:"af04f6bb-76c3-4ef5-adca-f39fdb457b3b"]
+---
