@@ -379,7 +379,7 @@ argparse_decorations.make_verbosity_argument()
 
 def _get_version():
     from importlib import resources
-    return resources.files('xenv').joinpath('__version__').read_text()
+    return resources.files('xenv').joinpath('__version__').read_text().strip()
 
 
 argparse_decorations.make_version_command(_get_version())
