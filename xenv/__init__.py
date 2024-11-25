@@ -182,6 +182,7 @@ class Updater:
     def unset(self, *variables):
         for variable in variables:
             self._out(f'unset {variable}')
+            os.environ.pop(variable)
 
     def unset_function(self, *functions):
         for function in functions:
