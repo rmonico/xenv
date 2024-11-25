@@ -137,7 +137,7 @@ def _visit_plugins(visitor, pre_visitor, no_plugin_visitor):
 
         visitor(plugin_name, configs)
 
-        sys.path.pop()
+    sys.path.pop(0)
 
 
 def _no_plugin_visitor(plugin_name, configs):
