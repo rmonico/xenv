@@ -174,8 +174,10 @@ class Updater:
         self._out(f'cd "{folder}"')
 
     def export(self, variable, value):
-        value = shlex.quote(str(value))
-        self._out(f'export {variable}={value}')
+        value = str(value)
+        escaped_value = shlex.quote(value)
+        self._out(f'export {variable}={escaped_value}')
+        os.environ[variable] = value
 
     def unset(self, *variables):
         for variable in variables:
