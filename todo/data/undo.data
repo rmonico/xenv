@@ -354,3 +354,31 @@ new [description:"New command: move environment to another folder" entry:"172978
 time 1732542732
 new [description:"Is not creating \"xenv\" command when installed from pip" entry:"1732542732" modified:"1732542732" status:"pending" tags:"bug" tags_bug:"x" uuid:"af04f6bb-76c3-4ef5-adca-f39fdb457b3b"]
 ---
+time 1732542864
+old [description:"List command: filter projects by description" entry:"1729779623" modified:"1729779623" status:"pending" tags:"feature" tags_feature:"x" uuid:"1ed0c186-82e4-436c-8606-8ff7d96d1cbe"]
+new [description:"List command: filter projects by description" end:"1732542864" entry:"1729779623" modified:"1732542864" status:"completed" tags:"feature" tags_feature:"x" uuid:"1ed0c186-82e4-436c-8606-8ff7d96d1cbe"]
+---
+time 1732542917
+old [description:"List command: when a environment has null description command crashs" entry:"1727467661" modified:"1727467661" status:"pending" tags:"bug" tags_bug:"x" uuid:"a6660853-6263-469c-9dd5-b331d81d776a"]
+new [description:"List command: when a environment has null description command crashs" end:"1732542917" entry:"1727467661" modified:"1732542917" status:"completed" tags:"bug" tags_bug:"x" uuid:"a6660853-6263-469c-9dd5-b331d81d776a"]
+---
+time 1732542974
+old [description:"Load command: Is loading unexisting environments" entry:"1718640833" modified:"1719845645" status:"pending" tags:"bug" tags_bug:"x" uuid:"9b02ccf9-d559-484d-90ad-67ee1668faed"]
+new [description:"Load command: Is loading unexisting environments" end:"1732542974" entry:"1718640833" modified:"1732542974" status:"completed" tags:"bug" tags_bug:"x" uuid:"9b02ccf9-d559-484d-90ad-67ee1668faed"]
+---
+time 1732543003
+old [description:"New command: switch to quickly switch environments" entry:"1719845999" modified:"1719845999" status:"pending" tags:"feature" tags_feature:"x" uuid:"5be9bfd1-fefd-49d4-aba3-69f13282cebf"]
+new [description:"New command: switch to quickly switch environments" end:"1732543003" entry:"1719845999" modified:"1732543003" status:"completed" tags:"feature" tags_feature:"x" uuid:"5be9bfd1-fefd-49d4-aba3-69f13282cebf"]
+---
+time 1732543020
+old [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" entry:"1643317713" modified:"1720018649" status:"pending" tags:"bug" tags_bug:"x" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
+new [annotation_1643317726:"Pensar melhor nisso, a princípio não teria problema" description:"Não permitir mais de um ambiente carregado" end:"1732543020" entry:"1643317713" modified:"1732543020" status:"completed" tags:"bug" tags_bug:"x" uuid:"f1962918-1f88-499b-b2bd-597e4f80a11b"]
+---
+time 1732543041
+old [description:"Rename command" entry:"1637489633" modified:"1721752893" status:"pending" tags:"feature" tags_feature:"x" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+new [annotation_1732543041:"Duplicated" description:"Rename command" end:"1732543041" entry:"1637489633" modified:"1732543041" status:"deleted" tags:"feature" tags_feature:"x" uuid:"6dc96ec1-9efe-4901-be64-c287b277d70c"]
+---
+time 1732543150
+old [annotation_1720018111:"Happens on xenv environment" description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" entry:"1720018091" modified:"1720018111" status:"pending" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
+new [annotation_1720018111:"Happens on xenv environment" description:"Unload command: has some problem on PATH_EXTENSION_LENGTH" end:"1732543150" entry:"1720018091" modified:"1732543150" status:"completed" tags:"bug" tags_bug:"x" uuid:"22ee3878-980e-44c7-add8-d8dfdf5f3483"]
+---
