@@ -1,5 +1,5 @@
 import os
-from xenv import Loader, Unloader, config, updater, xenv_home, \
+from xenv import config, updater, xenv_home, \
         _xenv_environments_dir
 
 
@@ -24,8 +24,7 @@ def _path_extensions(environment):
         return ':'.join(paths)
 
 
-@Loader
-def load():
+def load(environment, configs):
     updater._include('pre_load')
 
     environment = os.environ['XENV_ENVIRONMENT']
@@ -42,14 +41,17 @@ def load():
     updater.print(f'Environment "{project_name}" loaded')
 
 
-@Unloader
-def unloader():
+def unload(environment, configs):
+    project_name = config('.project.name')
+
     updater.unset_function('preexec', 'precmd')
 
-    path_extension_length = int(os.environ['PATH_EXTENSION_LENGTH'])
+    if 'PATH_EXTENSION_LENGTH' in os.environ:
+        path_extension_length = int(os.environ['PATH_EXTENSION_LENGTH'])
 
-    updater.export('PATH', os.environ['PATH'][path_extension_length+1:])
-    updater.unset('XENV_ENVIRONMENT', 'PATH_EXTENSION_LENGTH')
+        updater.export('PATH', os.environ['PATH'][path_extension_length+1:])
+        updater.unset('PATH_EXTENSION_LENGTH')
 
-    project_name = config('.project.name')
+    updater.unset('XENV_ENVIRONMENT')
+
     updater.print(f'\"{project_name}\" unloaded')

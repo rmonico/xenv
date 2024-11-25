@@ -1,7 +1,7 @@
-from . import XEnvException, xenv_home, _xenv_environments, \
+from . import XEnvException, xenv_home, _visit_environments, \
         _xenv_environment_dir, _xenv_config_file, \
-        _get_default_environment_or_active, config, Updater, Loader, \
-        Unloader, _get_script, _visit_plugins, _no_plugin_visitor
+        _get_default_environment_or_active, config, Updater, _get_script, \
+        _visit_plugins, _no_plugin_visitor
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -40,61 +40,116 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
-# TODO Move this method and next one to init
-def _load_plugin(plugin_name, configs):
-    if len(Loader._handlers) == 0:
-        _logger.debug(f'Plugin "{plugin_name}" has no "loader" '
-                      'defined')
-
-    for loader in Loader._handlers:
-        loader()
-
-
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load_handler(environment):
-    _check_xenv_launched()
+    _check_has_environment_loaded()
+
+    _check_environment_exists(environment)
 
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
 
-        os.environ['XENV_ENVIRONMENT'] = environment
+        _do_load(environment)
 
-        _visit_plugins(
-            pre_visitor=lambda *args: Loader._reset(),
-            visitor=_load_plugin,
-            no_plugin_visitor=_no_plugin_visitor)
+
+def _check_environment_exists(environment):
+    found = False
+
+    def visitor(env):
+        if environment == env['project']['name']:
+            nonlocal found
+            found = True
+            return False
+
+        return True
+
+    _visit_environments(visitor)
+
+    if not found:
+        raise XEnvException(f'Environment \"{environment}\" does not exists')
+
+
+def _do_load(environment):
+    os.environ['XENV_ENVIRONMENT'] = environment
+
+    from xenv_plugin import base
+    base.load(environment, {})
+
+    _visit_plugins(
+        visitor=lambda module, plugin_name, configs:
+        _do_load_module(environment, module, configs),
+        no_plugin_visitor=_no_plugin_visitor,
+        reverse_plugins=False)
+
+
+def _do_load_module(environment, module, configs):
+    if hasattr(module, 'load'):
+        module.load(environment, configs)
+
+    return True
 
 
 # TODO Move to init
-def _check_has_environment_loaded():
+def _check_has_environment_not_loaded():
     _check_xenv_launched()
 
     if 'XENV_ENVIRONMENT' not in os.environ:
         raise XEnvException('No environment loaded')
 
 
-# TODO Move this method and next one to init
-def _unload_plugin(plugin_name, configs):
-    if len(Unloader._handlers) == 0:
-        _logger.debug(f'Plugin "{plugin_name}" has no "unloader" '
-                      'defined')
+def _check_has_environment_loaded():
+    _check_xenv_launched()
 
-    for unloader in Unloader._handlers:
-        unloader()
+    if 'XENV_ENVIRONMENT' in os.environ:
+        msg = f'Environment \"{os.environ["XENV_ENVIRONMENT"]}\" already ' \
+                'loaded'
+
+        raise XEnvException(msg)
 
 
 @Command('unload', help='Unload the environment')
 def unload_handler():
-    _check_has_environment_loaded()
+    _check_has_environment_not_loaded()
 
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
 
-        _visit_plugins(
-            pre_visitor=lambda *args: Unloader._reset(),
-            visitor=_unload_plugin,
-            no_plugin_visitor=_no_plugin_visitor)
+        environment = os.environ['XENV_ENVIRONMENT']
+
+        _do_unload(environment)
+
+
+def _do_unload(environment):
+    _visit_plugins(
+        visitor=lambda module, name, configs:
+        _do_unload_module(environment, module, configs),
+        no_plugin_visitor=_no_plugin_visitor,
+        reverse_plugins=True)
+
+    from xenv_plugin import base
+    base.unload(environment, {})
+
+
+def _do_unload_module(environment, module, configs):
+    if hasattr(module, 'unload'):
+        module.unload(environment, configs)
+
+    return True
+
+
+@Command('switch', help='Unload current environment and load another one')
+@Argument('environment', help='Environment to load')
+def switch_handler(environment):
+    _check_has_environment_not_loaded()
+
+    old_environment = os.environ['XENV_ENVIRONMENT']
+
+    with open(xenv_update, 'w') as update_file:
+        xenv.updater = Updater(update_file)
+
+        _do_unload(old_environment)
+        _do_load(environment)
 
 
 def _columns(raw):
@@ -126,10 +181,15 @@ def list_handler(raw, columns, filter):
 
 
 def _list_raw(filter):
-    for environment in _xenv_environments():
-        project_name = environment['project']['name']
-        if filter in project_name:
-            print(project_name)
+    def visit(env):
+        name = env['project']['name']
+
+        if filter in name:
+            print(name)
+
+        return True
+
+    _visit_environments(visit)
 
 
 def _list_complete(selected_columns, filter):
@@ -201,11 +261,13 @@ def _list_complete(selected_columns, filter):
     data = list()
     data.append([column['title'] for column in columns])
 
-    for env_data in _xenv_environments():
+    def visit(env_data):
         project_name = env_data['project']['name']
         if filter not in project_name:
-            continue
+            return True
+
         line = list()
+
         for column in columns:
             cell = column['getter'](env_data)
             line.append(cell)
@@ -213,6 +275,10 @@ def _list_complete(selected_columns, filter):
                 column['max_length'] = cell_len
 
         data.append(line)
+
+        return True
+
+    _visit_environments(visit)
 
     for data_line in data:
         line = ''

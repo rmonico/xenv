@@ -44,15 +44,15 @@ def _xenv_environments_dir():
     return os.path.join(xenv_home(), 'environments')
 
 
-def _xenv_environments():
-    environments = list()
+def _visit_environments(visitor):
     for entry in os.scandir(_xenv_environments_dir()):
         if entry.is_dir():
             with open(os.path.join(entry.path, 'config.yaml')) as config_file:
                 config = yaml.safe_load(config_file)
-                environments.append(config)
+                keep_visiting = visitor(config)
 
-    return sorted(environments, key=lambda e: e['project']['name'])
+                if not keep_visiting:
+                    break
 
 
 def _xenv_environment_dir(environment):
@@ -111,31 +111,32 @@ def config(entry_path, source=None, scope='environment'):
     return value
 
 
-def _visit_plugins(visitor, pre_visitor, no_plugin_visitor):
+def _visit_plugins(visitor, no_plugin_visitor, reverse_plugins):
     import sys
     sys.path.insert(0, _xenv_plugins_dir())
 
-    raw_plugins = (config('.plugins') or {})
+    plugins = (config('.plugins') or {})
     default_plugins = config('.default_plugins', scope='global') or {}
-    raw_plugins.update(default_plugins)
+    plugins.update(default_plugins)
 
-    plugins = {'base': {}}
-    plugins.update(raw_plugins)
-    for plugin_name, configs in plugins.items():
-        if pre_visitor:
-            pre_visitor(plugin_name, configs)
+    items = plugins.items()
 
+    if reverse_plugins:
+        items = reversed(items)
+
+    for plugin_name, configs in items:
         from importlib import import_module
         try:
-            import_module(f'xenv_plugin.{plugin_name}')
+            module = import_module(f'xenv_plugin.{plugin_name}')
         except ModuleNotFoundError:
             try:
-                import_module(plugin_name, 'xenv.plugin')
+                module = import_module(plugin_name, 'xenv.plugin')
             except ModuleNotFoundError:
                 if no_plugin_visitor:
                     no_plugin_visitor(plugin_name, configs)
+                continue
 
-        visitor(plugin_name, configs)
+        visitor(module, plugin_name, configs)
 
     sys.path.pop(0)
 
@@ -146,33 +147,6 @@ def _no_plugin_visitor(plugin_name, configs):
     _logger.error(f'Plugin not found: "{plugin_name}". '
                   'Environment load aborted.')
     sys.exit(1)
-
-
-class AbstractMetadataDecoration(object):
-
-    _handlers = list()
-
-    def __init__(self, obj):
-        self._register(obj)
-
-    def __call__(self, obj):
-        self._register(obj)
-
-    @classmethod
-    def _register(clss, obj):
-        clss._handlers.append(obj)
-
-    @classmethod
-    def _reset(clss):
-        clss._handlers = list()
-
-
-class Loader(AbstractMetadataDecoration):
-    pass
-
-
-class Unloader(AbstractMetadataDecoration):
-    pass
 
 
 class EnvironmentLoadException(Exception):
