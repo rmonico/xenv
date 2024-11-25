@@ -12,16 +12,19 @@ _xenv() {
                 'config:Configuration management'
             )
 
-            _describe 'command' commands
+            _describe 'Command' commands
             ;;
 
         "xenv load")
-            local environments="$(xenv list --raw)"
+            local -a environments=()
 
-            _arguments "2:environments:($environments)"
+            local IFS=$'\n'
 
-            # TODO Fazer do jeito abaixo, tem que adaptar o comando list pra devolver a descrição dos ambientes
-            # _describe 'environments' ($(xenv list --raw))
+            for env in $(xenv list --columns name,description | tail -n +2 | sed 's/ \+$//' | sed 's/ \+/:/'); do
+              environments+=("$env")
+            done
+
+            _describe 'Environment' environments
             ;;
     esac
 }
