@@ -143,6 +143,8 @@ def _do_unload_module(environment, module, configs):
 def switch_handler(environment):
     _check_has_environment_not_loaded()
 
+    _check_environment_exists(environment)
+
     old_environment = os.environ['XENV_ENVIRONMENT']
 
     with open(xenv_update, 'w') as update_file:
