@@ -7,15 +7,17 @@ _xenv() {
                 'launch-zsh:Print the launch script for ZSH'
                 'load:Load a environment'
                 'unload:Unload the environment'
+                'switch:Switch to a new environment'
                 'list:List environments'
                 'create:Create a environment'
                 'config:Configuration management'
+                'version:Show version'
             )
 
             _describe 'Command' commands
             ;;
 
-        "xenv load")
+        "xenv load" | "xenv switch")
             local -a environments=()
 
             local IFS=$'\n'
