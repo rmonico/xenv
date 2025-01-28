@@ -111,7 +111,7 @@ def config(entry_path, source=None, scope='environment'):
     return value
 
 
-def _visit_plugins(visitor, no_plugin_visitor, reverse_plugins):
+def _visit_plugins(visitor, invalid_plugin_visitor, reverse_plugins):
     import sys
     sys.path.insert(0, _xenv_plugins_dir())
 
@@ -132,8 +132,8 @@ def _visit_plugins(visitor, no_plugin_visitor, reverse_plugins):
             try:
                 module = import_module(plugin_name, 'xenv.plugin')
             except ModuleNotFoundError:
-                if no_plugin_visitor:
-                    no_plugin_visitor(plugin_name, configs)
+                if invalid_plugin_visitor:
+                    invalid_plugin_visitor(plugin_name, configs)
                 continue
 
         visitor(module, plugin_name, configs)
@@ -141,7 +141,7 @@ def _visit_plugins(visitor, no_plugin_visitor, reverse_plugins):
     sys.path.pop(0)
 
 
-def _no_plugin_visitor(plugin_name, configs):
+def _invalid_plugin_visitor(plugin_name, configs):
     # FIXME Should check every plugin before start load to
     # avoid exit with inconsistent environment
     _logger.error(f'Plugin not found: "{plugin_name}". '

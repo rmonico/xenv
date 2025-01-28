@@ -1,7 +1,7 @@
 from . import XEnvException, xenv_home, _visit_environments, \
         _xenv_environment_dir, _xenv_config_file, \
         _get_default_environment_or_active, config, Updater, _get_script, \
-        _visit_plugins, _no_plugin_visitor
+        _visit_plugins, _invalid_plugin_visitor
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -79,7 +79,7 @@ def _do_load(environment):
     _visit_plugins(
         visitor=lambda module, plugin_name, configs:
         _do_load_module(environment, module, configs),
-        no_plugin_visitor=_no_plugin_visitor,
+        invalid_plugin_visitor=_invalid_plugin_visitor,
         reverse_plugins=False)
 
 
@@ -124,7 +124,7 @@ def _do_unload(environment):
     _visit_plugins(
         visitor=lambda module, name, configs:
         _do_unload_module(environment, module, configs),
-        no_plugin_visitor=_no_plugin_visitor,
+        invalid_plugin_visitor=_invalid_plugin_visitor,
         reverse_plugins=True)
 
     from xenv_plugin import base
