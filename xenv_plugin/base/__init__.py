@@ -41,6 +41,10 @@ def load(environment, configs):
     updater.print(f'Environment "{project_name}" loaded')
 
 
+def apply(environment, configs):
+    pass
+
+
 def unload(environment, configs):
     project_name = config('.project.name')
 

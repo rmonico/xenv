@@ -323,12 +323,17 @@ def create_handler(name, path, description, tags, plugins):
     if tags:
         config['project']['tags'] = tags
 
-    if plugins:
-        _plugins = dict()
-        for plugin in plugins:
-            _plugins[plugin] = True
+    plugins = {}
 
-        config['plugins'] = _plugins
+    from xenv_plugin import base
+    base.apply(name, {})
+
+    _visit_plugins(
+        visitor=lambda module, plugin_name, configs: _do_apply_plugin(),
+        invalid_plugin_visitor=None,
+        reverse_plugins=False)
+
+    config['plugins'] = plugins
 
     config_file_name = _xenv_config_file(name, 'environment')
     _logger.debug('Creating config file at "%s"', config_file_name)
@@ -341,6 +346,10 @@ def create_handler(name, path, description, tags, plugins):
     os.makedirs(path, exist_ok=True)
 
     print(f'Environment "{name}" created successfully!')
+
+
+def _do_apply_plugin():
+    pass
 
 
 @Command('config', help='Configuration management')
