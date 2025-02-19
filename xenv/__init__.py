@@ -6,6 +6,11 @@ import sys
 import yaml
 
 
+def version():
+    from importlib import resources
+    return resources.files('xenv').joinpath('__version__').read_text().strip()
+
+
 _logger = logging.getLogger(__name__)
 
 

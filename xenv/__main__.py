@@ -1,7 +1,7 @@
 from . import XEnvException, xenv_home, _visit_environments, \
         _xenv_environment_dir, _xenv_config_file, \
         _get_default_environment_or_active, config, Updater, _get_script, \
-        _visit_plugins, _invalid_plugin_visitor
+        _visit_plugins, _invalid_plugin_visitor, version
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -379,12 +379,7 @@ def config_file_path_handler(environment=None, _global=False):
 argparse_decorations.make_verbosity_argument()
 
 
-def _get_version():
-    from importlib import resources
-    return resources.files('xenv').joinpath('__version__').read_text().strip()
-
-
-argparse_decorations.make_version_command(_get_version())
+argparse_decorations.make_version_command(version())
 
 
 def main():
