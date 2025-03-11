@@ -109,3 +109,4 @@
 {"description":"List command: improve filters","entry":"20241219T131129Z","modified":"20241219T131129Z","status":"pending","uuid":"1dfe0cd3-3d3f-4746-af65-eda3f474e0a6","tags":["feature"]}
 {"description":"List command: improve filters","entry":"20241219T131129Z","modified":"20241219T131156Z","status":"pending","uuid":"1dfe0cd3-3d3f-4746-af65-eda3f474e0a6","annotations":[{"entry":"20241219T131156Z","description":"Support format \"field=value\""}],"tags":["feature"]}
 {"description":"Unload command: something is wrong when switch environments","entry":"20250107T141202Z","modified":"20250107T141202Z","status":"pending","uuid":"e7bf906a-b10d-4c24-a773-9d21b6885d36","tags":["bug"]}
+{"description":"List command: add a column to check if env path exists","entry":"20250311T152239Z","modified":"20250311T152239Z","status":"pending","uuid":"bfe556b1-36a5-4cbb-903b-4bf27aade29a","tags":["feature"]}
