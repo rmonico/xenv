@@ -1,7 +1,8 @@
 from . import XEnvException, xenv_home, _visit_environments, \
         _xenv_environment_dir, _xenv_config_file, \
-        _get_default_environment_or_active, config, Updater, _get_script, \
-        _visit_plugins, _invalid_plugin_visitor
+        _get_default_environment_or_active, FileNotFoundException, \
+        KeyNotObjectException, KeyNotFoundException, config, Updater, \
+        _get_script, _visit_plugins, _invalid_plugin_visitor
 import xenv
 import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
@@ -353,25 +354,39 @@ def create_handler(name, path, description, tags, plugins):
 @SubCommand('get', help='Get a configuration entry')
 @Argument('entry_path', help='Entry to get')
 def config_handler(*args, **kwargs):
-    value = config(*args, **kwargs)
+    try:
+        value = config(*args, **kwargs)
+    except FileNotFoundException as e:
+        sys.stderr.write(e.message() + '\n')
+        return 1
+    except KeyNotFoundException as e:
+        sys.stderr.write(e.message() + '\n')
+        return 2
+    except KeyNotObjectException as e:
+        sys.stderr.write(e.message() + '\n')
+        return 3
 
     if isinstance(value, dict):
         print(yaml.dump(value), end='')
+    elif type(value) == list:
+        for item in value:
+            print(f'- {item}')
+    elif value is None:
+        print('null')
     else:
-        if value:
-            print(str(value), end='')
+        print(str(value), end='')
 
 
 @Command('config')
 @SubCommand('path', help='Get configuration file path')
-def config_file_path_handler(environment=None, _global=False):
-    _logger.info(f'Getting config file path for environment "{environment}" '
-                 f'({"" if _global else "non "}globally)')
+def config_file_path_handler(source=None, scope='environment'):
+    _logger.info(f'Getting config file path for "{source}" '
+                 f'({scope})')
 
-    environment = _get_default_environment_or_active(environment)
+    source = _get_default_environment_or_active(source)
 
     # FIXME Probably not working any more
-    config_file_name = _xenv_config_file(environment, _global)
+    config_file_name = _xenv_config_file(source, scope)
 
     print(config_file_name)
 

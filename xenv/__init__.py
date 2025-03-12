@@ -87,6 +87,37 @@ def _xenv_config_file(environment, scope):
     return config_file
 
 
+class KeyException(Exception):
+
+    def __init__(self, basemsg, filename, key):
+        self.basemsg = basemsg
+        self.filename = filename
+        self.key = key
+
+    def message(self):
+        return f'{self.basemsg}: "{self.key}" ({self.filename})'
+
+class FileNotFoundException(Exception):
+
+    def __init__(self, filename):
+        self.filename = filename
+
+    def message(self):
+        return f'File not found: "{self.filename}"'
+
+
+class KeyNotObjectException(KeyException):
+
+    def __init__(self, key, filename):
+        super().__init__('Key not is not a yaml object', key, filename)
+
+
+class KeyNotFoundException(KeyException):
+
+    def __init__(self, key, filename):
+        super().__init__('Key not found', key, filename)
+
+
 def config(entry_path, source=None, scope='environment'):
     _logger.info(f'Getting {entry_path} for scope "{scope}"'
                  f'and source "{source}"')
@@ -96,10 +127,22 @@ def config(entry_path, source=None, scope='environment'):
     config_file_name = _xenv_config_file(source, scope)
 
     if not os.path.exists(config_file_name):
-        return None
+        raise FileNotFoundException(config_file_name)
 
-    from .yq import yq
-    value = yq(entry_path, config_file_name)
+    with open(config_file_name) as file:
+        raw_contents = yaml.safe_load(file)
+
+    value = raw_contents
+
+    if entry_path != '.':
+        entries = entry_path.split('.')
+        for i, key in enumerate(entries):
+            if type(value) != dict:
+                raise KeyNotObjectException(config_file_name, '.'.join(entries[:i]))
+            elif key not in value:
+                raise KeyNotFoundException(config_file_name, '.'.join(entries[:i+1]))
+
+            value = value[key]
 
     if isinstance(value, str):
         value = os.path.expanduser(value)
