@@ -403,8 +403,9 @@ argparse_decorations.make_version_command(_get_version())
 
 
 def main():
-    argparse_decorations.parse_and_run()
+    return argparse_decorations.parse_and_run()
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    sys.exit(main())
