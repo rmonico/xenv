@@ -398,3 +398,6 @@ new [description:"Unload command: something is wrong when switch environments" e
 time 1741706559
 new [description:"List command: add a column to check if env path exists" entry:"1741706559" modified:"1741706559" status:"pending" tags:"feature" tags_feature:"x" uuid:"bfe556b1-36a5-4cbb-903b-4bf27aade29a"]
 ---
+time 1741873883
+new [description:"Create command: when use a existing name overwrite the environment" entry:"1741873883" modified:"1741873883" status:"pending" tags:"bug" tags_bug:"x" uuid:"822aec20-2e63-47a0-bf10-8f417c071007"]
+---

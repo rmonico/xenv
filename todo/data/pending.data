@@ -30,3 +30,4 @@
 [annotation_1734613916:"Support format \"field=value\"" description:"List command: improve filters" entry:"1734613889" modified:"1734613916" status:"pending" tags:"feature" tags_feature:"x" uuid:"1dfe0cd3-3d3f-4746-af65-eda3f474e0a6"]
 [description:"Unload command: something is wrong when switch environments" entry:"1736259122" modified:"1736259122" status:"pending" tags:"bug" tags_bug:"x" uuid:"e7bf906a-b10d-4c24-a773-9d21b6885d36"]
 [description:"List command: add a column to check if env path exists" entry:"1741706559" modified:"1741706559" status:"pending" tags:"feature" tags_feature:"x" uuid:"bfe556b1-36a5-4cbb-903b-4bf27aade29a"]
+[description:"Create command: when use a existing name overwrite the environment" entry:"1741873883" modified:"1741873883" status:"pending" tags:"bug" tags_bug:"x" uuid:"822aec20-2e63-47a0-bf10-8f417c071007"]
