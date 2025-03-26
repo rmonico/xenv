@@ -31,3 +31,5 @@
 [description:"Unload command: something is wrong when switch environments" entry:"1736259122" modified:"1736259122" status:"pending" tags:"bug" tags_bug:"x" uuid:"e7bf906a-b10d-4c24-a773-9d21b6885d36"]
 [description:"List command: add a column to check if env path exists" entry:"1741706559" modified:"1741706559" status:"pending" tags:"feature" tags_feature:"x" uuid:"bfe556b1-36a5-4cbb-903b-4bf27aade29a"]
 [description:"Create command: when use a existing name overwrite the environment" entry:"1741873883" modified:"1741873883" status:"pending" tags:"bug" tags_bug:"x" uuid:"822aec20-2e63-47a0-bf10-8f417c071007"]
+[description:"config function: Return dicts as SimpleNamespace, will break a lot of plugins" entry:"1743003643" modified:"1743003643" status:"pending" tags:"improvement" tags_improvement:"x" uuid:"ddac69b7-1e92-4856-8c4c-49cf96a0b7a6"]
+[description:"config function: Expand vars inside dictionaries recursively" entry:"1743003651" modified:"1743003651" status:"pending" tags:"improvement" tags_improvement:"x" uuid:"fb4c180b-41d1-46bf-9a04-4411141eaa7e"]

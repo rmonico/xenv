@@ -111,3 +111,5 @@
 {"description":"Unload command: something is wrong when switch environments","entry":"20250107T141202Z","modified":"20250107T141202Z","status":"pending","uuid":"e7bf906a-b10d-4c24-a773-9d21b6885d36","tags":["bug"]}
 {"description":"List command: add a column to check if env path exists","entry":"20250311T152239Z","modified":"20250311T152239Z","status":"pending","uuid":"bfe556b1-36a5-4cbb-903b-4bf27aade29a","tags":["feature"]}
 {"description":"Create command: when use a existing name overwrite the environment","entry":"20250313T135123Z","modified":"20250313T135123Z","status":"pending","uuid":"822aec20-2e63-47a0-bf10-8f417c071007","tags":["bug"]}
+{"description":"config function: Return dicts as SimpleNamespace, will break a lot of plugins","entry":"20250326T154043Z","modified":"20250326T154043Z","status":"pending","uuid":"ddac69b7-1e92-4856-8c4c-49cf96a0b7a6","tags":["improvement"]}
+{"description":"config function: Expand vars inside dictionaries recursively","entry":"20250326T154051Z","modified":"20250326T154051Z","status":"pending","uuid":"fb4c180b-41d1-46bf-9a04-4411141eaa7e","tags":["improvement"]}
