@@ -12,7 +12,7 @@ def _path_extensions(environment):
     if os.path.exists(environment_bin):
         paths.append(environment_bin)
 
-    plugins = (config('.plugins') or {})
+    plugins = config('plugins', default_getter=lambda e: {})
     for plugin_name, configs in plugins.items():
         bin_path = os.path.join(xenv_home(), 'plugins', 'xenv_plugin',
                                 plugin_name, 'bin')
@@ -34,15 +34,15 @@ def load(environment, configs):
         updater.export('PATH', f'{path_extensions}:{os.environ["PATH"]}')
         updater.export('PATH_EXTENSION_LENGTH', len(path_extensions))
 
-    project_name = config('.project.name')
-    project_path = config('.project.path')
+    project_name = config('project.name')
+    project_path = config('project.path')
 
     updater.cd(project_path)
     updater.print(f'Environment "{project_name}" loaded')
 
 
 def unload(environment, configs):
-    project_name = config('.project.name')
+    project_name = config('project.name')
 
     updater.unset_function('preexec', 'precmd')
 

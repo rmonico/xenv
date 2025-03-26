@@ -118,7 +118,11 @@ class KeyNotFoundException(KeyException):
         super().__init__('Key not found', key, filename)
 
 
-def config(entry_path, source=None, scope='environment'):
+def _raise_exception_getter(entry):
+    raise KeyNotFoundException(config_file_name, entry)
+
+
+def config(entry_path, source=None, scope='environment', default_getter=_raise_exception_getter):
     _logger.info(f'Getting {entry_path} for scope "{scope}"'
                  f'and source "{source}"')
 
@@ -140,7 +144,7 @@ def config(entry_path, source=None, scope='environment'):
             if type(value) != dict:
                 raise KeyNotObjectException(config_file_name, '.'.join(entries[:i]))
             elif key not in value:
-                raise KeyNotFoundException(config_file_name, '.'.join(entries[:i+1]))
+                return default_getter('.'.join(entries[:i+1]))
 
             value = value[key]
 
@@ -158,8 +162,8 @@ def _visit_plugins(visitor, invalid_plugin_visitor, reverse_plugins):
     import sys
     sys.path.insert(0, _xenv_plugins_dir())
 
-    plugins = (config('.plugins') or {})
-    default_plugins = config('.default_plugins', scope='global') or {}
+    plugins = config('plugins', default_getter=lambda e: {})
+    default_plugins = config('default_plugins', scope='global', default_getter=lambda e: {})
     plugins.update(default_plugins)
 
     items = plugins.items()
