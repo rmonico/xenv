@@ -228,6 +228,12 @@ class Updater:
             self._out(f'unset {variable}')
             os.environ.pop(variable)
 
+    def function(self, name, body):
+        self._out(f'''function {name} {{
+{body}
+}}
+''')
+
     def unset_function(self, *functions):
         for function in functions:
             self._out(f'unset -f {function}')
