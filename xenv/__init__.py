@@ -152,10 +152,6 @@ def config(entry_path, source=None, scope='environment', default_getter=_raise_e
         value = os.path.expanduser(value)
         value = os.path.expandvars(value)
 
-        return value
-
-    # TODO Expand vars inside dictionaries, recursively
-    # TODO Return dicts as SimpleNamespace, will break a lot of plugins
     return value
 
 
