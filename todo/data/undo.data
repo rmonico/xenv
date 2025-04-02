@@ -407,3 +407,6 @@ new [description:"config function: Return dicts as SimpleNamespace, will break a
 time 1743003651
 new [description:"config function: Expand vars inside dictionaries recursively" entry:"1743003651" modified:"1743003651" status:"pending" tags:"improvement" tags_improvement:"x" uuid:"fb4c180b-41d1-46bf-9a04-4411141eaa7e"]
 ---
+time 1743633156
+new [description:"Load command: is not adding to PATH base plugin bin folder" entry:"1743633156" modified:"1743633156" status:"pending" tags:"bug" tags_bug:"x" uuid:"5c48da27-0eb4-4cba-a4b7-b314dd19aa34"]
+---
