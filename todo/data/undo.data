@@ -410,3 +410,6 @@ new [description:"config function: Expand vars inside dictionaries recursively" 
 time 1743633156
 new [description:"Load command: is not adding to PATH base plugin bin folder" entry:"1743633156" modified:"1743633156" status:"pending" tags:"bug" tags_bug:"x" uuid:"5c48da27-0eb4-4cba-a4b7-b314dd19aa34"]
 ---
+time 1743774604
+new [description:"Git plugin: create auto fetch on load option" entry:"1743774604" modified:"1743774604" status:"pending" tags:"feature" tags_feature:"x" uuid:"f2d0e0b4-82a4-4af5-818a-2555d251c2ee"]
+---
