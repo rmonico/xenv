@@ -413,3 +413,10 @@ new [description:"Load command: is not adding to PATH base plugin bin folder" en
 time 1743774604
 new [description:"Git plugin: create auto fetch on load option" entry:"1743774604" modified:"1743774604" status:"pending" tags:"feature" tags_feature:"x" uuid:"f2d0e0b4-82a4-4af5-818a-2555d251c2ee"]
 ---
+time 1744143483
+new [description:"Openshift plugin: criar comando para recuperar os logs" entry:"1744143483" modified:"1744143483" status:"pending" tags:"feature" tags_feature:"x" uuid:"2c8aa506-52cd-44de-8979-aadc33408f71"]
+---
+time 1744143511
+old [description:"Openshift plugin: criar comando para recuperar os logs" entry:"1744143483" modified:"1744143483" status:"pending" tags:"feature" tags_feature:"x" uuid:"2c8aa506-52cd-44de-8979-aadc33408f71"]
+new [annotation_1744143511:"É interessante pois o nome do pod pode ser deduzido a partir do nome do projeto" description:"Openshift plugin: criar comando para recuperar os logs" entry:"1744143483" modified:"1744143511" status:"pending" tags:"feature" tags_feature:"x" uuid:"2c8aa506-52cd-44de-8979-aadc33408f71"]
+---
