@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+[[ "$1" =~ --?h(elp)? ]] && {
+  cat << EOF
+Muda o status do ambiente
+
+Uso: $(basename "$0") status
+
+Onde:
+
+status    Novo status (pode ser qualquer valor)
+EOF
+  exit 0
+}
+
+window_title="${@}"
+print -Pn "\e]2;[${window_title:q}]\a"
