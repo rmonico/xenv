@@ -33,6 +33,7 @@ def _path_extensions(environment):
 
 def load(environment, configs):
     updater._include('pre_load')
+    updater._include('cdhome')
 
     environment = os.environ['XENV_ENVIRONMENT']
     updater.export('XENV_ENVIRONMENT', environment)
@@ -51,7 +52,7 @@ def load(environment, configs):
 def unload(environment, configs):
     project_name = config('project.name')
 
-    updater.unset_function('preexec', 'precmd')
+    updater.unset_function('preexec', 'precmd', 'cdhome')
 
     if 'PATH_EXTENSION_LENGTH' in os.environ:
         path_extension_length = int(os.environ['PATH_EXTENSION_LENGTH'])
