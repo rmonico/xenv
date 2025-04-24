@@ -8,6 +8,7 @@ import argparse_decorations
 from argparse_decorations import Command, SubCommand, Argument
 import logging
 import os
+import subprocess
 import yaml
 
 
@@ -199,7 +200,6 @@ def _list_complete(selected_columns, filter):
     def _remote_getter(data):
         path = os.path.expanduser(data['project']['path'])
 
-        import subprocess
         process = subprocess.run('git remote -v'.split(' '), cwd=path,
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
@@ -375,6 +375,22 @@ def config_handler(*args, **kwargs):
         print('null')
     else:
         print(str(value), end='')
+
+
+@Command('config')
+@SubCommand('edit', help='Edit configuration file with default editor')
+def config_edit_handler(source=None, scope='environment'):
+    source = _get_default_environment_or_active(source)
+
+    # FIXME Probably not working any more
+    config_file_name = _xenv_config_file(source, scope)
+
+    if 'EDITOR' not in os.environ:
+        raise XEnvException('EDITOR variable doesnt exists')
+
+    editor = os.environ['EDITOR']
+
+    subprocess.run([editor, config_file_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 @Command('config')
