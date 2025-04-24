@@ -12,8 +12,15 @@ def _path_extensions(environment):
     if os.path.exists(environment_bin):
         paths.append(environment_bin)
 
-    plugins = config('plugins', default_getter=lambda e: {})
-    for plugin_name, configs in plugins.items():
+    configs = config('plugins', default_getter=lambda e: {})
+
+    plugins = list(configs.keys())
+    plugins.insert(0, 'base')
+
+    confs = list(configs.values())
+    confs.insert(0, {})
+
+    for plugin_name, configs in zip(plugins, confs):
         bin_path = os.path.join(xenv_home(), 'plugins', 'xenv_plugin',
                                 plugin_name, 'bin')
 
