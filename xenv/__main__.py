@@ -103,16 +103,6 @@ def _check_has_environment_not_loaded():
         raise XEnvException('No environment loaded')
 
 
-def _check_has_environment_loaded():
-    _check_xenv_launched()
-
-    if 'XENV_ENVIRONMENT' in os.environ:
-        msg = f'Environment \"{os.environ["XENV_ENVIRONMENT"]}\" already ' \
-                'loaded'
-
-        raise XEnvException(msg)
-
-
 @Command('unload', help='Unload the environment')
 def unload_handler():
     _check_has_environment_not_loaded()
