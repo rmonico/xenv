@@ -143,6 +143,22 @@ def _do_unload_module(environment, module, configs):
     return True
 
 
+@Command('reload', help='Reload current environment')
+def reload_handler():
+    _check_has_environment_not_loaded()
+
+    environment = os.environ['XENV_ENVIRONMENT']
+
+    _check_environment_exists(environment)
+
+    with open(xenv_update, 'w') as update_file:
+        xenv.updater = Updater(update_file)
+
+        _do_unload(environment)
+
+        _do_load(environment)
+
+
 @Command('switch', help='Unload current environment and load another one')
 @Argument('environment', help='Environment to load')
 def switch_handler(environment):
