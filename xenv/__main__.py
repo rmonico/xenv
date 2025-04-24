@@ -45,12 +45,15 @@ def _check_xenv_launched():
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
 def load_handler(environment):
-    _check_has_environment_loaded()
+    _check_xenv_launched()
 
     _check_environment_exists(environment)
 
     with open(xenv_update, 'w') as update_file:
         xenv.updater = Updater(update_file)
+
+        if 'XENV_ENVIRONMENT' in os.environ:
+            _do_unload(os.environ['XENV_ENVIRONMENT'])
 
         _do_load(environment)
 
