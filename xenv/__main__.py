@@ -159,22 +159,6 @@ def reload_handler():
         _do_load(environment)
 
 
-@Command('switch', help='Unload current environment and load another one')
-@Argument('environment', help='Environment to load')
-def switch_handler(environment):
-    _check_has_environment_not_loaded()
-
-    _check_environment_exists(environment)
-
-    old_environment = os.environ['XENV_ENVIRONMENT']
-
-    with open(xenv_update, 'w') as update_file:
-        xenv.updater = Updater(update_file)
-
-        _do_unload(old_environment)
-        _do_load(environment)
-
-
 def _columns(raw):
     choices = ['name', 'description', 'path', 'tags', 'plugins', 'remote']
 
