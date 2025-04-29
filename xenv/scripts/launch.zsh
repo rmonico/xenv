@@ -3,6 +3,8 @@ function xenv() {
 
     python -m xenv "$@"
 
+    local ret_code=$?
+
     [ -f "$XENV_UPDATE" ] && [ "$?" -eq 0 ] && {
         # echo "Updating env with $XENV_UPDATE"
         source "$XENV_UPDATE"
@@ -11,6 +13,8 @@ function xenv() {
     }
 
     unset XENV_UPDATE
+
+    return $ret_code
 }
 
 export PS1
