@@ -48,7 +48,7 @@ def _comma_separated_array(raw):
 
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
-@Argument('--flags', '-F', type=_comma_separated_array, help='Flags for plugins')
+@Argument('--flags', '-F', type=_comma_separated_array, default=[], help='Flags for plugins')
 def load_handler(environment, flags):
     _check_xenv_launched()
 
