@@ -42,9 +42,14 @@ def _check_xenv_launched():
     xenv_update = os.environ['XENV_UPDATE']
 
 
+def _comma_separated_array(raw):
+    return raw.split(',')
+
+
 @Command('load', help='Load a environment')
 @Argument('environment', help='Environment name')
-def load_handler(environment):
+@Argument('--flags', '-F', type=_comma_separated_array, help='Flags for plugins')
+def load_handler(environment, flags):
     _check_xenv_launched()
 
     _check_environment_exists(environment)
@@ -55,7 +60,7 @@ def load_handler(environment):
         if 'XENV_ENVIRONMENT' in os.environ:
             _do_unload(os.environ['XENV_ENVIRONMENT'])
 
-        _do_load(environment)
+        _do_load(environment, flags)
 
 
 def _check_environment_exists(environment):
@@ -75,22 +80,22 @@ def _check_environment_exists(environment):
         raise XEnvException(f'Environment \"{environment}\" does not exists')
 
 
-def _do_load(environment):
+def _do_load(environment, flags):
     os.environ['XENV_ENVIRONMENT'] = environment
 
     from xenv_plugin import base
-    base.load(environment, {})
+    base.load(environment, {}, flags)
 
     _visit_plugins(
         visitor=lambda module, plugin_name, configs:
-        _do_load_module(environment, module, configs),
+        _do_load_module(environment, module, configs, flags),
         invalid_plugin_visitor=_invalid_plugin_visitor,
         reverse_plugins=False)
 
 
-def _do_load_module(environment, module, configs):
+def _do_load_module(environment, module, configs, flags):
     if hasattr(module, 'load'):
-        module.load(environment, configs)
+        module.load(environment, configs, flags)
 
     return True
 
@@ -146,7 +151,7 @@ def reload_handler():
 
         _do_unload(environment)
 
-        _do_load(environment)
+        _do_load(environment, flags)
 
 
 def _columns(raw):

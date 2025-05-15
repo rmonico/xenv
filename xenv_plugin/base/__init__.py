@@ -31,7 +31,7 @@ def _path_extensions(environment):
         return ':'.join(paths)
 
 
-def load(environment, configs):
+def load(environment, configs, flags):
     updater._include('pre_load')
     updater._include('cdhome')
 
