@@ -20,7 +20,8 @@ function xenv() {
 export PS1
 
 if [ -n "$XENV_AUTOLOAD" ]; then
-    xenv load "$XENV_AUTOLOAD"
+    # TODO Change this flag to autoload and change in plugins
+    xenv load "$XENV_AUTOLOAD" -F quick
 
     unset XENV_AUTOLOAD
 fi
