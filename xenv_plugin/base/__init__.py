@@ -1,5 +1,5 @@
 import os
-from xenv import config, updater, xenv_home, \
+from xenv import config, xenv_home, \
         _xenv_environments_dir
 
 
@@ -31,7 +31,7 @@ def _path_extensions(environment):
         return ':'.join(paths)
 
 
-def load(environment, configs, flags):
+def load(environment, updater, configs, flags):
     updater._include('pre_load')
     updater._include('cdhome')
 
@@ -49,7 +49,7 @@ def load(environment, configs, flags):
     updater.print(f'Environment "{project_name}" loaded')
 
 
-def unload(environment, configs):
+def unload(environment, updater, configs):
     project_name = config('project.name')
 
     updater.unset_function('preexec', 'precmd', 'cdhome')

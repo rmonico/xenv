@@ -2,8 +2,9 @@ from . import XEnvException, xenv_home, _visit_environments, \
         _xenv_environment_dir, _xenv_config_file, \
         _get_default_environment_or_active, FileNotFoundException, \
         KeyNotObjectException, KeyNotFoundException, config, Updater, \
-        _get_script, _visit_plugins, _invalid_plugin_visitor
-import xenv
+        _get_script, _visit_plugins, _invalid_plugin_visitor, \
+        check_xenv_launched, check_environment_exists, \
+        check_has_environment_not_loaded
 import argparse_decorations
 from argparse_decorations import helpers, Command, SubCommand, Argument
 import logging
@@ -31,17 +32,6 @@ def launch_handler_handler():
         print(f'export XENV_HOME="{xenv_home()}"')
 
 
-# TODO Move to init
-def _check_xenv_launched():
-    if 'XENV_UPDATE' not in os.environ:
-        raise XEnvException(
-                'xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
-
-    global xenv_update
-
-    xenv_update = os.environ['XENV_UPDATE']
-
-
 def _comma_separated_array(raw):
     return raw.split(',')
 
@@ -50,37 +40,16 @@ def _comma_separated_array(raw):
 @Argument('environment', help='Environment name')
 @Argument('--flags', '-F', type=_comma_separated_array, default=[], help='Flags for plugins')
 def load_handler(environment, flags):
-    _check_xenv_launched()
-
-    _check_environment_exists(environment)
-
-    with open(xenv_update, 'w') as update_file:
-        xenv.updater = Updater(update_file)
+    with Updater.create() as updater:
+        check_environment_exists(environment)
 
         if 'XENV_ENVIRONMENT' in os.environ:
-            _do_unload(os.environ['XENV_ENVIRONMENT'])
+            _do_unload(os.environ['XENV_ENVIRONMENT'], updater)
 
-        _do_load(environment, flags)
-
-
-def _check_environment_exists(environment):
-    found = False
-
-    def visitor(env):
-        if environment == env['project']['name']:
-            nonlocal found
-            found = True
-            return False
-
-        return True
-
-    _visit_environments(visitor)
-
-    if not found:
-        raise XEnvException(f'Environment \"{environment}\" does not exists')
+        _do_load(environment, updater, flags)
 
 
-def _do_load(environment, flags):
+def _do_load(environment, updater, flags):
     os.environ['XENV_ENVIRONMENT'] = environment
 
     from xenv_plugin import base
@@ -88,42 +57,32 @@ def _do_load(environment, flags):
 
     _visit_plugins(
         visitor=lambda module, plugin_name, configs:
-        _do_load_module(environment, module, configs, flags),
+        _do_load_module(environment, updater, module, configs, flags),
         invalid_plugin_visitor=_invalid_plugin_visitor,
         reverse_plugins=False)
 
 
-def _do_load_module(environment, module, configs, flags):
+def _do_load_module(environment, updater, module, configs, flags):
     if hasattr(module, 'load'):
-        module.load(environment, configs, flags)
+        module.load(environment, updater, configs, flags)
 
     return True
 
 
-# TODO Move to init
-def _check_has_environment_not_loaded():
-    _check_xenv_launched()
-
-    if 'XENV_ENVIRONMENT' not in os.environ:
-        raise XEnvException('No environment loaded')
-
-
 @Command('unload', help='Unload the environment')
 def unload_handler():
-    _check_has_environment_not_loaded()
-
-    with open(xenv_update, 'w') as update_file:
-        xenv.updater = Updater(update_file)
+    with Updater.create() as updater:
+        check_has_environment_not_loaded()
 
         environment = os.environ['XENV_ENVIRONMENT']
 
-        _do_unload(environment)
+        _do_unload(environment, updater)
 
 
-def _do_unload(environment):
+def _do_unload(environment, updater):
     _visit_plugins(
         visitor=lambda module, name, configs:
-        _do_unload_module(environment, module, configs),
+        _do_unload_module(environment, updater, module, configs),
         invalid_plugin_visitor=_invalid_plugin_visitor,
         reverse_plugins=True)
 
@@ -131,27 +90,25 @@ def _do_unload(environment):
     base.unload(environment, {})
 
 
-def _do_unload_module(environment, module, configs):
+def _do_unload_module(environment, updater, module, configs):
     if hasattr(module, 'unload'):
-        module.unload(environment, configs)
+        module.unload(environment, updater, configs)
 
     return True
 
 
 @Command('reload', help='Reload current environment')
 def reload_handler():
-    _check_has_environment_not_loaded()
+    with Updater.create() as updater:
+        environment = os.environ['XENV_ENVIRONMENT']
 
-    environment = os.environ['XENV_ENVIRONMENT']
+        _check_environment_exists(environment)
 
-    _check_environment_exists(environment)
+        check_has_environment_not_loaded()
 
-    with open(xenv_update, 'w') as update_file:
-        xenv.updater = Updater(update_file)
+        _do_unload(environment, updater)
 
-        _do_unload(environment)
-
-        _do_load(environment, flags)
+        _do_load(environment, updater, flags)
 
 
 def _columns(raw):
@@ -300,7 +257,7 @@ def _list_complete(selected_columns, filter):
 @Argument('--plugins', '-p', type=lambda raw: raw.split(','),
           help='Plugin list to be installed')
 def create_handler(name, path, description, tags, plugins):
-    _check_xenv_launched()
+    check_xenv_launched()
 
     # TODO Move this logic to init
     import os
@@ -366,7 +323,7 @@ def config_handler(*args, **kwargs):
 
     if isinstance(value, dict):
         print(yaml.dump(value), end='')
-    elif type(value) == list:
+    elif isinstance(value, list):
         for item in value:
             print(f'- {item}')
     elif value is None:
