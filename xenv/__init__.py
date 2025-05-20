@@ -203,10 +203,66 @@ def _get_script(script_name):
     return resources.files('xenv').joinpath('scripts').joinpath(script_name)
 
 
+def check_xenv_launched():
+    if 'XENV_UPDATE' not in os.environ:
+        raise XEnvException(
+                'xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
+
+
+def check_has_environment_not_loaded():
+    if 'XENV_ENVIRONMENT' not in os.environ:
+        raise XEnvException('No environment loaded')
+
+
+def check_environment_exists(environment):
+    found = False
+
+    def visitor(env):
+        if environment == env['project']['name']:
+            nonlocal found
+            found = True
+            return False
+
+        return True
+
+    _visit_environments(visitor)
+
+    if not found:
+        raise XEnvException(f'Environment \"{environment}\" does not exists')
+
+
 class Updater:
 
-    def __init__(self, update_file):
-        self.file = update_file
+    _instance = None
+    _manager_count = 0
+
+    def __init__(self):
+        if Updater._instance is not None:
+            raise Exception('Updater already instantiated')
+
+        check_xenv_launched()
+        self.file = open(os.environ['XENV_UPDATE'], 'w')
+
+        Updater._instance = self
+
+    # Outra ideia: criar uma decoração @UpdateXEnv que acrescenta um parâmetro
+    # updater ao callable, nessa anotação a gestão do arquivo poderia ser feita
+    def create():
+        if Updater._instance is None:
+            Updater()
+
+        Updater._manager_count += 1
+
+        return Updater._instance
+
+    def __enter__(self):
+        return self.file
+
+    def __exit__(self, type, value, traceback):
+        Updater._manager_count -= 1
+
+        if Updater._manager_count == 0:
+            self.file.close()
 
     def _out(self, message=''):
         self.file.write(message + '\n')
@@ -242,6 +298,3 @@ class Updater:
         pre_load_script_name = _get_script(script_name + '.zsh')
         with open(pre_load_script_name) as pre_load_script:
             self._out(pre_load_script.read())
-
-
-updater = None
