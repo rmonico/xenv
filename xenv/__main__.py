@@ -407,6 +407,8 @@ def for_start_handler(tags):
     if len(envs) == 0:
         raise XEnvException('No environments found matching criteria')
 
+    envs.sort()
+
     with Updater.create() as updater:
         # FIXME Escape environment names
         updater.export('XENV_FOR_PROJECT_LIST', ' '.join(envs))
