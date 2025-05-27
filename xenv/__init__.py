@@ -209,8 +209,12 @@ def check_xenv_launched():
                 'xenv not launched. Run \'eval "$(xenv launch-zsh)"\'')
 
 
+def has_environment_loaded():
+    return 'XENV_ENVIRONMENT' in os.environ
+
+
 def check_has_environment_not_loaded():
-    if 'XENV_ENVIRONMENT' not in os.environ:
+    if not has_environment_loaded():
         raise XEnvException('No environment loaded')
 
 
@@ -256,7 +260,7 @@ class Updater:
         return Updater._instance
 
     def __enter__(self):
-        return self.file
+        return self
 
     def __exit__(self, type, value, traceback):
         Updater._manager_count -= 1

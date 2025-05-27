@@ -4,7 +4,7 @@ from . import XEnvException, xenv_home, _visit_environments, \
         KeyNotObjectException, KeyNotFoundException, config, Updater, \
         _get_script, _visit_plugins, _invalid_plugin_visitor, \
         check_xenv_launched, check_environment_exists, \
-        check_has_environment_not_loaded
+        check_has_environment_not_loaded, has_environment_loaded
 import argparse_decorations
 from argparse_decorations import helpers, Command, SubCommand, Argument
 import logging
@@ -53,7 +53,7 @@ def _do_load(environment, updater, flags):
     os.environ['XENV_ENVIRONMENT'] = environment
 
     from xenv_plugin import base
-    base.load(environment, {}, flags)
+    base.load(environment, updater, {}, flags)
 
     _visit_plugins(
         visitor=lambda module, plugin_name, configs:
@@ -87,7 +87,7 @@ def _do_unload(environment, updater):
         reverse_plugins=True)
 
     from xenv_plugin import base
-    base.unload(environment, {})
+    base.unload(environment, updater, {})
 
 
 def _do_unload_module(environment, updater, module, configs):
@@ -102,13 +102,13 @@ def reload_handler():
     with Updater.create() as updater:
         environment = os.environ['XENV_ENVIRONMENT']
 
-        _check_environment_exists(environment)
+        check_environment_exists(environment)
 
         check_has_environment_not_loaded()
 
         _do_unload(environment, updater)
 
-        _do_load(environment, updater, flags)
+        _do_load(environment, updater, [])
 
 
 def _columns(raw):
@@ -360,6 +360,116 @@ def config_file_path_handler(source=None, scope='environment'):
     config_file_name = _xenv_config_file(source, scope)
 
     print(config_file_name)
+
+
+def has_for_active():
+    return 'XENV_FOR_PROJECT_LIST' in os.environ
+
+
+def assure_has_no_for_active():
+    if has_for_active():
+        raise XEnvException('For loop already active')
+
+
+def assure_has_for_active():
+    if not has_for_active():
+        raise XEnvException('No for loop active')
+
+
+@Command('for', help='Loop commands')
+@SubCommand('start', help='Start a for loop (nesting not allowed)')
+# TODO
+# @Argument('--names', '-n', type=_comma_separated_array,
+#           help='Environment names to iterate over')
+@Argument('--tags', '-t', type=_comma_separated_array, help='Iterate over ' +
+          'all environments marked with one or more tags')
+def for_start_handler(tags):
+    assure_has_no_for_active()
+
+    def _selected(env):
+        env_tags = env['project'].get('tags', [])
+        for tag in tags:
+            if tag in env_tags:
+                return True
+
+        return False
+
+    envs = list()
+
+    def _visitor(env):
+        if _selected(env):
+            envs.append(env['project']['name'])
+
+        return True
+
+    _visit_environments(_visitor)
+
+    if len(envs) == 0:
+        raise XEnvException('No environments found matching criteria')
+
+    with Updater.create() as updater:
+        # FIXME Escape environment names
+        updater.export('XENV_FOR_PROJECT_LIST', ' '.join(envs))
+        updater.export('XENV_FOR_CURRENT_INDEX', 1)
+
+        if has_environment_loaded():
+            _do_unload(os.environ['XENV_ENVIRONMENT'], updater)
+
+        _do_load(envs[0], updater, ['loop', 'quick'])
+
+
+def for_has_next(envs, index):
+    return index <= len(envs)
+
+
+@Command('for')
+@SubCommand('has-next', help='Check if there is more environments to loop on')
+def for_has_next_handler():
+    assure_has_for_active()
+
+    envs = os.environ['XENV_FOR_PROJECT_LIST'].split(' ')
+    index = int(os.environ['XENV_FOR_CURRENT_INDEX'])
+
+    has_next = for_has_next(envs, index)
+
+    if has_next:
+        return 0
+    else:
+        return 1
+
+
+@Command('for')
+@SubCommand('next', help='Go to next project in loop')
+def for_next_handler():
+    assure_has_for_active()
+
+    envs = os.environ['XENV_FOR_PROJECT_LIST'].split(' ')
+    index = int(os.environ['XENV_FOR_CURRENT_INDEX'])
+
+    if not for_has_next(envs, index):
+        raise XEnvException('No next environment')
+
+    index += 1
+
+    with Updater.create() as updater:
+        if has_environment_loaded():
+            _do_unload(os.environ['XENV_ENVIRONMENT'], updater)
+
+        updater.export('XENV_FOR_CURRENT_INDEX', index)
+
+        _do_load(envs[index], updater, ['loop', 'quick'])
+
+
+@Command('for')
+@SubCommand('break', help='Stop for iteration')
+def for_break_handler():
+    assure_has_for_active()
+
+    with Updater.create() as updater:
+        if has_environment_loaded():
+            _do_unload(os.environ['XENV_ENVIRONMENT'], updater)
+
+        updater.unset('XENV_FOR_PROJECT_LIST', 'XENV_FOR_CURRENT_INDEX')
 
 
 argparse_decorations.make_verbosity_argument()
