@@ -5,7 +5,7 @@ from . import XEnvException, xenv_home, _visit_environments, \
         _get_script, _visit_plugins, _invalid_plugin_visitor
 import xenv
 import argparse_decorations
-from argparse_decorations import Command, SubCommand, Argument
+from argparse_decorations import helpers, Command, SubCommand, Argument
 import logging
 import os
 import subprocess
@@ -408,12 +408,8 @@ def config_file_path_handler(source=None, scope='environment'):
 argparse_decorations.make_verbosity_argument()
 
 
-def _get_version():
-    from importlib import resources
-    return resources.files('xenv').joinpath('__version__').read_text().strip()
-
-
-argparse_decorations.make_version_command(_get_version())
+metadata = helpers.Metadata(__package__)
+argparse_decorations.make_version_command(metadata.load())
 
 
 def main():
