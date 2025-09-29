@@ -118,17 +118,19 @@ class KeyNotFoundException(KeyException):
         super().__init__('Key not found', key, filename)
 
 
-def _raise_exception_getter(entry):
-    raise KeyNotFoundException(config_file_name, entry)
-
-
-def config(entry_path, source=None, scope='environment', default_getter=_raise_exception_getter):
+def config(entry_path, source=None, scope='environment', default_getter=None):
     _logger.info(f'Getting {entry_path} for scope "{scope}"'
                  f'and source "{source}"')
 
     source = _get_default_environment_or_active(source)
 
     config_file_name = _xenv_config_file(source, scope)
+
+    if default_getter is None:
+        def _raise_exception_getter(entry):
+            raise KeyNotFoundException(config_file_name, entry)
+
+        default_getter = _raise_exception_getter
 
     if not os.path.exists(config_file_name):
         raise FileNotFoundException(config_file_name)
