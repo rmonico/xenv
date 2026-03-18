@@ -458,6 +458,14 @@ INSERT INTO operations VALUES(451,'{"Update":{"uuid":"f2b5c18b-ff8d-4da3-a105-d3
 INSERT INTO operations VALUES(452,'{"Update":{"uuid":"f2b5c18b-ff8d-4da3-a105-d3225442b72e","property":"entry","old_value":null,"value":"1641930576","timestamp":"2026-03-18T17:41:56.628145294Z"}}',0);
 INSERT INTO operations VALUES(453,'{"Update":{"uuid":"f2b5c18b-ff8d-4da3-a105-d3225442b72e","property":"modified","old_value":null,"value":"1718131354","timestamp":"2026-03-18T17:41:56.628147201Z"}}',0);
 INSERT INTO operations VALUES(454,'{"Update":{"uuid":"f2b5c18b-ff8d-4da3-a105-d3225442b72e","property":"status","old_value":null,"value":"completed","timestamp":"2026-03-18T17:41:56.628148214Z"}}',0);
+INSERT INTO operations VALUES(455,'"UndoPoint"',0);
+INSERT INTO operations VALUES(456,'{"Create":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752"}}',0);
+INSERT INTO operations VALUES(457,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"description","old_value":null,"value":"New command: remove environment","timestamp":"2026-03-18T17:53:10.219283287Z"}}',0);
+INSERT INTO operations VALUES(458,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"entry","old_value":null,"value":"1773856390","timestamp":"2026-03-18T17:53:10.219328685Z"}}',0);
+INSERT INTO operations VALUES(459,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"modified","old_value":null,"value":"1773856390","timestamp":"2026-03-18T17:53:10.219331782Z"}}',0);
+INSERT INTO operations VALUES(460,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"status","old_value":null,"value":"pending","timestamp":"2026-03-18T17:53:10.219341363Z"}}',0);
+INSERT INTO operations VALUES(461,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"tag_feature","old_value":null,"value":"x","timestamp":"2026-03-18T17:53:10.219343155Z"}}',0);
+INSERT INTO operations VALUES(462,'{"Update":{"uuid":"bd606ea2-664f-4891-ab15-e40c19fd1752","property":"tags","old_value":null,"value":"feature","timestamp":"2026-03-18T17:53:10.219346689Z"}}',0);
 CREATE TABLE sync_meta (key STRING PRIMARY KEY, value STRING);
 CREATE TABLE tasks (uuid STRING PRIMARY KEY, data STRING);
 INSERT INTO tasks VALUES('ee3d02c7-fd46-4f79-af40-7a3560ab0ddc','{"status":"pending","description":"Archive command","modified":"1721752905","tag_feature":"x","tags":"feature","tags_feature":"x","entry":"1637551205"}');
@@ -514,6 +522,7 @@ INSERT INTO tasks VALUES('c4bf8dcb-f20d-4e3c-a298-5d4a1a115097','{"entry":"17181
 INSERT INTO tasks VALUES('01e61651-adc9-4306-8c4b-04d05eefde2f','{"status":"completed","entry":"1718197570","description":"List command: Sort alphabetically","end":"1720018639","modified":"1720018639"}');
 INSERT INTO tasks VALUES('3be97c43-47cf-45be-a7c2-05a1deafac26','{"entry":"1717770220","status":"completed","modified":"1720018509","description":"Adicionar a pasta bin dos plugins ao PATH","annotation_1717770239":"Ao invés de linkar os arquivos, estudar melhor as implicações","end":"1720018509"}');
 INSERT INTO tasks VALUES('f2b5c18b-ff8d-4da3-a105-d3225442b72e','{"modified":"1718131354","entry":"1641930576","end":"1718131354","description":"Fazer autocomplete","status":"completed"}');
+INSERT INTO tasks VALUES('bd606ea2-664f-4891-ab15-e40c19fd1752','{"status":"pending","modified":"1773856390","entry":"1773856390","tag_feature":"x","tags":"feature","description":"New command: remove environment"}');
 CREATE TABLE working_set (id INTEGER PRIMARY KEY, uuid STRING);
 INSERT INTO working_set VALUES(1,'ee3d02c7-fd46-4f79-af40-7a3560ab0ddc');
 INSERT INTO working_set VALUES(2,'576af2b2-30ae-4837-961f-7811401b0cce');
@@ -553,6 +562,7 @@ INSERT INTO working_set VALUES(35,'fb4c180b-41d1-46bf-9a04-4411141eaa7e');
 INSERT INTO working_set VALUES(36,'5c48da27-0eb4-4cba-a4b7-b314dd19aa34');
 INSERT INTO working_set VALUES(37,'f2d0e0b4-82a4-4af5-818a-2555d251c2ee');
 INSERT INTO working_set VALUES(38,'2c8aa506-52cd-44de-8979-aadc33408f71');
+INSERT INTO working_set VALUES(39,'bd606ea2-664f-4891-ab15-e40c19fd1752');
 CREATE TABLE version (
                 singleton INTEGER PRIMARY KEY CHECK (singleton = 0),
                 major INTEGER,
@@ -561,7 +571,7 @@ INSERT INTO version VALUES(0,0,1);
 PRAGMA writable_schema=ON;
 CREATE TABLE IF NOT EXISTS sqlite_sequence(name,seq);
 DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('operations',454);
+INSERT INTO sqlite_sequence VALUES('operations',462);
 CREATE INDEX operations_by_uuid ON operations (uuid);
 CREATE INDEX operations_by_synced ON operations (synced);
 PRAGMA writable_schema=OFF;
