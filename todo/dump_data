@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+$__help__"
+Usage: $(basename "$0")
+
+Create a dump of taskwarrior data
+"$__help_end__
+
+if [[ -z "$TASKDATA" ]]; then
+    echo "ERROR: TASKDATA variable not defined" > /dev/stderr
+fi
+
+
+db_file="$TASKDATA/taskchampion.sqlite3"
+dump_file="$TASKDATA/taskchampion.sqlite3.dump"
+
+[ -e "$dump_file" ] && echo "WARN: dump file already exists"
+
+echo "Dumping taskwarrior data...."
+
+sqlite3 "$db_file" .dump > "$dump_file"
