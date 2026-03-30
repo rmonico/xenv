@@ -6,7 +6,7 @@ from . import XEnvException, xenv_home, _visit_environments, \
         check_xenv_launched, check_environment_exists, \
         check_has_environment_not_loaded, has_environment_loaded
 import argparse_decorations
-from argparse_decorations import helpers, Command, SubCommand, Argument
+from argparse_decorations import Command, SubCommand, Argument
 import logging
 import os
 import subprocess
@@ -477,8 +477,12 @@ def for_break_handler():
 argparse_decorations.make_verbosity_argument()
 
 
-metadata = helpers.Metadata(__package__)
-argparse_decorations.make_version_command(metadata.load())
+def _get_version():
+    from importlib import resources
+    return resources.files('xenv').joinpath('__version__').read_text().strip()
+
+
+argparse_decorations.make_version_command(_get_version())
 
 
 def main():
