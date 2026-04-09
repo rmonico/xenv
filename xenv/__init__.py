@@ -300,6 +300,12 @@ class Updater:
         for function in functions:
             self._out(f'unset -f {function}')
 
+    def alias(self, name, command):
+        self._out(f'alias {name}="{command}"')
+
+    def unalias(self, name):
+        self._out(f'unalias {name}')
+
     def _include(self, script_name):
         pre_load_script_name = _get_script(script_name + '.zsh')
         with open(pre_load_script_name) as pre_load_script:
